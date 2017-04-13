@@ -1,10 +1,13 @@
 package controller;
 
+import model.Bike;
+import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 
 public class JavaBikesController {
 	CustomerDatabase customerDb;
+	BikeDatabase bikeDb;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -14,8 +17,10 @@ public class JavaBikesController {
 
 	public JavaBikesController() {
 		customerDb = new CustomerDatabase();
+		bikeDb = new BikeDatabase();
 		addDemoData();
 		System.out.println(customerDb.getCustomerList());
+		System.out.println(bikeDb.getBikeList());
 	}
 
 	private void addDemoData() {
@@ -24,6 +29,12 @@ public class JavaBikesController {
 				"031090-1234");
 		customerDb.addCustomer(customer1);
 
+		// Bikes
+		Bike bike1 = new Bike("red", "M", 1, true);
+		bikeDb.addBike(bike1);
+
+		Bike bike2 = new Bike("blue", "L", 2, true);
+		bikeDb.addBike(bike2);
 	}
 
 }
