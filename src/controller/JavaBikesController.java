@@ -4,6 +4,7 @@ import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
+import model.Ebike;
 
 public class JavaBikesController {
 	CustomerDatabase customerDb;
@@ -35,6 +36,9 @@ public class JavaBikesController {
 
 		Bike bike2 = new Bike("blue", "L", 2, true);
 		bikeDb.addBike(bike2);
+
+		Ebike ebike1 = new Ebike("gray", "L", 3, true);
+		bikeDb.addBike(ebike1);
 	}
 
 }

@@ -12,6 +12,7 @@ public class Bike {
 		this.isAvailable = isAvailable;
 	}
 
+	@Override
 	public String toString() {
 		return "Bike ID: " + id;
 	}
