@@ -18,4 +18,13 @@ public class CustomerDatabase {
 		this.customerList = customerList;
 	}
 
+	public boolean checkLogin(String username, String password) {
+		for (Customer c : customerList) {
+			if (c.getUsername() != null && c.getPassword() != null && c.getUsername().equals(username)
+					&& c.getPassword().equals(password)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

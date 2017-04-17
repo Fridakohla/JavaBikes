@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 import model.Customer;
+import model.CustomerDatabase;
 
 public class WelcomeView {
 	public static final int MENUCHOICE_LOGIN = 1;
@@ -23,7 +24,15 @@ public class WelcomeView {
 
 	public Customer registerCustomer() {
 		// insert input later
-		Customer c = new Customer("Peter", "Test", "Skolegade 1, 1000 Copenhagen", "h-test@gmail.com", "031090-1234");
+		Customer c = new Customer().setFirstName("Peter").setLastName("Test").setAddress("Skolegade 1, 1000 Copenhagen")
+				.setEmail("h-test@gmail.com").setCpr("031090-1234").setUsername("Peter T.").setPassword("peter");
 		return c;
+	}
+
+	public boolean login(CustomerDatabase customerDb) {
+		// get user input - username and password, three tries?
+		String username = "Hans T.";
+		String password = "hansi";
+		return customerDb.checkLogin(username, password);
 	}
 }

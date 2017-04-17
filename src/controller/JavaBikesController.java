@@ -25,7 +25,12 @@ public class JavaBikesController {
 			customerDb.addCustomer(customer);
 			System.out.println(customerDb.getCustomerList());
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
-
+			if (welcome.login(customerDb)) {
+				// return booked bike or book bike
+				System.out.print("Login successful");
+			} else {
+				System.out.println("You have exited the program.");
+			}
 		}
 	}
 
@@ -41,6 +46,8 @@ public class JavaBikesController {
 		// Customer
 		Customer customer1 = new Customer("Hans", "Test", "Skolegade 1, 1000 Copenhagen", "h-test@gmail.com",
 				"031090-1234");
+		customer1.setUsername("Hans T.");
+		customer1.setPassword("hansi");
 		customerDb.addCustomer(customer1);
 
 		// Bikes

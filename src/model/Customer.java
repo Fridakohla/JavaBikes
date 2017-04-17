@@ -6,6 +6,11 @@ public class Customer {
 	private String address;
 	private String email;
 	private String cpr;
+	private String username;
+	private String password;
+	private String creditCardNumber;
+	private String creditCardExpiration;
+	private String creditCardCvc;
 
 	public Customer() {
 
@@ -28,40 +33,90 @@ public class Customer {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public Customer setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public Customer setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public Customer setAddress(String address) {
 		this.address = address;
+		return this;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public Customer setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 
 	public String getCpr() {
 		return cpr;
 	}
 
-	public void setCpr(String cpr) {
+	public Customer setCpr(String cpr) {
 		this.cpr = cpr;
+		return this;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public Customer setUsername(String username) {
+		this.username = username;
+		return this;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public Customer setPassword(String password) {
+		this.password = password;
+		return this;
+	}
+
+	public String getCreditCardNumber() {
+		return creditCardNumber;
+	}
+
+	public Customer setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
+		return this;
+	}
+
+	public String getCreditCardExpiration() {
+		return creditCardExpiration;
+	}
+
+	public Customer setCreditCardExpiration(String creditCardExpiration) {
+		this.creditCardExpiration = creditCardExpiration;
+		return this;
+	}
+
+	public String getCreditCardCvc() {
+		return creditCardCvc;
+	}
+
+	public Customer setCreditCardCvc(String creditCardCvc) {
+		this.creditCardCvc = creditCardCvc;
+		return this;
 	}
 
 }
