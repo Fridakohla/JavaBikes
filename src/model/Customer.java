@@ -33,6 +33,7 @@ public class Customer {
 		return firstName;
 	}
 
+	// object instead of void to make it easy to read and set data for customer
 	public Customer setFirstName(String firstName) {
 		this.firstName = firstName;
 		return this;

@@ -18,8 +18,12 @@ public class CustomerDatabase {
 		this.customerList = customerList;
 	}
 
+	// method to check if login is correct
 	public boolean checkLogin(String username, String password) {
 		for (Customer c : customerList) {
+			// username and password for one customer object must be identical
+			// to return true
+			// null for now to handle null exception error
 			if (c.getUsername() != null && c.getPassword() != null && c.getUsername().equals(username)
 					&& c.getPassword().equals(password)) {
 				return true;

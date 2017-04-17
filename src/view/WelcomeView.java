@@ -23,14 +23,15 @@ public class WelcomeView {
 	}
 
 	public Customer registerCustomer() {
-		// insert input later
+		// insert input and validations here
 		Customer c = new Customer().setFirstName("Peter").setLastName("Test").setAddress("Skolegade 1, 1000 Copenhagen")
 				.setEmail("h-test@gmail.com").setCpr("031090-1234").setUsername("Peter T.").setPassword("peter");
 		return c;
 	}
 
 	public boolean login(CustomerDatabase customerDb) {
-		// get user input - username and password, three tries?
+		// insert user input and outprints for user: username and password
+		// generated manually or automatically, three tries?
 		String username = "Hans T.";
 		String password = "hansi";
 		return customerDb.checkLogin(username, password);

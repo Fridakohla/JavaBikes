@@ -8,33 +8,47 @@ import model.Ebike;
 import view.WelcomeView;
 
 public class JavaBikesController {
+	// create objects of CustomerDatabase and BikeDatabase
 	CustomerDatabase customerDb;
 	BikeDatabase bikeDb;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
 	}
 
 	private void runProgram() {
-		WelcomeView welcome = new WelcomeView();
-		int choice = welcome.menuChoice();
+		WelcomeView welcome = new WelcomeView(); // creates new object of
+													// WelcomeView
+		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
+											// register
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
 			Customer customer = welcome.registerCustomer();
-			customerDb.addCustomer(customer);
-			System.out.println(customerDb.getCustomerList());
+			customerDb.addCustomer(customer); // adds registered customer to
+												// customer database
+			System.out.println(customerDb.getCustomerList()); // test to check
+																// if it works
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
-				// return booked bike or book bike
+				// needs to fill in: return booked bike or continue to book bike
 				System.out.print("Login successful");
 			} else {
-				System.out.println("You have exited the program.");
+				System.out.println("You have exited the program."); // program
+																	// ends
+																	// after
+																	// exceeding
+																	// three
+																	// login
+																	// tries in
+																	// WelcomeView
 			}
 		}
 	}
 
 	public JavaBikesController() {
+		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
 		addDemoData();
