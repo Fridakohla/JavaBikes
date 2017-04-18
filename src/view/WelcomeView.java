@@ -12,7 +12,7 @@ public class WelcomeView {
 		int choice = 0;
 		while (choice != 1 && choice != 2) {
 			Scanner input = new Scanner(System.in);
-			// WELCOME Message
+			System.out.println("WELCOME TO JAVA BIKES!\n");
 			System.out.println("Choose your option. 1 is login, 2 is register.");
 			choice = input.nextInt();
 			if (choice != 1 && choice != 2) {
@@ -23,28 +23,25 @@ public class WelcomeView {
 	}
 
 	public boolean login(CustomerDatabase customerDb) {
-		// insert user input and outprints for user: username and password
-		// needs to have username and passwords in database before it could work
-
 		String usernameInput = "";
 		String passwordInput = "";
 		boolean correctInput = customerDb.checkLogin(usernameInput, passwordInput);
 
-		while (!correctInput) {
-			for (int countTries = 1; countTries < 4; countTries++) {
-				Scanner input = new Scanner(System.in);
-				System.out.print("Enter your username: ");
-				usernameInput = input.nextLine();
-				System.out.print("Enter your password: ");
-				passwordInput = input.nextLine();
-				if (!correctInput) {
-					System.out.println("You have entered the wrong username and/or password.");
-				} else {
-					correctInput = true;
-				}
+		for (int countTries = 1; countTries < 4 && !correctInput; countTries++) {
+			Scanner input = new Scanner(System.in);
+			System.out.print("Enter your username: ");
+			usernameInput = input.nextLine();
+			System.out.print("Enter your password: ");
+			passwordInput = input.nextLine();
+			correctInput = customerDb.checkLogin(usernameInput, passwordInput);
+			if (correctInput) {
+				return correctInput;
+			} else {
+				System.out.println("\nYou have entered the wrong username and/or password. \nYou have "
+						+ (3 - countTries) + " tries left.");
 			}
 		}
+		return !correctInput;
 
-		return customerDb.checkLogin(usernameInput, passwordInput);
 	}
 }

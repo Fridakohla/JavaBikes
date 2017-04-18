@@ -28,7 +28,7 @@ public class JavaBikesController {
 		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
 											// register
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			Customer myCustomer = myView.getCustomerDetails();
+			myCustomer = myView.getCustomerDetails();
 			myCustomer.writetoFile();
 			// customerDb.addCustomer(myCustomer); // adds registered customer
 			// to
@@ -36,7 +36,8 @@ public class JavaBikesController {
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
 				// needs to fill in: return booked bike or continue to book bike
-				System.out.print("Login successful");
+				System.out.print("Login successful.");
+				// continue with browse bikes
 			} else {
 				System.out.println("You have exited the program.");
 			}
