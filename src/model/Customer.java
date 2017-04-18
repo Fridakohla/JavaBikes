@@ -1,5 +1,7 @@
 package model;
 
+import data.FileManipulation;
+
 public class Customer {
 	private String firstName;
 	private String lastName;
@@ -22,6 +24,8 @@ public class Customer {
 		address = myAddress;
 		email = myEmail;
 		cpr = myCpr;
+		setUsername();
+		setPassword();
 	}
 
 	@Override
@@ -75,24 +79,6 @@ public class Customer {
 		return this;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public Customer setUsername(String username) {
-		this.username = username;
-		return this;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public Customer setPassword(String password) {
-		this.password = password;
-		return this;
-	}
-
 	public String getCreditCardNumber() {
 		return creditCardNumber;
 	}
@@ -120,4 +106,35 @@ public class Customer {
 		return this;
 	}
 
+	// added these functions
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername() {
+		this.username = firstName.substring(0, 1) + lastName.substring(0, 3);
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword() {
+		this.password = lastName.substring(0, 3) + cpr.substring(7, 11);
+	}
+
+	public void writetoFile() {
+		String details = lastName + "; " + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
+				+ email + ";";
+		FileManipulation.WriteDetails("customer.txt", details);
+
+	}
 }

@@ -12,41 +12,33 @@ public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
 	CustomerDatabase customerDb;
 	BikeDatabase bikeDb;
+	private static CustomerView myView = new CustomerView();
+	private static Customer myCustomer = new Customer();
 
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
+
 	}
 
 	private void runProgram() {
 		WelcomeView welcome = new WelcomeView(); // creates new object of
 													// WelcomeView
-		CustomerView customer = new CustomerView();
 		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
 											// register
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			Customer c = customer.getCustomerDetails();
-			customerDb.addCustomer(c); // adds registered customer to
-										// customer database (Array
-										// List)
-			System.out.println(customerDb.getCustomerList()); // return all
-																// customers to
-																// check
-																// if it works
+			Customer myCustomer = myView.getCustomerDetails();
+			myCustomer.writetoFile();
+			// customerDb.addCustomer(myCustomer); // adds registered customer
+			// to
+
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
 				// needs to fill in: return booked bike or continue to book bike
 				System.out.print("Login successful");
 			} else {
-				System.out.println("You have exited the program."); // program
-																	// ends
-																	// after
-																	// exceeding
-																	// three
-																	// login
-																	// tries in
-																	// WelcomeView
+				System.out.println("You have exited the program.");
 			}
 		}
 	}
@@ -56,8 +48,6 @@ public class JavaBikesController {
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
 		addDemoData();
-		System.out.println(customerDb.getCustomerList());
-		System.out.println(bikeDb.getBikeList());
 	}
 
 	private void addDemoData() {

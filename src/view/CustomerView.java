@@ -37,7 +37,7 @@ public class CustomerView {
 		// Email validation
 		boolean emailCorrect = false;
 		while (!emailCorrect) {
-			System.out.println(" Please enter your email :");
+			System.out.println("Please enter your email :");
 			userInput = input.nextLine();
 			if (userInput.matches("^.+@.+\\..+$")) {
 				C.setEmail(userInput);
@@ -45,8 +45,9 @@ public class CustomerView {
 			} else
 				System.out.println("Email format is incorrect ");
 		}
-		// C.setUserName();
-		// C.setPassword();
+		C.setUsername();
+		C.setPassword();
+		System.out.println("Your username is " + C.getUsername() + " and your password is " + C.getPassword());
 
 		return C;
 	}

@@ -2,8 +2,15 @@ package model;
 
 import java.util.ArrayList;
 
+import data.FileManipulation;
+
 public class CustomerDatabase {
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
+
+	public CustomerDatabase() {
+		customerList = FileManipulation.getCustomerDatabase();
+		System.out.println(customerList);
+	}
 
 	// method for adding customer in customer lists
 	public void addCustomer(Customer newCustomer) {
