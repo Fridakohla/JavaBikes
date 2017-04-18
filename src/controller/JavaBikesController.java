@@ -5,6 +5,7 @@ import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
+import view.CustomerView;
 import view.WelcomeView;
 
 public class JavaBikesController {
@@ -13,7 +14,6 @@ public class JavaBikesController {
 	BikeDatabase bikeDb;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
@@ -22,13 +22,17 @@ public class JavaBikesController {
 	private void runProgram() {
 		WelcomeView welcome = new WelcomeView(); // creates new object of
 													// WelcomeView
+		CustomerView customer = new CustomerView();
 		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
 											// register
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			Customer customer = welcome.registerCustomer();
-			customerDb.addCustomer(customer); // adds registered customer to
-												// customer database
-			System.out.println(customerDb.getCustomerList()); // test to check
+			Customer c = customer.getCustomerDetails();
+			customerDb.addCustomer(c); // adds registered customer to
+										// customer database (Array
+										// List)
+			System.out.println(customerDb.getCustomerList()); // return all
+																// customers to
+																// check
 																// if it works
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
