@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import model.CustomerDatabase;
 
+// TEST TEST
 public class WelcomeView {
 	public static final int MENUCHOICE_LOGIN = 1;
 	public static final int MENUCHOICE_REGISTER = 2;
