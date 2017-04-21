@@ -12,14 +12,12 @@ public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
 	CustomerDatabase customerDb;
 	BikeDatabase bikeDb;
-	private static CustomerView myView = new CustomerView();
-	private static Customer myCustomer = new Customer();
+	CustomerView myView = new CustomerView();
 
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
-
 	}
 
 	private void runProgram() {
@@ -28,9 +26,9 @@ public class JavaBikesController {
 		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
 											// register
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			myCustomer = myView.getCustomerDetails();
+			Customer myCustomer = myView.getCustomerDetails();
 			myCustomer.writetoFile();
-			// customerDb.addCustomer(myCustomer); // adds registered customer
+			customerDb.addCustomer(myCustomer); // adds registered customer
 			// to
 
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {

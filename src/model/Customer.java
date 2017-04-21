@@ -134,7 +134,7 @@ public class Customer {
 	public void writetoFile() {
 		String details = lastName + "; " + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
 				+ email + ";";
-		FileManipulation.WriteDetails("customer.txt", details);
+		FileManipulation.WriteDetails(FileManipulation.FILENAME_CUSTOMERDB, details);
 
 	}
 }

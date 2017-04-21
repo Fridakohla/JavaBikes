@@ -12,14 +12,16 @@ import model.Customer;
 
 public class FileManipulation {
 
-	public static Scanner readDetails(String file) {
+	public static String FILENAME_CUSTOMERDB = "customer.csv";
+
+	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
 		try {
-			File ReadFile = new java.io.File(file);
-			input = new Scanner(ReadFile); // creates a Scanner object to read
+			File readFile = new File(filename);
+			input = new Scanner(readFile); // creates a Scanner object to read
 											// data from the specified file.
 		} catch (FileNotFoundException ex) {
-			System.out.println("Error reading the file'" + file + "'");
+			System.out.println("Error reading the file'" + filename + "'");
 		}
 		return input;
 	}// readDetails
@@ -47,14 +49,19 @@ public class FileManipulation {
 																// objects in
 																// array list
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
-		Scanner input = readDetails("customer.txt");
+		Scanner input = readDetails(FILENAME_CUSTOMERDB);
 		// checking each line
 		while (input.hasNextLine()) {
-			customerList.add(getCustomer(input.nextLine()));// passing each line
-															// to the method
-															// getCustomer which
-															// returns a
-															// customer
+			String lineFromFile = input.nextLine();
+			Customer customerFromFile = getCustomer(lineFromFile);
+			customerList.add(customerFromFile);
+
+			// customerList.add(getCustomer(input.nextLine()));// passing each
+			// line
+			// to the method
+			// getCustomer which
+			// returns a
+			// customer
 		} // then added to a ArrayList
 
 		return customerList;
