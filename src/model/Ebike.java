@@ -3,17 +3,17 @@ package model;
 public class Ebike extends Bike {
 	private int batteryDuration;
 
-	public Ebike(String color, String size, int id, boolean isAvailable) {
-		super(color, size, id, isAvailable);
+	public Ebike(String color, String type, int id, boolean isAvailable, int price) {
+		super(color, type, id, isAvailable, price);
 		batteryDuration = 3;
 	}
 
-	public int getBatteryLevel() {
+	public int getBatteryDuration() {
 		return batteryDuration;
 	}
 
-	public void setBatteryLevel(int batteryLevel) {
-		this.batteryDuration = batteryLevel;
+	public void setBatteryDuration(int batteryDuration) {
+		this.batteryDuration = batteryDuration;
 	}
 
 	// method from super class taken and batteryLevel added

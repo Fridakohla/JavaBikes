@@ -1,0 +1,6 @@
+1; blue; m, 50; true
+2; yellow; w; 50; true
+3; green; w; 50; true
+4; black; m; 50; false
+5; purple; s; 25; true
+6; blue; s; 25; true

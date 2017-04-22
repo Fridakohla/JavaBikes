@@ -18,10 +18,11 @@ public class CustomerDatabase {
 	// method for adding customer in customer lists
 	public void addCustomer() {
 		myCustomer = myView.getCustomerDetails();
-		myCustomer.writetoFile();  // Moved customer registration and Write to file here from main
+		myCustomer.writetoFile(); // Moved customer registration and Write to
+									// file here from main
 	}
 
-	// method extracts data from text file and stores in array list of objects 
+	// method extracts data from text file and stores in array list of objects
 	public ArrayList<Customer> getCustomerList() {
 		customerList = FileManipulation.getCustomerDatabase();
 		return customerList;
@@ -44,4 +45,5 @@ public class CustomerDatabase {
 		}
 		return false;
 	}
+
 }

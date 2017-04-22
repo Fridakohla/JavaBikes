@@ -1,15 +1,17 @@
 package model;
 
 public class Bike {
-	private String color, size;
+	private String color, type;
 	private int id;
 	private boolean isAvailable;
+	private int price;
 
-	public Bike(String color, String size, int id, boolean isAvailable) {
+	public Bike(String color, String type, int id, boolean isAvailable, int price) {
 		this.color = color;
-		this.size = size;
+		this.type = type;
 		this.id = id;
 		this.isAvailable = isAvailable;
+		this.price = price;
 	}
 
 	@Override
@@ -26,11 +28,11 @@ public class Bike {
 	}
 
 	public String getSize() {
-		return size;
+		return type;
 	}
 
 	public void setSize(String size) {
-		this.size = size;
+		this.type = size;
 	}
 
 	public int getId() {

@@ -7,6 +7,9 @@ import model.CustomerDatabase;
 public class WelcomeView {
 	public static final int MENUCHOICE_LOGIN = 1;
 	public static final int MENUCHOICE_REGISTER = 2;
+	public static final int MENUCHOICE_BIKES = 1;
+	public static final int MENUCHOICE_EBIKES = 2;
+	public static final int MENUCHOICE_EXIT = 3;
 
 	public int firstMenuChoice() {
 		int choice = 0;
