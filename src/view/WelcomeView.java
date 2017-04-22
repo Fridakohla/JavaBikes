@@ -59,6 +59,5 @@ public class WelcomeView {
 			}
 		}
 		return !correctInput;
-
 	}
 }

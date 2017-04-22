@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.Scanner;
+
+import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
@@ -18,7 +21,10 @@ public class JavaBikesController {
 		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
-		// addDemoData();
+
+		// TESTING WITH DEMO BIKE
+		Bike testBike = new Bike(88, "white", "women", 50, true);
+		bikeDb.addBike(testBike);
 	}
 
 	public static void main(String[] args) {
@@ -50,8 +56,8 @@ public class JavaBikesController {
 			choice = welcome.secondMenuChoice();
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
-				System.out.println("Browsing the bikes.");
 				correctInput = true;
+				displayBikes();
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				System.out.println("Browsing the ebikes.");
@@ -67,18 +73,28 @@ public class JavaBikesController {
 		}
 	}
 
-	/**
-	 * private void addDemoData() { // Customer Customer customer1 = new
-	 * Customer("Hans", "Test", "Skolegade 1, 1000 Copenhagen",
-	 * "h-test@gmail.com", "031090-1234"); customer1.setUsername("Hans T.");
-	 * customer1.setPassword("hansi"); customerDb.addCustomer(customer1);
-	 * 
-	 * // Bikes Bike bike1 = new Bike("red", "M", 1, true);
-	 * bikeDb.addBike(bike1);
-	 * 
-	 * Bike bike2 = new Bike("blue", "L", 2, true); bikeDb.addBike(bike2);
-	 * 
-	 * Ebike ebike1 = new Ebike("gray", "L", 3, true); bikeDb.addBike(ebike1); }
-	 */
+	// needs to go to a view class?
+	private void displayBikes() {
+		System.out.println("Here is a list of our bikes.\n");
+		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
+		System.out.println("--------------------------------------------------------------------");
+		for (Bike myBike : bikeDb.getBikeList()) {
+			System.out.println(myBike.getId() + "\t\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
+					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
+		}
+		// needs to go to a seperate method? if argument needs to be improved
+		System.out.println("\nPlease enter the ID of the bike you would like to book:");
+		Scanner input = new Scanner(System.in);
+		boolean correctInput = false;
+		int bookingChoice = 0;
+		while (!correctInput) {
+			bookingChoice = input.nextInt();
+			if (bookingChoice != 0 && bookingChoice <= 88) {
+				// method needs to be created
+				// Bike bikeChosen = BikeDatabase.getBikeById(bookingChoice);
+				correctInput = true;
+			}
+		}
+	}
 
 }

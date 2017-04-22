@@ -6,7 +6,7 @@ public class Bike {
 	private boolean isAvailable;
 	private int price;
 
-	public Bike(String color, String type, int id, boolean isAvailable, int price) {
+	public Bike(int id, String color, String type, int price, boolean isAvailable) {
 		this.color = color;
 		this.type = type;
 		this.id = id;
@@ -27,12 +27,12 @@ public class Bike {
 		this.color = color;
 	}
 
-	public String getSize() {
+	public String getType() {
 		return type;
 	}
 
-	public void setSize(String size) {
-		this.type = size;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public int getId() {
@@ -51,4 +51,11 @@ public class Bike {
 		this.isAvailable = isAvailable;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 }
