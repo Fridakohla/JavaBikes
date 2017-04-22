@@ -14,6 +14,14 @@ public class JavaBikesController {
 	BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
 	Customer myCustomer;
+	
+	/** Constructor (moved in front for better structure view) */
+	public JavaBikesController() { 
+		// initializes db objects
+		customerDb = new CustomerDatabase();
+		bikeDb = new BikeDatabase();
+		//addDemoData();
+	}
 
 	public static void main(String[] args) {
 		// construct new controller object
@@ -28,10 +36,7 @@ public class JavaBikesController {
 		// register
 
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			myCustomer = myView.getCustomerDetails();
-			myCustomer.writetoFile();
-			customerDb.addCustomer(myCustomer); // adds registered customer
-			// to
+			customerDb.addCustomer(); // adds newly registered customer
 
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
@@ -64,14 +69,9 @@ public class JavaBikesController {
 		}
 	}
 
-	public JavaBikesController() {
-		// initializes db objects
-		customerDb = new CustomerDatabase();
-		bikeDb = new BikeDatabase();
-		addDemoData();
-	}
+	
 
-	private void addDemoData() {
+	/**private void addDemoData() {
 		// Customer
 		Customer customer1 = new Customer("Hans", "Test", "Skolegade 1, 1000 Copenhagen", "h-test@gmail.com",
 				"031090-1234");
@@ -88,6 +88,6 @@ public class JavaBikesController {
 
 		Ebike ebike1 = new Ebike("gray", "L", 3, true);
 		bikeDb.addBike(ebike1);
-	}
+	} */
 
 }
