@@ -3,21 +3,30 @@ package model;
 import java.util.ArrayList;
 
 import data.FileManipulation;
+import view.CustomerView;
+import model.Customer;
 
 public class CustomerDatabase {
 	private ArrayList<Customer> customerList = new ArrayList<Customer>();
+	private static CustomerView myView = new CustomerView();
+	private static Customer myCustomer = new Customer();
 
 	public CustomerDatabase() {
-		customerList = FileManipulation.getCustomerDatabase();
-		System.out.println(customerList);
+		getCustomerList();
+		System.out.println(customerList.toString()); // This check is to be removed from final
+		                                         //but ! create method to print the whole DB
+		
 	}
 
-	// method for adding customer in customer lists
-	public void addCustomer(Customer newCustomer) {
-		customerList.add(newCustomer);
+	// method for adding customer in customer lists (DIRECTLY TO TEXT LIST)
+	public void addNewCustomer() {
+		myCustomer = myView.getCustomerDetails();
+		myCustomer.writetoFile();  // Moved customer registration and Write to file here from main
 	}
-
+	
+	// method extracts data from text file and stores in array list of objects 
 	public ArrayList<Customer> getCustomerList() {
+		customerList = FileManipulation.getCustomerDatabase();
 		return customerList;
 	}
 

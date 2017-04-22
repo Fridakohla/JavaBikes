@@ -1,70 +1,23 @@
 package controller;
 
-import model.Bike;
-import model.BikeDatabase;
-import model.Customer;
 import model.CustomerDatabase;
-import model.Ebike;
-import view.CustomerView;
 import view.WelcomeView;
 
 public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
-	CustomerDatabase customerDb;
-	BikeDatabase bikeDb;
-	CustomerView myView = new CustomerView();
-	Customer myCustomer;
+	CustomerDatabase customerDb = new CustomerDatabase();
+	
 
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
-		controller.runProgram();
+		WelcomeView.runProgram(controller.customerDb);
+
 	}
 
-	private void runProgram() {
-		WelcomeView welcome = new WelcomeView(); // creates new object of
-													// WelcomeView
-		int choice = welcome.firstMenuChoice(); // user input, 1 to login, 2 to
-		// register
+	
 
-		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			myCustomer = myView.getCustomerDetails();
-			myCustomer.writetoFile();
-			customerDb.addCustomer(myCustomer); // adds registered customer
-			// to
-
-		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
-			if (welcome.login(customerDb)) {
-				// needs to fill in: return booked bike or continue to book bike
-				System.out.println("Your login was successful.\n");
-				// continue with browse bikes
-			} else {
-				System.out.println("You have exited the program.");
-			}
-		}
-		boolean correctInput = false;
-		while (!correctInput) {
-			choice = welcome.secondMenuChoice();
-			switch (choice) {
-			case 1:
-				System.out.println("Browsing the bikes.");
-				correctInput = true;
-				break;
-			case 2:
-				System.out.println("Browsing the ebikes.");
-				correctInput = true;
-				break;
-			case 3:
-				System.out.println("You have exited the program.");
-				correctInput = true;
-				break;
-			default:
-				System.out.println("Invalid input. Please type a valid option.");
-			}
-		}
-	}
-
-	public JavaBikesController() {
+	/** public JavaBikesController() {
 		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
@@ -88,6 +41,6 @@ public class JavaBikesController {
 
 		Ebike ebike1 = new Ebike("gray", "L", 3, true);
 		bikeDb.addBike(ebike1);
-	}
+	} */
 
 }

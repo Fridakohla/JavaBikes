@@ -4,35 +4,22 @@ import java.util.Scanner;
 
 import model.CustomerDatabase;
 
+
 public class WelcomeView {
 	public static final int MENUCHOICE_LOGIN = 1;
 	public static final int MENUCHOICE_REGISTER = 2;
 
-	public int firstMenuChoice() {
+	public int menuChoice() {
 		int choice = 0;
 		while (choice != 1 && choice != 2) {
 			Scanner input = new Scanner(System.in);
 			System.out.println("WELCOME TO JAVA BIKES!\n");
-			System.out.println("-----------------------\n");
 			System.out.println("Choose your option. 1 is login, 2 is register.");
-			System.out.println("|1| Login as an existing customer.");
-			System.out.println("|2| Register as a new customer.\n");
 			choice = input.nextInt();
 			if (choice != 1 && choice != 2) {
 				System.out.println("Invalid input.");
 			}
 		}
-		return choice;
-	}
-
-	public int secondMenuChoice() {
-		int choice;
-		Scanner input = new Scanner(System.in);
-		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
-		System.out.println("|1| Browse regular bikes.");
-		System.out.println("|2| Browse electric bikes.");
-		System.out.println("|3| Quit program.\n");
-		choice = input.nextInt();
 		return choice;
 	}
 
@@ -48,6 +35,7 @@ public class WelcomeView {
 			System.out.print("Enter your password: ");
 			passwordInput = input.nextLine();
 			correctInput = customerDb.checkLogin(usernameInput, passwordInput);
+			input.close(); // closes the user input
 			if (correctInput) {
 				return correctInput;
 			} else {
@@ -57,5 +45,23 @@ public class WelcomeView {
 		}
 		return !correctInput;
 
+	}
+	public static void runProgram(CustomerDatabase customerDB) {
+		WelcomeView welcome = new WelcomeView(); // creates new object of
+													// WelcomeView
+		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
+											// register
+		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
+			customerDB.addNewCustomer(); // method adds new customer (directly to text file)
+		} 
+		else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
+			if (welcome.login(customerDB)) {
+				// needs to fill in: return booked bike or continue to book bike
+				System.out.print("Login successful.");
+				// continue with browse bikes
+			} else {
+				System.out.println("You have exited the program.");
+			}
+		}
 	}
 }
