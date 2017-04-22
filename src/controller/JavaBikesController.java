@@ -13,6 +13,7 @@ public class JavaBikesController {
 	CustomerDatabase customerDb;
 	BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
+	Customer myCustomer;
 
 	public static void main(String[] args) {
 		// construct new controller object
@@ -23,10 +24,11 @@ public class JavaBikesController {
 	private void runProgram() {
 		WelcomeView welcome = new WelcomeView(); // creates new object of
 													// WelcomeView
-		int choice = welcome.menuChoice(); // user input, 1 to login, 2 to
-											// register
+		int choice = welcome.firstMenuChoice(); // user input, 1 to login, 2 to
+		// register
+
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			Customer myCustomer = myView.getCustomerDetails();
+			myCustomer = myView.getCustomerDetails();
 			myCustomer.writetoFile();
 			customerDb.addCustomer(myCustomer); // adds registered customer
 			// to
@@ -34,10 +36,30 @@ public class JavaBikesController {
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {
 				// needs to fill in: return booked bike or continue to book bike
-				System.out.print("Login successful.");
+				System.out.println("Your login was successful.\n");
 				// continue with browse bikes
 			} else {
 				System.out.println("You have exited the program.");
+			}
+		}
+		boolean correctInput = false;
+		while (!correctInput) {
+			choice = welcome.secondMenuChoice();
+			switch (choice) {
+			case 1:
+				System.out.println("Browsing the bikes.");
+				correctInput = true;
+				break;
+			case 2:
+				System.out.println("Browsing the ebikes.");
+				correctInput = true;
+				break;
+			case 3:
+				System.out.println("You have exited the program.");
+				correctInput = true;
+				break;
+			default:
+				System.out.println("Invalid input. Please type a valid option.");
 			}
 		}
 	}

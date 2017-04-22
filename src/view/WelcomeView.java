@@ -8,17 +8,31 @@ public class WelcomeView {
 	public static final int MENUCHOICE_LOGIN = 1;
 	public static final int MENUCHOICE_REGISTER = 2;
 
-	public int menuChoice() {
+	public int firstMenuChoice() {
 		int choice = 0;
 		while (choice != 1 && choice != 2) {
 			Scanner input = new Scanner(System.in);
 			System.out.println("WELCOME TO JAVA BIKES!\n");
+			System.out.println("-----------------------\n");
 			System.out.println("Choose your option. 1 is login, 2 is register.");
+			System.out.println("|1| Login as an existing customer.");
+			System.out.println("|2| Register as a new customer.\n");
 			choice = input.nextInt();
 			if (choice != 1 && choice != 2) {
 				System.out.println("Invalid input.");
 			}
 		}
+		return choice;
+	}
+
+	public int secondMenuChoice() {
+		int choice;
+		Scanner input = new Scanner(System.in);
+		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
+		System.out.println("|1| Browse regular bikes.");
+		System.out.println("|2| Browse electric bikes.");
+		System.out.println("|3| Quit program.\n");
+		choice = input.nextInt();
 		return choice;
 	}
 
