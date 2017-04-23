@@ -45,6 +45,7 @@ public class CustomerView {
 			} else
 				System.out.println("Email format is incorrect ");
 		}
+		
 		C.setUsername();
 		C.setPassword();
 		System.out.println("Your username is " + C.getUsername() + " and your password is " + C.getPassword());

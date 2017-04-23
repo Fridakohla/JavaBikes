@@ -40,7 +40,7 @@ public class JavaBikesController {
 		// register
 
 		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			customerDb.addCustomer(); // adds newly registered customer
+			customerDb.addNewCustomer(); // adds newly registered customer
 
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
 			if (welcome.login(customerDb)) {

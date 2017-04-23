@@ -11,12 +11,15 @@ public class CustomerDatabase {
 	private static Customer myCustomer = new Customer();
 
 	public CustomerDatabase() {
-		customerList = FileManipulation.getCustomerDatabase();
-		System.out.println(customerList);
+		getCustomerList();
+		System.out.println(customerList.toString()); // This check is to be
+														// removed from final
+		// but ! create method to print the whole DB
+
 	}
 
-	// method for adding customer in customer lists
-	public void addCustomer() {
+	// method for adding customer in customer lists (DIRECTLY TO TEXT LIST)
+	public void addNewCustomer() {
 		myCustomer = myView.getCustomerDetails();
 		myCustomer.writetoFile(); // Moved customer registration and Write to
 									// file here from main
