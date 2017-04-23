@@ -8,18 +8,21 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import model.Bike;
 import model.Customer;
 
 public class FileManipulation {
 
-	public static Scanner readDetails(String file) {
+	public static String FILENAME_CUSTOMERDB = "customer.csv";
+
+	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
 		try {
-			File ReadFile = new java.io.File(file);
-			input = new Scanner(ReadFile); // creates a Scanner object to read
+			File readFile = new File(filename);
+			input = new Scanner(readFile); // creates a Scanner object to read
 											// data from the specified file.
 		} catch (FileNotFoundException ex) {
-			System.out.println("Error reading the file'" + file + "'");
+			System.out.println("Error reading the file'" + filename + "'");
 		}
 		return input;
 	}// readDetails
@@ -47,17 +50,49 @@ public class FileManipulation {
 																// objects in
 																// array list
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
-		Scanner input = readDetails("customer.csv");
+		Scanner input = readDetails(FILENAME_CUSTOMERDB);
 		// checking each line
 		while (input.hasNextLine()) {
-			customerList.add(getCustomer(input.nextLine()));// passing each line
-															// to the method
-															// getCustomer which
-															// returns a
-															// customer
+			String lineFromFile = input.nextLine();
+			Customer customerFromFile = getCustomer(lineFromFile);
+			customerList.add(customerFromFile);
+
+			// customerList.add(getCustomer(input.nextLine()));// passing each
+			// line to the method
+			// getCustomer which
+			// returns a
+			// customer
 		} // then added to a ArrayList
 
 		return customerList;
+	}
+
+	public static Bike getBike(String line) {
+		String[] values = line.split(";");
+		Bike BikeFromFile = new Bike(Integer.parseInt(values[0]), values[1], values[2], Integer.parseInt(values[3]),
+				Boolean.parseBoolean(values[4]));
+
+		/**
+		 * Bike BikeFromFile = new Bike(); Change the String type into the
+		 * correct format BikeFromFile.setId(Integer.parseInt(values[0]));
+		 * BikeFromFile.setColor(values[1]); BikeFromFile.setType(values[2]);
+		 * BikeFromFile.setPrice(Integer.parseInt(values[3]));
+		 * BikeFromFile.setAvailable(Boolean.parseBoolean(values[4]));
+		 */
+
+		return BikeFromFile;
+
+	}
+
+	public static ArrayList<Bike> getBikeDatabase() { // Stores string
+		ArrayList<Bike> arrayBikes = new ArrayList<Bike>();
+		Scanner input = readDetails("bike.txt");
+		while (input.hasNextLine()) {
+			String lineFromFile = input.nextLine();
+			Bike bikeFromFile = getBike(lineFromFile);
+			arrayBikes.add(bikeFromFile);
+		}
+		return arrayBikes;
 	}
 
 	public static void WriteDetails(String file, String input) {
