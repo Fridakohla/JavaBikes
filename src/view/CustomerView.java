@@ -59,7 +59,9 @@ public class CustomerView {
 		System.out.println(C.toString());
 	}
 
-	// needs to go to a view class?
+	// could go to a seperate bookingView class
+	// displays the bikes (only regular ones, not ebikes) and lets the user
+	// choose one by entering ID
 	public int displayBikes() {
 		System.out.println("Here is a list of our bikes.\n");
 		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
@@ -76,8 +78,6 @@ public class CustomerView {
 			bookingChoice = input.nextInt();
 			// if argument needs to be improved
 			if (bookingChoice != 0 && bookingChoice <= 88) {
-				// method needs to be created
-				// Bike bikeChosen = BikeDatabase.getBikeById(bookingChoice);
 				correctInput = true;
 			}
 		}

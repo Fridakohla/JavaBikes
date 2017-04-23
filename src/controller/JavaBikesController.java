@@ -13,6 +13,7 @@ public class JavaBikesController {
 	public static BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
 	Customer myCustomer;
+	public static Bike bookingChoice;
 
 	/** Constructor (moved in front for better structure view) */
 	public JavaBikesController() {
@@ -49,13 +50,16 @@ public class JavaBikesController {
 				System.out.println("You have exited the program.");
 			}
 		}
+
 		boolean correctInput = false;
+		boolean continueBooking = true;
 		while (!correctInput) {
 			choice = welcome.secondMenuChoice();
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
 				correctInput = true;
-				myView.displayBikes();
+				int chosenBikeId = myView.displayBikes();
+				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				System.out.println("Browsing the ebikes.");
@@ -64,10 +68,37 @@ public class JavaBikesController {
 			case WelcomeView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");
 				correctInput = true;
+				continueBooking = false;
 				break;
 			default:
 				System.out.println("Invalid input. Please type a valid option.");
 			}
+		}
+		if (continueBooking) {
+			correctInput = false;
+			while (!correctInput) {
+				choice = welcome.thirdMenuChoice();
+				switch (choice) {
+				case WelcomeView.MENUCHOICE_CONFIRM:
+					correctInput = true;
+					System.out.println("Confirmed booking.");
+					break;
+				case WelcomeView.MENUCHOICE_BROWSE:
+					System.out.println("Browse again.");
+					// go back to secondMenu --> maybe outsource in method?
+					welcome.secondMenuChoice();
+					correctInput = true;
+					break;
+				case WelcomeView.MENUCHOICE_EXIT:
+					System.out.println("You have exited the program.");
+					correctInput = true;
+					continueBooking = false;
+					break;
+				default:
+					System.out.println("Invalid input. Please type a valid option.");
+				}
+			}
+
 		}
 	}
 

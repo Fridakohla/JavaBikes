@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 
+import controller.JavaBikesController;
 import model.CustomerDatabase;
 
 public class WelcomeView {
@@ -10,6 +11,8 @@ public class WelcomeView {
 	public static final int MENUCHOICE_BIKES = 1;
 	public static final int MENUCHOICE_EBIKES = 2;
 	public static final int MENUCHOICE_EXIT = 3;
+	public static final int MENUCHOICE_CONFIRM = 1;
+	public static final int MENUCHOICE_BROWSE = 2;
 
 	public int firstMenuChoice() {
 		int choice = 0;
@@ -34,6 +37,18 @@ public class WelcomeView {
 		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
 		System.out.println("|1| Browse regular bikes.");
 		System.out.println("|2| Browse electric bikes.");
+		System.out.println("|3| Quit program.\n");
+		choice = input.nextInt();
+		return choice;
+	}
+
+	public int thirdMenuChoice() {
+		int choice;
+		Scanner input = new Scanner(System.in);
+		System.out.println("You have chosen " + JavaBikesController.bookingChoice + ".");
+		System.out.println("\n---> Choose one of the following options:");
+		System.out.println("|1| Confirm and proceed to payment.");
+		System.out.println("|2| Browse again.");
 		System.out.println("|3| Quit program.\n");
 		choice = input.nextInt();
 		return choice;
