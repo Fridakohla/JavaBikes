@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Scanner;
-
 import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
@@ -12,7 +10,7 @@ import view.WelcomeView;
 public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
 	CustomerDatabase customerDb;
-	BikeDatabase bikeDb;
+	public static BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
 	Customer myCustomer;
 
@@ -57,7 +55,7 @@ public class JavaBikesController {
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
 				correctInput = true;
-				displayBikes();
+				myView.displayBikes();
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				System.out.println("Browsing the ebikes.");
@@ -69,30 +67,6 @@ public class JavaBikesController {
 				break;
 			default:
 				System.out.println("Invalid input. Please type a valid option.");
-			}
-		}
-	}
-
-	// needs to go to a view class?
-	private void displayBikes() {
-		System.out.println("Here is a list of our bikes.\n");
-		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
-		System.out.println("--------------------------------------------------------------------");
-		for (Bike myBike : bikeDb.getBikeList()) {
-			System.out.println(myBike.getId() + "\t\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
-					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
-		}
-		// needs to go to a seperate method? if argument needs to be improved
-		System.out.println("\nPlease enter the ID of the bike you would like to book:");
-		Scanner input = new Scanner(System.in);
-		boolean correctInput = false;
-		int bookingChoice = 0;
-		while (!correctInput) {
-			bookingChoice = input.nextInt();
-			if (bookingChoice != 0 && bookingChoice <= 88) {
-				// method needs to be created
-				// Bike bikeChosen = BikeDatabase.getBikeById(bookingChoice);
-				correctInput = true;
 			}
 		}
 	}

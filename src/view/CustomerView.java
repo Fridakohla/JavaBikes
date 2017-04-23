@@ -2,6 +2,8 @@ package view;
 
 import java.util.Scanner;
 
+import controller.JavaBikesController;
+import model.Bike;
 import model.Customer;
 
 public class CustomerView {
@@ -45,7 +47,7 @@ public class CustomerView {
 			} else
 				System.out.println("Email format is incorrect ");
 		}
-		
+
 		C.setUsername();
 		C.setPassword();
 		System.out.println("Your username is " + C.getUsername() + " and your password is " + C.getPassword());
@@ -55,5 +57,30 @@ public class CustomerView {
 
 	public void printCustomerDetails(Customer C) {
 		System.out.println(C.toString());
+	}
+
+	// needs to go to a view class?
+	public int displayBikes() {
+		System.out.println("Here is a list of our bikes.\n");
+		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
+		System.out.println("--------------------------------------------------------------------");
+		for (Bike myBike : JavaBikesController.bikeDb.getBikeList()) {
+			System.out.println(myBike.getId() + "\t\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
+					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
+		}
+		System.out.println("\nPlease enter the ID of the bike you would like to book:");
+		Scanner input = new Scanner(System.in);
+		boolean correctInput = false;
+		int bookingChoice = 0;
+		while (!correctInput) {
+			bookingChoice = input.nextInt();
+			// if argument needs to be improved
+			if (bookingChoice != 0 && bookingChoice <= 88) {
+				// method needs to be created
+				// Bike bikeChosen = BikeDatabase.getBikeById(bookingChoice);
+				correctInput = true;
+			}
+		}
+		return bookingChoice;
 	}
 }
