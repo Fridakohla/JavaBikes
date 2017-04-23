@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Bike;
+import model.Ebike;
 import model.Customer;
 
 public class FileManipulation {
@@ -44,11 +45,8 @@ public class FileManipulation {
 		return customerFromFile;
 
 	}
-
-	public static ArrayList<Customer> getCustomerDatabase() { // Stores string
-																// customer
-																// objects in
-																// array list
+	// Stores string customer objects in array list
+	public static ArrayList<Customer> getCustomerDatabase() { 
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		Scanner input = readDetails(FILENAME_CUSTOMERDB);
 		// checking each line
@@ -57,11 +55,6 @@ public class FileManipulation {
 			Customer customerFromFile = getCustomer(lineFromFile);
 			customerList.add(customerFromFile);
 
-			// customerList.add(getCustomer(input.nextLine()));// passing each
-			// line to the method
-			// getCustomer which
-			// returns a
-			// customer
 		} // then added to a ArrayList
 
 		return customerList;
@@ -72,9 +65,9 @@ public class FileManipulation {
 		Bike BikeFromFile = new Bike(Integer.parseInt(values[0]), values[1], values[2], Integer.parseInt(values[3]),
 				Boolean.parseBoolean(values[4]));
 
-		/**
-		 * Bike BikeFromFile = new Bike(); Change the String type into the
-		 * correct format BikeFromFile.setId(Integer.parseInt(values[0]));
+		/** alternative line by line assignment
+		 * Bike BikeFromFile = new Bike(); 
+		 * BikeFromFile.setId(Integer.parseInt(values[0]));
 		 * BikeFromFile.setColor(values[1]); BikeFromFile.setType(values[2]);
 		 * BikeFromFile.setPrice(Integer.parseInt(values[3]));
 		 * BikeFromFile.setAvailable(Boolean.parseBoolean(values[4]));
@@ -93,6 +86,26 @@ public class FileManipulation {
 			arrayBikes.add(bikeFromFile);
 		}
 		return arrayBikes;
+	}
+	
+	public static Ebike getEbike(String line) {
+		String[] values = line.split(";");
+	    Ebike BikeFromFile = new Ebike(Integer.parseInt(values[0]), values[1], values[2], Integer.parseInt(values[3]),
+				Boolean.parseBoolean(values[4]), Integer.parseInt(values[5])); 
+	    
+	    return BikeFromFile; 
+	    }
+	
+	
+	public static ArrayList<Ebike> getEbikeDatabase() { // Stores string
+		ArrayList<Ebike> arrayEBikes = new ArrayList<Ebike>();
+		Scanner input = readDetails("Ebike.txt");
+		while (input.hasNextLine()) {
+			String lineFromFile = input.nextLine();
+			Ebike bikeFromFile = getEbike(lineFromFile);
+			arrayEBikes.add(bikeFromFile);
+		}
+		return arrayEBikes;
 	}
 
 	public static void WriteDetails(String file, String input) {

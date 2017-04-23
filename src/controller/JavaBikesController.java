@@ -1,5 +1,6 @@
 package controller;
 
+import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
@@ -63,6 +64,7 @@ public class JavaBikesController {
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				System.out.println("Browsing the ebikes.");
+				myView.displayElectricBikes(); //DISPLAY TEST, CAN DELETE :) 
 				correctInput = true;
 				break;
 			case WelcomeView.MENUCHOICE_EXIT:

@@ -3,8 +3,10 @@ package view;
 import java.util.Scanner;
 
 import controller.JavaBikesController;
+import data.FileManipulation;
 import model.Bike;
 import model.Customer;
+import model.Ebike;
 
 public class CustomerView {
 
@@ -83,4 +85,14 @@ public class CustomerView {
 		}
 		return bookingChoice;
 	}
+	////// TESTING - 
+	/**THIS ONE JUST TO TEST THE WORK OF EXTRATION FOR EBIKES - CAN DELETE OR USE IN THE RIGHT PLACE */	public void displayElectricBikes() {
+		System.out.println("Here is a list of our bikes.\n");
+		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tDuration ");
+		System.out.println("--------------------------------------------------------------------");
+		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
+			System.out.println(myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
+					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable() + "\t\t"
+			+ myBike.getBatteryDuration() +" hours");
+		}}
 }

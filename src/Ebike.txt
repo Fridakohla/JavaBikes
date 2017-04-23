@@ -1,0 +1,7 @@
+10; black; men;75;true;10
+11; red; women;75;true;10
+12; green; men;60;true;8
+13; black; women;60;true;8
+14; orange; children;55;true;7
+15; pink; children;50;true;5
+16; yellow; children;50;true;5
