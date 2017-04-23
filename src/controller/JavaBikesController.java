@@ -22,8 +22,8 @@ public class JavaBikesController {
 		bikeDb = new BikeDatabase();
 
 		// TESTING WITH DEMO BIKE
-		Bike testBike = new Bike(88, "white", "women", 50, true);
-		bikeDb.addBike(testBike);
+		//Bike testBike = new Bike(88, "white", "women", 50, true);
+		//bikeDb.addBike(testBike);
 	}
 
 	public static void main(String[] args) {

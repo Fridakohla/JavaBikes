@@ -7,7 +7,7 @@ public class Bike {
 	private boolean isAvailable;
 	private int price;
 
-	public Bike(int id, String color, String type, boolean isAvailable, int price) {
+	public Bike(int id, String color, String type, int price, boolean isAvailable) {
 		this.color = color;
 		this.type = type;
 		this.id = id;

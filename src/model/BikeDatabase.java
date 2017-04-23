@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import data.FileManipulation;
+
 public class BikeDatabase {
 	private static ArrayList<Bike> bikeList = new ArrayList<Bike>();
 
@@ -12,6 +14,7 @@ public class BikeDatabase {
 	}
 
 	public ArrayList<Bike> getBikeList() {
+		bikeList = FileManipulation.getBikeDatabase();
 		return bikeList;
 	}
 
