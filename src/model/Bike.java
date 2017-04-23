@@ -1,4 +1,5 @@
 package model;
+// TEST 
 
 public class Bike {
 	private String color, type;
@@ -6,7 +7,7 @@ public class Bike {
 	private boolean isAvailable;
 	private int price;
 
-	public Bike(int id, String color, String type, int price, boolean isAvailable) {
+	public Bike(int id, String color, String type, boolean isAvailable, int price) {
 		this.color = color;
 		this.type = type;
 		this.id = id;
