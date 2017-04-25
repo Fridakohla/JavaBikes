@@ -150,3 +150,6 @@ public class FileManipulation {
 }
 //String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";" + bikeFromFile.getType() 
 		//+ ";" + bikeFromFile.getPrice() + ";" + "false";
+/** HOW TO CALL THE METHOD
+//String Line = "2;yellow;women;50;true";//<<<TEST
+//FileManipulation.replaceLine (Line);//<<<TEST */
