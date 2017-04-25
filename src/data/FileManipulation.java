@@ -111,45 +111,46 @@ public class FileManipulation {
 
 	public static void WriteDetails(String file, String input) {
 		try {
-			FileWriter fwriter = new FileWriter(file, true);
+			FileWriter fwriter = new FileWriter(file, true); // false does overwrite
 			PrintWriter output = new java.io.PrintWriter(fwriter);
 			// Write formatted output to the file
-			output.println(input);
+			output.println(input); // output.write(input);
 			output.close();
 		} catch (IOException ex) {
 			// if the file is not accessible, print this message
 			System.out.println("Error writing to file '" + file + "'");
 		}
-	}// WriteDetails
+	}// End of Method WriteDetails
 	
-	public static void replaceLine(String Line)  {
+	public static void replaceLine(String Line)  { //>>>confirm booking
 		ArrayList<Bike> BikeArray = getBikeDatabase();
 		Bike bikeFromFile = getBike(Line);
-		int position=0;
-		try {
-			File tmp = File.createTempFile("bike", "tmp");
-		} catch (IOException e) {
+		//clears all content from file
+		try {  
+			PrintWriter pw = new PrintWriter("bike.txt");
+			pw.close();
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray);
-		for(int i=0; i< BikeArray.size(); i++) {
-			position =i; //Position of booked bike
-			if(BikeArray.get(i).getId() == (bikeFromFile.getId())) {
-				BikeArray.get(i).setAvailable(false);
-				System.out.println(" works!"+ bikeFromFile);//check delete
-				 }
-		String details = BikeArray.get(position).getId() + " ; " + BikeArray.get(position).getColor() + ";" + BikeArray.get(position).getType() 
-				+ ";" + BikeArray.get(position).getPrice() + ";" + BikeArray.get(position).isAvailable();
-			
-		WriteDetails("bike.tmp", details);	
 		
+		for(int i=0; i< BikeArray.size(); i++) {
+			if(BikeArray.get(i).getId() == (bikeFromFile.getId())) {
+				BikeArray.get(i).setAvailable(false); 
+				}
+				String details = BikeArray.get(i).getId() + ";" + BikeArray.get(i).getColor() + ";" + BikeArray.get(i).getType() 
+						+ ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
+				WriteDetails("bike.txt", details);
+				System.out.println(i +"!true"+BikeArray.get(i).toString());	
 		} //end of Forloop
-		System.out.println(position +"!true"+BikeArray.toString());
-	}
+	} //End of Method
 }
+
+
+
 //String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";" + bikeFromFile.getType() 
 		//+ ";" + bikeFromFile.getPrice() + ";" + "false";
+//System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray); 
 /** HOW TO CALL THE METHOD
 //String Line = "2;yellow;women;50;true";//<<<TEST
 //FileManipulation.replaceLine (Line);//<<<TEST */
