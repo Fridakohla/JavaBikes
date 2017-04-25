@@ -58,13 +58,11 @@ public class JavaBikesController {
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
 				correctInput = true;
-				myView.browseBikes();
-				int chosenBikeId = myView.browseElectricBikes();
+				int chosenBikeId = myView.browseBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;
-				myView.browseElectricBikes();
 				chosenBikeId = myView.browseElectricBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				break;
