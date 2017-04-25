@@ -6,7 +6,7 @@ import data.FileManipulation;
 
 public class BikeDatabase {
 	private static ArrayList<Bike> bikeList = new ArrayList<Bike>();
-	private static ArrayList<Ebike> EbikeList = new ArrayList<Ebike>();
+	private static ArrayList<Ebike> ebikeList = new ArrayList<Ebike>();
 
 	// needs to be written to file
 
@@ -22,10 +22,10 @@ public class BikeDatabase {
 	public void setBikeList(ArrayList<Bike> bikeList) {
 		this.bikeList = bikeList;
 	}
-	
+
 	public ArrayList<Ebike> getEbikeList() {
-		EbikeList = FileManipulation.getEbikeDatabase();
-		return EbikeList;
+		ebikeList = FileManipulation.getEbikeDatabase();
+		return ebikeList;
 	}
 
 	public static Bike getBikeByID(int bookingChoice) {
@@ -36,9 +36,13 @@ public class BikeDatabase {
 		}
 		return null;
 	}
-	// ebike part needs to be added when ebike lists exits >>> DONE!
-	/*
-	 * for (Bike myEbike : ebikeList) { if (myEbike.getId() == bookingChoice) {
-	 * return myEbike; } } return null;
-	 */
+
+	public static Ebike getEbikeByID(int bookingChoice) {
+		for (Ebike myBike : ebikeList) {
+			if (myBike.getId() == bookingChoice) {
+				return myBike;
+			}
+		}
+		return null;
+	}
 }

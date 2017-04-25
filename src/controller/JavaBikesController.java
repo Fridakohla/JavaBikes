@@ -1,6 +1,5 @@
 package controller;
 
-import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
@@ -23,8 +22,8 @@ public class JavaBikesController {
 		bikeDb = new BikeDatabase();
 
 		// TESTING WITH DEMO BIKE
-		//Bike testBike = new Bike(88, "white", "women", 50, true);
-		//bikeDb.addBike(testBike);
+		// Bike testBike = new Bike(88, "white", "women", 50, true);
+		// bikeDb.addBike(testBike);
 	}
 
 	public static void main(String[] args) {
@@ -58,17 +57,16 @@ public class JavaBikesController {
 			choice = welcome.secondMenuChoice();
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
-				myView.displayBikes(); 
-				//String Line = "2;yellow;women;50;true";//delete <<<TEST
-				//FileManipulation.replaceLine (Line);//delete<<<TEST
 				correctInput = true;
-				int chosenBikeId = myView.displayBikes();
+				myView.browseBikes();
+				int chosenBikeId = myView.browseElectricBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
-				System.out.println("Browsing the ebikes.");
-				myView.displayElectricBikes(); //DISPLAY TEST, CAN DELETE :) 
 				correctInput = true;
+				myView.browseElectricBikes();
+				chosenBikeId = myView.browseElectricBikes();
+				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");

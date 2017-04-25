@@ -64,7 +64,7 @@ public class CustomerView {
 	// could go to a seperate bookingView class
 	// displays the bikes (only regular ones, not ebikes) and lets the user
 	// choose one by entering ID
-	public int displayBikes() {
+	public int browseBikes() {
 		System.out.println("Here is a list of our bikes.\n");
 		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
@@ -85,15 +85,32 @@ public class CustomerView {
 		}
 		return bookingChoice;
 	}
-	////// TESTING - 
-	/**THIS ONE JUST TO TEST THE WORK OF EXTRATION FOR EBIKES - CAN DELETE OR USE IN THE RIGHT PLACE */	
-	public void displayElectricBikes() {
+
+	////// TESTING -
+	/**
+	 * THIS ONE JUST TO TEST THE WORK OF EXTRATION FOR EBIKES - CAN DELETE OR
+	 * USE IN THE RIGHT PLACE
+	 */
+	public int browseElectricBikes() {
 		System.out.println("Here is a list of our bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tDuration ");
 		System.out.println("--------------------------------------------------------------------");
-		for (Ebike myBike : FileManipulation.getEbikeDatabase()) { 
-			System.out.println(myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
-					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable() + "\t\t"
-			+ myBike.getBatteryDuration() +" hours");
-		}}
+		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
+			System.out.println(
+					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
+							+ " DKK\t\t" + myBike.isAvailable() + "\t\t" + myBike.getBatteryDuration() + " hours");
+		}
+		System.out.println("\nPlease enter the ID of the bike you would like to book:");
+		Scanner input = new Scanner(System.in);
+		boolean correctInput = false;
+		int bookingChoice = 0;
+		while (!correctInput) {
+			bookingChoice = input.nextInt();
+			// if argument needs to be improved
+			if (bookingChoice != 0 && bookingChoice <= 88) {
+				correctInput = true;
+			}
+		}
+		return bookingChoice;
+	}
 }
