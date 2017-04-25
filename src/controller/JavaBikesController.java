@@ -2,7 +2,6 @@ package controller;
 
 import model.Bike;
 import model.BikeDatabase;
-import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import view.CustomerView;
@@ -13,6 +12,8 @@ public class JavaBikesController {
 	CustomerDatabase customerDb;
 	public static BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
+	WelcomeView welcome = new WelcomeView(); // creates new object of
+												// WelcomeView
 	Customer myCustomer;
 	public static Bike bookingChoice;
 
@@ -21,21 +22,15 @@ public class JavaBikesController {
 		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
-
-		// TESTING WITH DEMO BIKE
-		// Bike testBike = new Bike(88, "white", "women", 50, true);
-		// bikeDb.addBike(testBike);
 	}
 
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
-	} //End of main 
+	} // End of main
 
 	private void runProgram() {
-		WelcomeView welcome = new WelcomeView(); // creates new object of
-													// WelcomeView
 		int choice = welcome.firstMenuChoice(); // user input, 1 to login, 2 to
 		// register
 
@@ -52,31 +47,10 @@ public class JavaBikesController {
 			}
 		}
 
-		boolean correctInput = false;
 		boolean continueBooking = true;
-		while (!correctInput) {
-			choice = welcome.secondMenuChoice();
-			switch (choice) {
-			case WelcomeView.MENUCHOICE_BIKES:
-				correctInput = true;
-				int chosenBikeId = myView.browseBikes();
-				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				//BookingDatabase.addToShoppingCard(bookingChoice); TEST TEST TEST
-				break;
-			case WelcomeView.MENUCHOICE_EBIKES:
-				correctInput = true;
-				chosenBikeId = myView.browseElectricBikes();
-				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				break;
-			case WelcomeView.MENUCHOICE_EXIT:
-				System.out.println("You have exited the program.");
-				correctInput = true;
-				continueBooking = false;
-				break;
-			default:
-				System.out.println("Invalid input. Please type a valid option.");
-			}
-		}
+		boolean correctInput = false;
+		secondMenu();
+
 		if (continueBooking) {
 			correctInput = false;
 			while (!correctInput) {
@@ -87,8 +61,6 @@ public class JavaBikesController {
 					System.out.println("Confirmed booking.");
 					break;
 				case WelcomeView.MENUCHOICE_BROWSE:
-					System.out.println("Browse again.");
-					// go back to secondMenu --> maybe outsource in method?
 					welcome.secondMenuChoice();
 					correctInput = true;
 					break;
@@ -101,7 +73,34 @@ public class JavaBikesController {
 					System.out.println("Invalid input. Please type a valid option.");
 				}
 			}
+		}
+	}
 
+	public void secondMenu() {
+		boolean correctInput = false;
+		while (!correctInput) {
+			int choice = welcome.secondMenuChoice();
+			switch (choice) {
+			case WelcomeView.MENUCHOICE_BIKES:
+				correctInput = true;
+				int chosenBikeId = myView.browseBikes();
+				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
+				// BookingDatabase.addToShoppingCard(bookingChoice); TEST TEST
+				// TEST
+				break;
+			case WelcomeView.MENUCHOICE_EBIKES:
+				correctInput = true;
+				chosenBikeId = myView.browseElectricBikes();
+				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
+				break;
+			case WelcomeView.MENUCHOICE_EXIT:
+				System.out.println("You have exited the program.");
+				correctInput = true;
+				boolean continueBooking = false;
+				break;
+			default:
+				System.out.println("Invalid input. Please type a valid option.");
+			}
 		}
 	}
 
