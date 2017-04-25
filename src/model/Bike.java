@@ -17,7 +17,7 @@ public class Bike {
 
 	@Override
 	public String toString() {
-		return "a " + color + " " + type + "'s bike for " + price + " DKK";
+		return "a " + color + " " + type + "'s bike for " + price + " DKK"+ isAvailable;
 	}
 
 	public String getColor() {

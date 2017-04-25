@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.Bike;
@@ -120,4 +121,32 @@ public class FileManipulation {
 			System.out.println("Error writing to file '" + file + "'");
 		}
 	}// WriteDetails
+	
+	public static void replaceLine(String Line)  {
+		ArrayList<Bike> BikeArray = getBikeDatabase();
+		Bike bikeFromFile = getBike(Line);
+		int position=0;
+		try {
+			File tmp = File.createTempFile("bike", "tmp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray);
+		for(int i=0; i< BikeArray.size(); i++) {
+			position =i; //Position of booked bike
+			if(BikeArray.get(i).getId() == (bikeFromFile.getId())) {
+				BikeArray.get(i).setAvailable(false);
+				System.out.println(" works!"+ bikeFromFile);//check delete
+				 }
+		String details = BikeArray.get(position).getId() + " ; " + BikeArray.get(position).getColor() + ";" + BikeArray.get(position).getType() 
+				+ ";" + BikeArray.get(position).getPrice() + ";" + BikeArray.get(position).isAvailable();
+			
+		WriteDetails("bike.tmp", details);	
+		
+		} //end of Forloop
+		System.out.println(position +"!true"+BikeArray.toString());
+	}
 }
+//String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";" + bikeFromFile.getType() 
+		//+ ";" + bikeFromFile.getPrice() + ";" + "false";
