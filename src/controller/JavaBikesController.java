@@ -58,6 +58,9 @@ public class JavaBikesController {
 			choice = welcome.secondMenuChoice();
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
+				myView.displayBikes(); 
+				//String Line = "2;yellow;women;50;true";//delete <<<TEST
+				//FileManipulation.replaceLine (Line);//delete<<<TEST
 				correctInput = true;
 				int chosenBikeId = myView.displayBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
