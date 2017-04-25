@@ -31,7 +31,7 @@ public class JavaBikesController {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
-	}
+	} //End of main 
 
 	private void runProgram() {
 		WelcomeView welcome = new WelcomeView(); // creates new object of
