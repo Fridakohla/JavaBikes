@@ -1,6 +1,6 @@
-1; blue; men;50;true
-2;yellow;women;50;true
-3; green; women;50;true
-4; black; men;50;false
-5; purple; children;25;true
-6; navy; children;25;true
+1;blue;man;50;true
+2;yellow;woman;50;true
+3;green;woman;50;true
+4;black;man;50;false
+5;purple;child;25;true
+6;navy;child;25;true

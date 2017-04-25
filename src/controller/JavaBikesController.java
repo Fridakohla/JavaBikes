@@ -2,6 +2,7 @@ package controller;
 
 import model.Bike;
 import model.BikeDatabase;
+import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import view.CustomerView;
@@ -60,6 +61,7 @@ public class JavaBikesController {
 				correctInput = true;
 				int chosenBikeId = myView.browseBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
+				//BookingDatabase.addToShoppingCard(bookingChoice); TEST TEST TEST
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;
