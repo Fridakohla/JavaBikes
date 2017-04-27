@@ -43,11 +43,22 @@ public class WelcomeView {
 		return choice;
 	}
 
+	public int chooseDays() {
+		int amountOfDays;
+		Scanner input = new Scanner(System.in);
+		// System.out.println("---> You have chosen " +
+		// JavaBikesController.bookingChoice + ".");
+		System.out.println("\nFor how many days would you like to rent the bike?");
+		amountOfDays = input.nextInt();
+		System.out.println(
+				"\n---> You have chosen " + JavaBikesController.bookingChoice + " for " + amountOfDays + " days.");
+		return amountOfDays;
+	}
+
 	public int confirmBookingMenu() {
 		int choice;
 		Scanner input = new Scanner(System.in);
-		System.out.println("You have chosen " + JavaBikesController.bookingChoice + ".");
-		System.out.println("\n---> Choose one of the following options:");
+		System.out.println("\nChoose one of the following options:");
 		System.out.println("|1| Confirm and proceed to payment.");
 		System.out.println("|2| Browse again.");
 		System.out.println("|3| Quit program.\n");
