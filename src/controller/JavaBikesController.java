@@ -44,18 +44,19 @@ public class JavaBikesController {
 			currentCustomer = welcome.login(customerDb);
 			if (currentCustomer != null) {
 				// needs to fill in: return booked bike or continue to book bike
-				System.out.println("Your login was successful.\n");
-				System.out.println(currentCustomer); // test if customer is
-														// stored
+				System.out.println("\nHello, " + currentCustomer.getFirstName() + "! Your login was successful.\n");
+				// System.out.println(currentCustomer); // test if customer is
+				// stored
 				// continue with browse bikes
 			} else {
 				browsingBikes = false;
 			}
 		}
-
+		int daysBooked = 0;
 		while (browsingBikes) {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
+				daysBooked = welcome.chooseDays();
 				correctInput = false;
 				while (!correctInput) {
 					choice = welcome.confirmBookingMenu();
