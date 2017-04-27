@@ -6,7 +6,9 @@ public class Booking {
 	long startTimeMs = System.currentTimeMillis(); // figure out start and end
 													// time
 	long endTimeMs;
+	int bookedDays;
 
+	// get days instead
 	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
 		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
 		return timeInMinutes;

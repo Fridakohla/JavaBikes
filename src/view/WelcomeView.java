@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 import controller.JavaBikesController;
+import model.Customer;
 import model.CustomerDatabase;
 
 public class WelcomeView {
@@ -54,25 +55,26 @@ public class WelcomeView {
 		return choice;
 	}
 
-	public boolean login(CustomerDatabase customerDb) {
+	public Customer login(CustomerDatabase customerDb) {
 		String usernameInput = "";
 		String passwordInput = "";
-		boolean correctInput = customerDb.checkLogin(usernameInput, passwordInput);
+		Customer inputCustomer = null;
 
-		for (int countTries = 1; countTries < 4 && !correctInput; countTries++) {
+		for (int countTries = 1; countTries < 4 && inputCustomer == null; countTries++) {
 			Scanner input = new Scanner(System.in);
 			System.out.print("Enter your username: ");
 			usernameInput = input.nextLine();
 			System.out.print("Enter your password: ");
 			passwordInput = input.nextLine();
-			correctInput = customerDb.checkLogin(usernameInput, passwordInput);
-			if (correctInput) {
-				return correctInput;
+			inputCustomer = customerDb.checkLogin(usernameInput, passwordInput);
+			if (inputCustomer != null) {
+				return inputCustomer;
 			} else {
 				System.out.println("\nYou have entered the wrong username and/or password. \nYou have "
 						+ (3 - countTries) + " tries left.");
 			}
 		}
-		return !correctInput;
+		System.out.println("You have exceeded the number of tries. Please try again later.");
+		return null;
 	}
 }

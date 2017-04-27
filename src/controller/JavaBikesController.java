@@ -1,8 +1,8 @@
 package controller;
 
-import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
+import model.Customer;
 import model.CustomerDatabase;
 import view.CustomerView;
 import view.WelcomeView;
@@ -10,6 +10,7 @@ import view.WelcomeView;
 public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
 	CustomerDatabase customerDb;
+	Customer currentCustomer;
 	public static BikeDatabase bikeDb;
 	CustomerView myView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
@@ -30,6 +31,9 @@ public class JavaBikesController {
 	} // End of main
 
 	private void runProgram() {
+		boolean continueBooking = true;
+		boolean correctInput = false;
+		boolean browsingBikes = true;
 		int choice = welcome.loginMenu(); // user input, 1 to login, 2 to
 		// register
 
@@ -37,18 +41,18 @@ public class JavaBikesController {
 			customerDb.addNewCustomer(); // adds newly registered customer
 
 		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
-			if (welcome.login(customerDb)) {
+			currentCustomer = welcome.login(customerDb);
+			if (currentCustomer != null) {
 				// needs to fill in: return booked bike or continue to book bike
 				System.out.println("Your login was successful.\n");
+				System.out.println(currentCustomer); // test if customer is
+														// stored
 				// continue with browse bikes
 			} else {
-				System.out.println("You have exited the program.");
+				browsingBikes = false;
 			}
 		}
 
-		boolean continueBooking = true;
-		boolean correctInput = false;
-		boolean browsingBikes = true;
 		while (browsingBikes) {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
@@ -93,7 +97,7 @@ public class JavaBikesController {
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;
 				chosenBikeId = myView.browseElectricBikes();
-				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
+				bookingChoice = BikeDatabase.getEbikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");

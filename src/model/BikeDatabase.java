@@ -23,7 +23,7 @@ public class BikeDatabase {
 		this.bikeList = bikeList;
 	}
 
-	public ArrayList<Ebike> getEbikeList() {
+	public static ArrayList<Ebike> getEbikeList() {
 		ebikeList = FileManipulation.getEbikeDatabase();
 		return ebikeList;
 	}
@@ -38,7 +38,7 @@ public class BikeDatabase {
 	}
 
 	public static Ebike getEbikeByID(int bookingChoice) {
-		for (Ebike myBike : ebikeList) {
+		for (Ebike myBike : getEbikeList()) {
 			if (myBike.getId() == bookingChoice) {
 				return myBike;
 			}
