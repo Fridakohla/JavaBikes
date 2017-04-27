@@ -19,6 +19,11 @@ public class Bike {
 	public String toString() {
 		return "a " + color + " " + type + "'s bike for " + price + " DKK";
 	}
+	
+	public String BiketoString(){
+		return getId() + ";" + getColor() + ";" + getType() + ";" + getPrice() + ";" 
+	           + isAvailable();
+	}
 
 	public String getColor() {
 		return color;

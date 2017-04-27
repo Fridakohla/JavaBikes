@@ -138,10 +138,9 @@ public class FileManipulation {
 			if(BikeArray.get(i).getId() == (bikeFromFile.getId())) {
 				BikeArray.get(i).setAvailable(false); 
 				}
-				String details = BikeArray.get(i).getId() + ";" + BikeArray.get(i).getColor() + ";" + BikeArray.get(i).getType() 
-						+ ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
-				WriteDetails("bike.txt", details);
-				System.out.println(i +"!true"+BikeArray.get(i).toString());	
+			String details = BikeArray.get(i).BiketoString();	
+			WriteDetails("bike.txt", details);
+				//System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
 		} //end of Forloop
 	} //End of Method
 }
@@ -151,6 +150,8 @@ public class FileManipulation {
 //String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";" + bikeFromFile.getType() 
 		//+ ";" + bikeFromFile.getPrice() + ";" + "false";
 //System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray); 
+//String details = BikeArray.get(i).getId() + ";" + BikeArray.get(i).getColor() + ";" + BikeArray.get(i).getType() 
+//	+ ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
 /** HOW TO CALL THE METHOD
 //String Line = "2;yellow;women;50;true";//<<<TEST
 //FileManipulation.replaceLine (Line);//<<<TEST */
