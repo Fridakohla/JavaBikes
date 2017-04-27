@@ -12,10 +12,6 @@ public class CustomerDatabase {
 
 	public CustomerDatabase() {
 		getCustomerList();
-		System.out.println(customerList.toString()); // This check is to be
-														// removed from final
-		// but ! create method to print the whole DB
-
 	}
 
 	// method for adding customer in customer lists (DIRECTLY TO TEXT LIST)

@@ -14,7 +14,7 @@ public class WelcomeView {
 	public static final int MENUCHOICE_CONFIRM = 1;
 	public static final int MENUCHOICE_BROWSE = 2;
 
-	public int firstMenuChoice() {
+	public int loginMenu() {
 		int choice = 0;
 		while (choice != 1 && choice != 2) {
 			Scanner input = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class WelcomeView {
 		return choice;
 	}
 
-	public int secondMenuChoice() {
+	public int browseBikesMenu() {
 		int choice;
 		Scanner input = new Scanner(System.in);
 		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
@@ -42,7 +42,7 @@ public class WelcomeView {
 		return choice;
 	}
 
-	public int thirdMenuChoice() {
+	public int confirmBookingMenu() {
 		int choice;
 		Scanner input = new Scanner(System.in);
 		System.out.println("You have chosen " + JavaBikesController.bookingChoice + ".");
