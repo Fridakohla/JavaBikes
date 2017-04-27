@@ -21,4 +21,11 @@ public class Ebike extends Bike {
 	public String toString() {
 		return super.toString() + " with " + batteryDuration + " hours of duration.";
 	}
+
+	@Override
+	public String BiketoString() {
+		// TODO Auto-generated method stub
+		return super.BiketoString()+";"+ batteryDuration;
+	}
+	
 }

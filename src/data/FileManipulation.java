@@ -122,27 +122,52 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 	
-	public static void replaceLine(String Line)  { //>>>confirm booking
-		ArrayList<Bike> BikeArray = getBikeDatabase();
-		Bike bikeFromFile = getBike(Line);
+	public static void replaceLine(Bike bikeObject)  { //>>>confirm booking
+		String fileName = null;
+		System.out.println(bikeObject.toString());
+		if(bikeObject instanceof Ebike){
+			ArrayList<Ebike> BikeArray = getEbikeDatabase();	
+			fileName = "ebike.txt";
+			clearFileContent(fileName);
+			for(int i=0; i< BikeArray.size(); i++) {
+				if(BikeArray.get(i).getId() == (bikeObject.getId())) {
+					BikeArray.get(i).setAvailable(false); 
+					}
+				String details = BikeArray.get(i).BiketoString();	
+				WriteDetails(fileName, details);
+					System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
+			} //end of Forloop
+		}
+		else {
+			ArrayList<Bike> BikeArray = getBikeDatabase();
+			fileName = "bike.txt";
+			clearFileContent(fileName);
+			for(int i=0; i< BikeArray.size(); i++) {
+				if(BikeArray.get(i).getId() == (bikeObject.getId())) {
+					BikeArray.get(i).setAvailable(false); 
+					}
+				String details = BikeArray.get(i).BiketoString();	
+				WriteDetails(fileName, details);
+					//System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
+			} //end of Forloop
+			}
+		
+		//String Line = bikeObject.BiketoString();
+		//Bike bikeFromFile = getBike(Line);
 		//clears all content from file
+		
+
+	} //End of Method 
+	
+	public static void clearFileContent(String fileName){
 		try {  
-			PrintWriter pw = new PrintWriter("bike.txt");
+			PrintWriter pw = new PrintWriter(fileName);
 			pw.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for(int i=0; i< BikeArray.size(); i++) {
-			if(BikeArray.get(i).getId() == (bikeFromFile.getId())) {
-				BikeArray.get(i).setAvailable(false); 
-				}
-			String details = BikeArray.get(i).BiketoString();	
-			WriteDetails("bike.txt", details);
-				//System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
-		} //end of Forloop
-	} //End of Method
+	} //End of clearFileContent
 }
 
 
@@ -154,4 +179,7 @@ public class FileManipulation {
 //	+ ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
 /** HOW TO CALL THE METHOD
 //String Line = "2;yellow;women;50;true";//<<<TEST
-//FileManipulation.replaceLine (Line);//<<<TEST */
+//FileManipulation.replaceLine (getBike("2;yellow;women;50;true"));//<<<TEST */
+
+//Bike testBike = FileManipulation.getBike("2;yellow;women;50;true");
+//FileManipulation.replaceLine(testBike);
