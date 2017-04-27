@@ -135,7 +135,7 @@ public class FileManipulation {
 					}
 				String details = BikeArray.get(i).BiketoString();	
 				WriteDetails(fileName, details);
-					System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
+				System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
 			} //end of Forloop
 		}
 		else {
@@ -148,7 +148,7 @@ public class FileManipulation {
 					}
 				String details = BikeArray.get(i).BiketoString();	
 				WriteDetails(fileName, details);
-					//System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
+					System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
 			} //end of Forloop
 			}
 		
@@ -198,7 +198,8 @@ public class FileManipulation {
 // + ";" + BikeArray.get(i).getType()
 // + ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
 /**
- * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
+ * HOW TO CALL THE METHOD 
+ * //String Line = "2;yellow;women;50;true";//<<<TEST
  * //FileManipulation.replaceLine (Line);//<<<TEST
  */
  
