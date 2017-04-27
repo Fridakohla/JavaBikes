@@ -121,8 +121,7 @@ public class FileManipulation {
 			System.out.println("Error writing to file '" + file + "'");
 		}
 	}// End of Method WriteDetails
-<<<<<<< HEAD
-	
+
 	public static void replaceLine(Bike bikeObject)  { //>>>confirm booking
 		String fileName = null;
 		System.out.println(bikeObject.toString());
@@ -161,27 +160,17 @@ public class FileManipulation {
 	} //End of Method 
 	
 	public static void clearFileContent(String fileName){
-		try {  
+		try { 
 			PrintWriter pw = new PrintWriter(fileName);
-=======
-
-	public static void replaceLine(String Line) { // >>>confirm booking
-		ArrayList<Bike> BikeArray = getBikeDatabase();
-		Bike bikeFromFile = getBike(Line);
-		// clears all content from file
-		try {
-			PrintWriter pw = new PrintWriter("bike.txt");
->>>>>>> fa7d418fc015d9c6786c5ff81c6ce58019b698d7
 			pw.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-<<<<<<< HEAD
-	} //End of clearFileContent
+			}
+	}
+		
+
 }
-
-
 
 //String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";" + bikeFromFile.getType() 
 		//+ ";" + bikeFromFile.getPrice() + ";" + "false";
@@ -194,18 +183,12 @@ public class FileManipulation {
 
 //Bike testBike = FileManipulation.getBike("2;yellow;women;50;true");
 //FileManipulation.replaceLine(testBike);
-=======
 
-		for (int i = 0; i < BikeArray.size(); i++) {
-			if (BikeArray.get(i).getId() == (bikeFromFile.getId())) {
-				BikeArray.get(i).setAvailable(false);
-			}
-			String details = BikeArray.get(i).BiketoString();
-			WriteDetails("bike.txt", details);
+		
 			// System.out.println(i +"!true"+BikeArray.get(i).BiketoString());
-		} // end of Forloop
-	} // End of Method
-}
+		 // end of Forloop
+	 // End of Method
+
 
 // String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";"
 // + bikeFromFile.getType()
@@ -218,4 +201,4 @@ public class FileManipulation {
  * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
  * //FileManipulation.replaceLine (Line);//<<<TEST
  */
->>>>>>> fa7d418fc015d9c6786c5ff81c6ce58019b698d7
+ 
