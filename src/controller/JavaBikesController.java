@@ -3,6 +3,8 @@ package controller;
 import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
+import model.Booking;
+import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import view.CustomerView;
@@ -17,6 +19,7 @@ public class JavaBikesController {
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
 	public static Bike bookingChoice;
+	public static Booking currentBooking;
 
 	/** Constructor (moved in front for better structure view) */
 	public JavaBikesController() {
@@ -28,6 +31,8 @@ public class JavaBikesController {
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
+		
+	
 		controller.runProgram();
 	} // End of main
 
@@ -58,6 +63,9 @@ public class JavaBikesController {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
 				daysBooked = welcome.chooseDays();
+	
+				currentBooking = BookingDatabase.NewBooking(bookingChoice, currentCustomer, daysBooked) ; //test
+				System.out.println(currentBooking.toString()); //test
 				correctInput = false;
 				while (!correctInput) {
 					choice = welcome.confirmBookingMenu();

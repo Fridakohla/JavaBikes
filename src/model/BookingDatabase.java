@@ -5,7 +5,13 @@ import java.util.ArrayList;
 public class BookingDatabase {
 	
 	private static ArrayList<Booking> bookingList = new ArrayList<Booking>();
+	public static Booking myBooking = new Booking();
 
+	public static Booking NewBooking(Bike ChosenBike, Customer CurrentCustomer, int bookedDays) {
+		myBooking = Booking.getBookingDetails(ChosenBike, CurrentCustomer,  bookedDays);
+		return myBooking;
+	}
+		
 	public void addBooking(Booking newBooking) {
 		bookingList.add(newBooking);
 	}
