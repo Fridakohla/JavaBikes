@@ -18,6 +18,7 @@ public class JavaBikesController {
 	CustomerView myView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
+	Booking newBooking = new Booking();
 	public static Bike bookingChoice;
 	public static Booking currentBooking;
 
@@ -31,8 +32,6 @@ public class JavaBikesController {
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
-		
-	
 		controller.runProgram();
 	} // End of main
 
@@ -63,9 +62,10 @@ public class JavaBikesController {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
 				daysBooked = welcome.chooseDays();
-	
-				currentBooking = BookingDatabase.NewBooking(bookingChoice, currentCustomer, daysBooked) ; //test
-				System.out.println(currentBooking.toString()); //test
+	//Created method for CurrentBooking / Not sure if this is the right place?
+	//It stores all Booking info which will be recorded to file in next step if confirmed. 
+				currentBooking = newBooking.getBookingDetails(bookingChoice, currentCustomer, daysBooked) ; 
+				BookingDatabase.addBooking(currentBooking);
 				correctInput = false;
 				while (!correctInput) {
 					choice = welcome.confirmBookingMenu();

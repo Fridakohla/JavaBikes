@@ -3,15 +3,15 @@ package model;
 public class Booking {
 	Bike bike;
 	Customer customer;
-	long startTimeMs; // figure out start and end
-													// time
-	long endTimeMs;
-	int bookedDays;
-	int bookingId,  BikeId;
-	String bikeColor,CustomerUsername, bikeType;
-	int price;
+	private long startTimeMs; // figure out start and end time
+	private long endTimeMs;
+	private int bookedDays;
+	private int bookingId,  BikeId;
+	private String bikeColor,CustomerUsername, bikeType;
+	private int price;
 	
-	public static int Id;
+	public static int Id= 0;
+	
 	
 	public Booking() {
 		
@@ -31,7 +31,7 @@ public class Booking {
 	}
 	
 	
-	public static Booking getBookingDetails(Bike ChosenBike, Customer CurrentCustomer, int bookedDays) {
+	public Booking getBookingDetails(Bike ChosenBike, Customer CurrentCustomer, int bookedDays) {
 		Booking B = new Booking();
 		Id++;
 		B.setBookingId(Id);
@@ -138,4 +138,6 @@ public class Booking {
 				+ ", BikeId=" + this.BikeId + ", bikeColor=" + this.bikeColor + ", CustomerUsername=" + this.CustomerUsername
 				+ ", bikeType=" + this.bikeType + ", price=" + this.price + "]";
 	}
+	
+
 }

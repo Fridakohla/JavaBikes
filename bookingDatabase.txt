@@ -1,0 +1,9 @@
+1; efii;1;blue;man;50;2;1493484322105
+1; efii;6;navy;child;25;5;1493484385851
+1; test;10;black;man;75;1;1493484440624
+1; test;5;purple;child;25;2;1493484782459
+0; null;0;null;null;0;0;0
+0; null;0;null;null;0;0;0
+1; test;16;yellow;child;50;2;1493490741852
+1; efii;13;black;woman;60;1;1493490890647
+1; efii;6;navy;child;25;2;1493491148379
