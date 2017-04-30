@@ -11,19 +11,12 @@ public class BookingDatabase {
 	
 		
 	public static void addBooking(Booking newBooking) {
-		bookingList.add(newBooking); //NOT NEEDED??
-		String details = newBooking.getBookingId() + "; " + newBooking.getCustomerUsername() + ";" + newBooking.getBikeId() 
-		+ ";" + newBooking.getBikeColor() + ";" + newBooking.getBikeType() + ";" + newBooking.getPrice() 
-		+ ";" + newBooking.getBookedDays() + ";" + newBooking.getStartTimeMs();
+		bookingList.add(newBooking); //THIS LINE NOT REALLY NEEDED??
+		String details = newBooking.toString();
 		FileManipulation.WriteDetails("bookingDatabase.txt", details);
 	}
 	
-	public void addToShoppingCard(Bike BookingChoice) { // TO BE DELETED??
-		//think about : how to store 1 booking before it confirmed/or paid by customer
-		Bike ShoppingCard = BookingChoice; // 1 instance of Bike object celected by customer
-		
-		
-	}
+	
 
 	public ArrayList<Booking> getBookingList() {
 		return bookingList;

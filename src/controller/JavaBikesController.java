@@ -65,12 +65,12 @@ public class JavaBikesController {
 	//Created method for CurrentBooking / Not sure if this is the right place?
 	//It stores all Booking info which will be recorded to file in next step if confirmed. 
 				currentBooking = newBooking.getBookingDetails(bookingChoice, currentCustomer, daysBooked) ; 
-				BookingDatabase.addBooking(currentBooking);
 				correctInput = false;
 				while (!correctInput) {
 					choice = welcome.confirmBookingMenu();
 					switch (choice) {
 					case WelcomeView.MENUCHOICE_CONFIRM:
+						BookingDatabase.addBooking(currentBooking); //Booking confirmed and recorder to file
 						System.out.println("Confirmed booking.");
 						correctInput = true;
 						browsingBikes = false;
@@ -101,8 +101,8 @@ public class JavaBikesController {
 				correctInput = true;
 				int chosenBikeId = myView.browseBikes();
 				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				// BookingDatabase.addToShoppingCard(bookingChoice); TEST TEST
-				// TEST
+				// HERE WE NEED A CHECK OF AVAILABILITY IF AVAILABLE==FALSE >>>> PLEASE CHOSE ANOTHER ONE.
+				// 
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;

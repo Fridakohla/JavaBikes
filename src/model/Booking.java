@@ -1,59 +1,49 @@
 package model;
 
+import java.text.*;
+import java.util.Date;
+
 public class Booking {
 	Bike bike;
 	Customer customer;
-	private long startTimeMs; // figure out start and end time
+	private long startTimeMs =System.currentTimeMillis(); // figure out start and end time
+	private String startTime, bookingId;
 	private long endTimeMs;
 	private int bookedDays;
-	private int bookingId,  BikeId;
+	private int BikeId;
 	private String bikeColor,CustomerUsername, bikeType;
 	private int price;
-	
-	public static int Id= 0;
 	
 	
 	public Booking() {
 		
 	}
-
-	public Booking(int bookingId, String Username, long startTimeMs, int bookedDays, int bikeId, 
-			String bikeColor, String bikeType, int price) {
-		super();
-		this.startTimeMs = startTimeMs;
-		this.bookedDays = bookedDays;
-		this.bookingId = bookingId;
-		CustomerUsername = Username;
-		BikeId = bikeId;
-		this.bikeColor = bikeColor;
-		this.bikeType = bikeType;
-		this.price = price;
-	}
 	
 	
 	public Booking getBookingDetails(Bike ChosenBike, Customer CurrentCustomer, int bookedDays) {
 		Booking B = new Booking();
-		Id++;
-		B.setBookingId(Id);
+		B.setStartTime();
+		B.setBookingId();
 		B.setCustomerUsername(CurrentCustomer.getUsername());
 		B.setBikeId(ChosenBike.getId());
 		B.setBikeColor(ChosenBike.getColor());
 		B.setBikeType(ChosenBike.getType());
 		B.setPrice(ChosenBike.getPrice());
 		B.setBookedDays(bookedDays);
-		B.setStartTimeMs();
-
+	
 		return B;
 	}
 	
 	
-	public long getStartTimeMs() {
-		return startTimeMs;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setStartTimeMs() {
-		this.startTimeMs = System.currentTimeMillis();
-	}
+	public void setStartTime() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		this.startTime = dateFormat.format(date);
+	} 
 
 	public String getCustomerUsername() {
 		return CustomerUsername;
@@ -113,12 +103,13 @@ public class Booking {
 		this.bookedDays = bookedDays;
 	}
 
-	public int getBookingId() {
+	public String getBookingId() {
 		return bookingId;
 	}
 
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+	public void setBookingId() { 
+		this.bookingId = startTime.substring(5,7)+ startTime.substring(8,10) +
+				startTime.substring(11,13) +startTime.substring(14,16);
 	}
 
 	// get days instead
@@ -134,10 +125,22 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [startTimeMs=" + this.startTimeMs + ", bookedDays=" + this.bookedDays + ", bookingId=" + this.bookingId
-				+ ", BikeId=" + this.BikeId + ", bikeColor=" + this.bikeColor + ", CustomerUsername=" + this.CustomerUsername
-				+ ", bikeType=" + this.bikeType + ", price=" + this.price + "]";
+		return getBookingId() + "; " + getCustomerUsername() + ";" + getBikeId() + ";" + getBikeColor() 
+		+ ";" + getBikeType() + ";" + getPrice() + ";" + getBookedDays() + ";" + getStartTime();
 	}
 	
 
 }
+
+/**public Booking(String bookingId, String Username, String startTime, int bookedDays, int bikeId, 
+		String bikeColor, String bikeType, int price) {
+	super();
+	this.startTime = startTime;
+	this.bookedDays = bookedDays;
+	this.bookingId = bookingId;
+	CustomerUsername = Username;
+	BikeId = bikeId;
+	this.bikeColor = bikeColor;
+	this.bikeType = bikeType;
+	this.price = price;
+} */
