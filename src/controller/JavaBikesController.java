@@ -95,7 +95,7 @@ public class JavaBikesController {
 																	// and
 																	// recorder
 																	// to file
-						cardView.validateCreditCardDetails(currentCustomer);
+						cardView.validateCreditCardDetails(currentCustomer,bikeChoice);
 						correctInput = true;
 						browsingBikes = false;
 						break;

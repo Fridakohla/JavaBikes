@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import data.FileManipulation;
+import model.Bike;
+import model.Booking;
 import model.Customer;
 
 public class PaymentView {
 
-	public void validateCreditCardDetails(Customer currentCustomer) {
+	public void validateCreditCardDetails(Customer currentCustomer, Bike bikeChoise) {
 		Scanner input = new Scanner(System.in);
 		boolean validation = false;
 		while (!validation) {
@@ -33,13 +36,14 @@ public class PaymentView {
 			} else {
 				System.out.println("\nYour payment was successful and your booking is confirmed!");
 				validation = true;
+				FileManipulation.updateAvailability(bikeChoise); //Updates Bike Database
 				currentCustomer.setCreditCardNumber(cardNumber);
 				currentCustomer.setCreditCardCvc(cardCvc);
 				currentCustomer.setCreditCardExpiration(cardExpDate);
 				// get a receipt for customer
 			}
 		}
-	}
+	} //End of Method
 
 	private Boolean checkCardNumber(String cardNumber) {
 		String number = new StringBuilder(cardNumber).reverse().toString();
@@ -47,7 +51,7 @@ public class PaymentView {
 		Boolean validNumber = false;
 
 		for (int i = 0; i < number.length(); i++) {
-			int currentDigit = Integer.parseInt(number.substring(i));
+			int currentDigit = Integer.parseInt(number.substring(i,i+1));
 			if (i % 2 == 0) {
 				sum += currentDigit;
 			} else {
@@ -66,13 +70,13 @@ public class PaymentView {
 		DateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
 		Date date = new Date();
 		String CurrentDate = dateFormat.format(date);
-
-		return false;
+//need to finish code
+		return true;
 	}
 
 	private boolean checkMasterVisa(String cardNumber) {
 		boolean MasterVisa = false;
-		if (cardNumber.startsWith("4")
+		if (cardNumber.startsWith("4") 
 				&& (cardNumber.length() == 13 || cardNumber.length() == 16 || cardNumber.length() == 19)) {
 			MasterVisa = true;
 		} else if (Integer.parseInt(cardNumber.substring(0, 2)) >= 51
