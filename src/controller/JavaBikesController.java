@@ -1,24 +1,28 @@
 package controller;
 
+import java.util.Scanner;
+
 import model.Bike;
 import model.BikeDatabase;
 import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
+import view.AdminView;
 import view.CustomerView;
 import view.PaymentView;
 import view.WelcomeView;
 
 public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
-	CustomerDatabase customerDb;
+	public static CustomerDatabase customerDb;
 	Customer currentCustomer;
 	public static BikeDatabase bikeDb;
 	CustomerView customerView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
 	PaymentView cardView = new PaymentView();
+	AdminView adminView = new AdminView();
 
 	public static Bike bikeChoice;
 	public static Booking currentBooking = new Booking();
@@ -41,37 +45,51 @@ public class JavaBikesController {
 		boolean continueBooking = true;
 		boolean correctInput = false;
 		boolean browsingBikes = true;
-		int choice = welcome.loginMenu(); // user input, 1 to login, 2 to
-		// register
+		int choice = welcome.loginMenu();
 
-		if (choice == WelcomeView.MENUCHOICE_REGISTER) {
-			customerDb.addNewCustomer(); // adds newly registered customer
-
-		} else if (choice == WelcomeView.MENUCHOICE_LOGIN) {
-			currentCustomer = welcome.login(customerDb);
-			if (currentCustomer != null) {
-				// needs to fill in: return booked bike or continue to book bike
-				System.out.println("\nHello, " + currentCustomer.getFirstName() + "! Your login was successful.\n");
-				// System.out.println(currentCustomer); // test if customer is
-				// stored
-				// continue with browse bikes
-			} else {
-				browsingBikes = false;
+		while (!correctInput) {
+			switch (choice) {
+			case WelcomeView.MENUCHOICE_REGISTER:
+				customerDb.addNewCustomer(); // adds newly registered customer
+				correctInput = true;
+				break;
+			case WelcomeView.MENUCHOICE_LOGIN:
+				currentCustomer = customerView.login(customerDb);
+				if (currentCustomer != null) { // returns null when wrong
+												// username
+												// and/or
+												// pw for too many times
+					correctInput = true;
+					System.out.println("\nHello, " + currentCustomer.getFirstName() + "! Your login was successful.\n");
+					// needs to fill in: return booked bike or continue to book
+					// bike
+					// continue with browse bikes
+				} else {
+					correctInput = true;
+					browsingBikes = false;
+				}
+				break;
+			case WelcomeView.MENUCHOICE_ADMIN:
+				runAdmin();
+				correctInput = true;
+				break;
+			default:
+				System.out.println("Invalid input. Please type a valid option.");
 			}
 		}
+
 		while (browsingBikes) {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
-				int daysBooked = welcome.chooseDays();
-
+				int daysBooked = customerView.chooseDays();
 				// It stores all Booking info which will be recorded to file in
 				// next step if confirmed.
 				currentBooking.setBookingDetails(bikeChoice, currentCustomer, daysBooked);
 				correctInput = false;
 				while (!correctInput) {
-					choice = welcome.confirmBookingMenu();
+					choice = customerView.confirmBookingMenu();
 					switch (choice) {
-					case WelcomeView.MENUCHOICE_CONFIRM:
+					case CustomerView.MENUCHOICE_CONFIRM:
 						BookingDatabase.addBooking(currentBooking); // Booking
 																	// confirmed
 																	// and
@@ -81,10 +99,10 @@ public class JavaBikesController {
 						correctInput = true;
 						browsingBikes = false;
 						break;
-					case WelcomeView.MENUCHOICE_BROWSE:
+					case CustomerView.MENUCHOICE_BROWSE:
 						correctInput = true;
 						break;
-					case WelcomeView.MENUCHOICE_EXIT:
+					case CustomerView.MENUCHOICE_EXIT:
 						System.out.println("You have exited the program.");
 						correctInput = true;
 						continueBooking = false;
@@ -98,25 +116,61 @@ public class JavaBikesController {
 		}
 	}
 
+	private void runAdmin() {
+		// admin login check -- if false, program ends
+		boolean adminContinue = adminView.adminLogin();
+		if (adminContinue) {
+			int choice = adminView.adminFirstMenu();
+			Customer deletedCustomer;
+			switch (choice) {
+			case AdminView.MENUCHOICE_DELETECUSTOMER:
+				adminView.displayCustomerList();
+				deletedCustomer = deleteCustomerFromList();
+				customerDb.removeCustomer(deletedCustomer);
+				adminView.displayCustomerList();
+			}
+		}
+	}
+
+	public Customer deleteCustomerFromList() {
+		boolean correctInput = false;
+		while (!correctInput) {
+			System.out.println(
+					"\nPlease enter the user name of the customer you would like to delete from the database:");
+			Scanner input = new Scanner(System.in);
+			String deletedCustomer = input.nextLine();
+			for (Customer c : customerDb.getCustomerList()) {
+				if (c.getUsername().equals(deletedCustomer)) {
+					correctInput = true;
+					return c;
+				}
+			}
+			System.out.println("\nInvalid input.");
+		}
+		return null;
+	}
+
 	public boolean getBrowseBikesMenu() {
 		boolean correctInput = false;
 		while (!correctInput) {
-			int choice = welcome.browseBikesMenu();
+			int choice = customerView.browseBikesMenu();
 			switch (choice) {
-			case WelcomeView.MENUCHOICE_BIKES:
+			case CustomerView.MENUCHOICE_BIKES:
 				correctInput = true;
 				int chosenBikeId = customerView.browseBikes();
 				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				// HERE WE NEED A CHECK OF AVAILABILITY IF AVAILABLE==FALSE >>>>
-				// PLEASE CHOSE ANOTHER ONE.
-				//
+				if (bikeChoice.isAvailable() == false) {
+					System.out.println("Sorry, the bike you have chosen is currently not available.");
+					System.out.println("Please come back another day or chose a different bike.\n");
+					return false;
+				}
 				break;
-			case WelcomeView.MENUCHOICE_EBIKES:
+			case CustomerView.MENUCHOICE_EBIKES:
 				correctInput = true;
 				chosenBikeId = customerView.browseElectricBikes();
 				bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
 				break;
-			case WelcomeView.MENUCHOICE_EXIT:
+			case CustomerView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");
 				correctInput = true;
 				return false;

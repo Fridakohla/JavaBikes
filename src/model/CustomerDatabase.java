@@ -45,4 +45,10 @@ public class CustomerDatabase {
 		return null;
 	}
 
+	// maybe better to go on username level instead of whole object
+	public void removeCustomer(Customer customerToDelete) {
+		customerList.remove(customerToDelete);
+		FileManipulation.writeCustomerList(customerList);
+	}
+
 }

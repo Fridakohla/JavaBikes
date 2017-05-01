@@ -6,11 +6,73 @@ import controller.JavaBikesController;
 import data.FileManipulation;
 import model.Bike;
 import model.Customer;
+import model.CustomerDatabase;
 import model.Ebike;
 
 public class CustomerView {
+	public static final int MENUCHOICE_BIKES = 1;
+	public static final int MENUCHOICE_EBIKES = 2;
+	public static final int MENUCHOICE_CONFIRM = 1;
+	public static final int MENUCHOICE_BROWSE = 2;
+	public static final int MENUCHOICE_EXIT = 0;
 
 	public CustomerView() {
+	}
+
+	public int browseBikesMenu() {
+		int choice;
+		Scanner input = new Scanner(System.in);
+		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
+		System.out.println("|1| Browse regular bikes.");
+		System.out.println("|2| Browse electric bikes.");
+		System.out.println("|0| Quit program.\n");
+		choice = input.nextInt();
+		return choice;
+	}
+
+	public int chooseDays() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("\nFor how many days would you like to rent the bike?");
+		int daysBooked = input.nextInt();
+		System.out
+				.println("\n---> You have chosen " + JavaBikesController.bikeChoice + " for " + daysBooked + " days.");
+		System.out.println(
+				"---> Your total would be " + JavaBikesController.bikeChoice.getPrice() * daysBooked + " DKK.");
+		return daysBooked;
+	}
+
+	public int confirmBookingMenu() {
+		int choice;
+		Scanner input = new Scanner(System.in);
+		System.out.println("\nChoose one of the following options:");
+		System.out.println("|1| Confirm and proceed to payment.");
+		System.out.println("|2| Discard booking and browse again.");
+		System.out.println("|0| Quit program.\n");
+		choice = input.nextInt();
+		return choice;
+	}
+
+	public Customer login(CustomerDatabase customerDb) {
+		String usernameInput = "";
+		String passwordInput = "";
+		Customer inputCustomer = null;
+
+		for (int countTries = 1; countTries < 4 && inputCustomer == null; countTries++) {
+			Scanner input = new Scanner(System.in);
+			System.out.print("Enter your username: ");
+			usernameInput = input.nextLine();
+			System.out.print("Enter your password: ");
+			passwordInput = input.nextLine();
+			inputCustomer = customerDb.checkLogin(usernameInput, passwordInput);
+			if (inputCustomer != null) {
+				return inputCustomer;
+			} else {
+				System.out.println("\nYou have entered the wrong username and/or password. \nYou have "
+						+ (3 - countTries) + " tries left.");
+			}
+		}
+		System.out.println("You have exceeded the number of tries. Please try again later.");
+		return null;
 	}
 
 	public Customer getCustomerDetails() { // Creates a new customer
@@ -66,10 +128,10 @@ public class CustomerView {
 	// choose one by entering ID
 	public int browseBikes() {
 		System.out.println("Here is a list of our bikes.\n");
-		System.out.println("ID \t\tColor \t\tType \t\tPrice \t\tAvailable?");
+		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
 		for (Bike myBike : JavaBikesController.bikeDb.getBikeList()) {
-			System.out.println(myBike.getId() + "\t\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
+			System.out.println(myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
 					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
 		}
 		System.out.println("\nPlease enter the ID of the bike you would like to book:");
@@ -86,15 +148,10 @@ public class CustomerView {
 		return bookingChoice;
 	}
 
-	////// TESTING -
-	/**
-	 * THIS ONE JUST TO TEST THE WORK OF EXTRATION FOR EBIKES - CAN DELETE OR
-	 * USE IN THE RIGHT PLACE
-	 */
 	public int browseElectricBikes() {
 		System.out.println("Here is a list of our bikes.\n");
-		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tDuration ");
-		System.out.println("--------------------------------------------------------------------");
+		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
+		System.out.println("-------------------------------------------------------------------------------------");
 		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
 			System.out.println(
 					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
