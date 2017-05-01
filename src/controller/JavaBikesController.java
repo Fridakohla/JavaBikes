@@ -6,8 +6,8 @@ import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
-import view.CreditCardView;
 import view.CustomerView;
+import view.PaymentView;
 import view.WelcomeView;
 
 public class JavaBikesController {
@@ -18,7 +18,7 @@ public class JavaBikesController {
 	CustomerView customerView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
-	CreditCardView cardView = new CreditCardView();
+	PaymentView cardView = new PaymentView();
 
 	public static Bike bikeChoice;
 	public static Booking currentBooking = new Booking();

@@ -7,38 +7,38 @@ import java.util.Scanner;
 
 import model.Customer;
 
-public class CreditCardView {
-	// private String CardNumber;
-	// private String CardExpDate;
-	// private String CardCvc;
-	Scanner input = new Scanner(System.in);
+public class PaymentView {
 
 	public void validateCreditCardDetails(Customer currentCustomer) {
-
-		System.out.print("Enter your credit card number: ");
-		String cardNumber = input.nextLine();
-
-		String cardExpDate;
-		do { // Checks format of the Expiration Date
-			System.out.print("Enter your card expiration date in format MM/YYYY: ");
-			cardExpDate = input.nextLine();
-			if (!cardExpDate.matches("\\d{2}/\\d{4}"))
-				System.out.println("The format of the date is incorrect. Please try again.");
-		} while (!cardExpDate.matches("^(?:1[0-2]|0[1-9])/\\d{4}"));
-		currentCustomer.setCreditCardExpiration(cardExpDate);
-
-		System.out.println(" Please enter the CVC number :");
-		String cardCvc = input.nextLine();
-
+		Scanner input = new Scanner(System.in);
 		boolean validation = false;
 		while (!validation) {
+			// add validation of correct format
+			System.out.print("Enter your credit card number: ");
+			String cardNumber = input.nextLine();
+
+			String cardExpDate;
+			do { // Checks format of the Expiration Date
+				System.out.println("\nEnter your card expiration date in format MM/YYYY: ");
+				cardExpDate = input.nextLine();
+				if (!cardExpDate.matches("\\d{2}/\\d{4}"))
+					System.out.println("The format of the date is incorrect. Please try again:");
+			} while (!cardExpDate.matches("^(?:1[0-2]|0[1-9])/\\d{4}"));
+
+			System.out.println("\nEnter the CVC number :");
+			String cardCvc = input.nextLine();
+
 			if (!checkCardNumber(cardNumber) || !checkCvc(cardCvc)) {
-				System.out.println("Your Credit Card was rejected. Please try again.");
-				break;
+				System.out.println("\nYour Credit Card was rejected. Please try again.");
+			} else {
+				System.out.println("\nYour payment was successful and your booking is confirmed!");
+				validation = true;
+				currentCustomer.setCreditCardNumber(cardNumber);
+				currentCustomer.setCreditCardCvc(cardCvc);
+				currentCustomer.setCreditCardExpiration(cardExpDate);
+				// get a receipt for customer
 			}
 		}
-		currentCustomer.setCreditCardNumber(cardNumber);
-		currentCustomer.setCreditCardCvc(cardCvc);
 	}
 
 	private Boolean checkCardNumber(String cardNumber) {

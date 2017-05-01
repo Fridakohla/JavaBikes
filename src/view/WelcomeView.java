@@ -59,7 +59,7 @@ public class WelcomeView {
 		Scanner input = new Scanner(System.in);
 		System.out.println("\nChoose one of the following options:");
 		System.out.println("|1| Confirm and proceed to payment.");
-		System.out.println("|2| Browse again.");
+		System.out.println("|2| Discard booking and browse again.");
 		System.out.println("|3| Quit program.\n");
 		choice = input.nextInt();
 		return choice;
