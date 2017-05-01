@@ -122,7 +122,7 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	public static void replaceLine(Bike bikeObject)  { //>>>confirm booking
+	public static void updateAvailability(Bike bikeObject)  { //>>>confirm booking
 		String fileName = null;
 		System.out.println(bikeObject.toString());
 		if(bikeObject instanceof Ebike){
@@ -150,16 +150,11 @@ public class FileManipulation {
 				WriteDetails(fileName, details);
 					System.out.println(i +"!true"+BikeArray.get(i).BiketoString());	
 			} //end of Forloop
-			}
+		}
 		
-		//String Line = bikeObject.BiketoString();
-		//Bike bikeFromFile = getBike(Line);
-		//clears all content from file
-		
-
 	} //End of Method 
 	
-	public static void clearFileContent(String fileName){
+	public static void clearFileContent(String fileName){ //clears all content from file
 		try { 
 			PrintWriter pw = new PrintWriter(fileName);
 			pw.close();
@@ -182,7 +177,7 @@ public class FileManipulation {
 //FileManipulation.replaceLine (getBike("2;yellow;women;50;true"));//<<<TEST */
 
 //Bike testBike = FileManipulation.getBike("2;yellow;women;50;true");
-//FileManipulation.replaceLine(testBike);
+//FileManipulation.updateAvailability(testBike);
 
 		
 			// System.out.println(i +"!true"+BikeArray.get(i).BiketoString());
@@ -203,6 +198,6 @@ public class FileManipulation {
  * //FileManipulation.replaceLine (Line);//<<<TEST
  * to call eBike:
  * Bike testBike = FileManipulation.getEbike("14;orange;child;55;true;7");
-   FileManipulation.replaceLine(testBike);
+   FileManipulation.updateAvailability(testBike);
  */
  

@@ -34,6 +34,7 @@ public class JavaBikesController {
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
 	} // End of main
+	
 
 	private void runProgram() {
 		boolean continueBooking = true;
