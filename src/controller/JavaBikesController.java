@@ -6,6 +6,7 @@ import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
+import view.CreditCardView;
 import view.CustomerView;
 import view.WelcomeView;
 
@@ -14,9 +15,10 @@ public class JavaBikesController {
 	CustomerDatabase customerDb;
 	Customer currentCustomer;
 	public static BikeDatabase bikeDb;
-	CustomerView myView = new CustomerView();
+	CustomerView customerView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
+	CreditCardView cardView = new CreditCardView();
 
 	public static Bike bikeChoice;
 	public static Booking currentBooking = new Booking();
@@ -75,7 +77,7 @@ public class JavaBikesController {
 																	// and
 																	// recorder
 																	// to file
-						System.out.println("Confirmed booking.");
+						cardView.validateCreditCardDetails(currentCustomer);
 						correctInput = true;
 						browsingBikes = false;
 						break;
@@ -103,7 +105,7 @@ public class JavaBikesController {
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_BIKES:
 				correctInput = true;
-				int chosenBikeId = myView.browseBikes();
+				int chosenBikeId = customerView.browseBikes();
 				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
 				// HERE WE NEED A CHECK OF AVAILABILITY IF AVAILABLE==FALSE >>>>
 				// PLEASE CHOSE ANOTHER ONE.
@@ -111,7 +113,7 @@ public class JavaBikesController {
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;
-				chosenBikeId = myView.browseElectricBikes();
+				chosenBikeId = customerView.browseElectricBikes();
 				bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EXIT:
