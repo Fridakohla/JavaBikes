@@ -117,17 +117,57 @@ public class JavaBikesController {
 	}
 
 	private void runAdmin() {
+		boolean correctInput = false;
 		// admin login check -- if false, program ends
 		boolean adminContinue = adminView.adminLogin();
-		if (adminContinue) {
-			int choice = adminView.adminFirstMenu();
-			Customer deletedCustomer;
+		while (adminContinue) {
+			if (!correctInput) {
+				Customer deletedCustomer;
+				int choice = adminView.adminMainMenu();
+				switch (choice) {
+				case AdminView.MENUCHOICE_DELETECUSTOMER:
+					adminView.displayCustomerList();
+					deletedCustomer = deleteCustomerFromList();
+					if (deletedCustomer != null) {
+						customerDb.removeCustomer(deletedCustomer);
+						adminView.displayCustomerList();
+						correctInput = true;
+					} else {
+						correctInput = false;
+					}
+					break;
+				case AdminView.MENUCHOICE_MANAGEBIKES:
+					manageBikes();
+					correctInput = true;
+					break;
+				// add and remove -- bikes or ebikes
+				case AdminView.MENUCHOICE_VIEWBOOKINGS:
+					System.out.println("Viewing bookings.");
+					correctInput = true;
+					break;
+				case CustomerView.MENUCHOICE_EXIT:
+					System.out.println("You have exited the program.");
+					correctInput = true;
+					adminContinue = false;
+					break;
+				default:
+					System.out.println("Invalid input. Please type a valid option.");
+				}
+			}
+		}
+	}
+
+	private void manageBikes() {
+		boolean correctInput = false;
+		int choice = adminView.manageBikesMenu();
+		while (!correctInput) {
 			switch (choice) {
-			case AdminView.MENUCHOICE_DELETECUSTOMER:
-				adminView.displayCustomerList();
-				deletedCustomer = deleteCustomerFromList();
-				customerDb.removeCustomer(deletedCustomer);
-				adminView.displayCustomerList();
+			case AdminView.MENUCHOICE_REMOVEEBIKE:
+				System.out.println("\nEnter the ID of the ebike you would like to delete from the database.");
+				System.out.println("Type 'back' to return.");
+				Scanner input = new Scanner(System.in);
+				int deletedEbikeId = input.nextInt();
+				// deletedEbike = BikeDatabase.getEbikeByID(deletedEbikeId);
 			}
 		}
 	}
@@ -136,13 +176,18 @@ public class JavaBikesController {
 		boolean correctInput = false;
 		while (!correctInput) {
 			System.out.println(
-					"\nPlease enter the user name of the customer you would like to delete from the database:");
+					"\nPlease enter the user name of the customer you would like to delete from the database.");
+			System.out.println("Type 'back' to return.");
 			Scanner input = new Scanner(System.in);
 			String deletedCustomer = input.nextLine();
 			for (Customer c : customerDb.getCustomerList()) {
 				if (c.getUsername().equals(deletedCustomer)) {
 					correctInput = true;
 					return c;
+				} else if (deletedCustomer.equals("back")) {
+					correctInput = true;
+					return null;
+					// go back to main menu
 				}
 			}
 			System.out.println("\nInvalid input.");
