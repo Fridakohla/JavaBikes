@@ -1,6 +1,5 @@
 package controller;
 
-import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
 import model.Booking;
@@ -18,15 +17,16 @@ public class JavaBikesController {
 	CustomerView myView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
-	Booking newBooking = new Booking();
-	public static Bike bookingChoice;
-	public static Booking currentBooking;
+
+	public static Bike bikeChoice;
+	public static Booking currentBooking = new Booking();
 
 	/** Constructor (moved in front for better structure view) */
 	public JavaBikesController() {
 		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
+
 	}
 
 	public static void main(String[] args) {
@@ -34,7 +34,6 @@ public class JavaBikesController {
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
 	} // End of main
-	
 
 	private void runProgram() {
 		boolean continueBooking = true;
@@ -58,20 +57,24 @@ public class JavaBikesController {
 				browsingBikes = false;
 			}
 		}
-		int daysBooked = 0;
 		while (browsingBikes) {
 			continueBooking = getBrowseBikesMenu();
 			if (continueBooking) {
-				daysBooked = welcome.chooseDays();
-	//Created method for CurrentBooking / Not sure if this is the right place?
-	//It stores all Booking info which will be recorded to file in next step if confirmed. 
-				currentBooking = newBooking.getBookingDetails(bookingChoice, currentCustomer, daysBooked) ; 
+				int daysBooked = welcome.chooseDays();
+
+				// It stores all Booking info which will be recorded to file in
+				// next step if confirmed.
+				currentBooking.setBookingDetails(bikeChoice, currentCustomer, daysBooked);
 				correctInput = false;
 				while (!correctInput) {
 					choice = welcome.confirmBookingMenu();
 					switch (choice) {
 					case WelcomeView.MENUCHOICE_CONFIRM:
-						BookingDatabase.addBooking(currentBooking); //Booking confirmed and recorder to file
+						BookingDatabase.addBooking(currentBooking); // Booking
+																	// confirmed
+																	// and
+																	// recorder
+																	// to file
 						System.out.println("Confirmed booking.");
 						correctInput = true;
 						browsingBikes = false;
@@ -101,14 +104,15 @@ public class JavaBikesController {
 			case WelcomeView.MENUCHOICE_BIKES:
 				correctInput = true;
 				int chosenBikeId = myView.browseBikes();
-				bookingChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				// HERE WE NEED A CHECK OF AVAILABILITY IF AVAILABLE==FALSE >>>> PLEASE CHOSE ANOTHER ONE.
-				// 
+				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
+				// HERE WE NEED A CHECK OF AVAILABILITY IF AVAILABLE==FALSE >>>>
+				// PLEASE CHOSE ANOTHER ONE.
+				//
 				break;
 			case WelcomeView.MENUCHOICE_EBIKES:
 				correctInput = true;
 				chosenBikeId = myView.browseElectricBikes();
-				bookingChoice = BikeDatabase.getEbikeByID(chosenBikeId);
+				bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
 				break;
 			case WelcomeView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");
