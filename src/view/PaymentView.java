@@ -28,7 +28,7 @@ public class PaymentView {
 			System.out.println("\nEnter the CVC number :");
 			String cardCvc = input.nextLine();
 
-			if (!checkCardNumber(cardNumber) || !checkCvc(cardCvc)) {
+			if (!checkCardNumber(cardNumber) || !checkCvc(cardCvc) || !checkCardExp(cardExpDate) ) {
 				System.out.println("\nYour Credit Card was rejected. Please try again.");
 			} else {
 				System.out.println("\nYour payment was successful and your booking is confirmed!");
