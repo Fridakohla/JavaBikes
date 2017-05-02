@@ -45,4 +45,9 @@ public class BikeDatabase {
 		}
 		return null;
 	}
+
+	public void removeBike(Bike bikeToDelete) {
+		bikeList.remove(bikeToDelete);
+		FileManipulation.writeBikeList(bikeList);
+	}
 }

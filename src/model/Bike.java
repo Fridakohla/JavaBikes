@@ -20,7 +20,7 @@ public class Bike {
 		return "a " + color + " " + type + "'s bike for " + price + " DKK";
 	}
 	
-	public String BiketoString(){
+	public String toFileString(){
 		return getId() + ";" + getColor() + ";" + getType() + ";" + getPrice() + ";" 
 	           + isAvailable();
 	}

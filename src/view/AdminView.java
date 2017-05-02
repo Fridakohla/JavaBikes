@@ -20,9 +20,9 @@ public class AdminView {
 	public boolean adminLogin() {
 		for (int countTries = 1; countTries < 4; countTries++) {
 			Scanner input = new Scanner(System.in);
-			System.out.print("Enter your username: ");
+			System.out.print("Enter the username: ");
 			String adminUsernameInput = input.nextLine();
-			System.out.print("Enter your password: ");
+			System.out.print("Enter the password: ");
 			String adminPasswordInput = input.nextLine();
 			if (adminUsernameInput.equals(adminUsername) && adminPasswordInput.equals(adminPassword)) {
 				System.out.println("\nYou are now logged in as an admin.");
@@ -63,12 +63,12 @@ public class AdminView {
 
 	public void displayCustomerList() {
 		System.out.println("Here is a list of all customers.\n");
-		System.out.println("Username \tFirst Name \t\tLast Name \t\tCPR \t\tEmail");
+		System.out.println("Username \tFirst Name \tLast Name \tCPR \t\t\tEmail");
 		System.out.println(
-				"--------------------------------------------------------------------------------------------");
+				"----------------------------------------------------------------------------------------------");
 		for (Customer myCustomer : FileManipulation.getCustomerDatabase()) {
-			System.out.println(myCustomer.getUsername() + "\t\t" + myCustomer.getFirstName() + "\t\t\t"
-					+ myCustomer.getLastName() + "\t\t\t" + myCustomer.getCpr() + "\t\t" + myCustomer.getEmail());
+			System.out.println(myCustomer.getUsername() + "\t\t" + myCustomer.getFirstName() + "\t\t"
+					+ myCustomer.getLastName() + "\t\t" + myCustomer.getCpr() + "\t\t" + myCustomer.getEmail());
 		}
 	}
 }

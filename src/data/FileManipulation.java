@@ -70,7 +70,16 @@ public class FileManipulation {
 		}
 	}
 
-	public static Bike getBike(String line) {
+	// write customer database --> clearing before writing
+	public static void writeBikeList(ArrayList<Bike> bikeList) {
+		clearFileContent(FILENAME_BIKEDB);
+		for (int i = 0; i < bikeList.size(); i++) {
+			String bikeLine = bikeList.get(i).toFileString();
+			writeDetails(FILENAME_BIKEDB, bikeLine);
+		}
+	}
+
+	public static Bike getBikeFromFileString(String line) {
 		String[] values = line.split(";");
 		Bike BikeFromFile = new Bike(Integer.parseInt(values[0]), values[1], values[2], Integer.parseInt(values[3]),
 				Boolean.parseBoolean(values[4]));
@@ -89,10 +98,10 @@ public class FileManipulation {
 
 	public static ArrayList<Bike> getBikeDatabase() { // Stores string
 		ArrayList<Bike> arrayBikes = new ArrayList<Bike>();
-		Scanner input = readDetails("bike.txt");
+		Scanner input = readDetails(FILENAME_BIKEDB);
 		while (input.hasNextLine()) {
 			String lineFromFile = input.nextLine();
-			Bike bikeFromFile = getBike(lineFromFile);
+			Bike bikeFromFile = getBikeFromFileString(lineFromFile);
 			arrayBikes.add(bikeFromFile);
 		}
 		return arrayBikes;
@@ -117,7 +126,7 @@ public class FileManipulation {
 		return arrayEBikes;
 	}
 
-	public static void WriteDetails(String file, String input) {
+	public static void writeDetails(String file, String input) {
 		try {
 			FileWriter fwriter = new FileWriter(file, true); // false does
 																// overwrite
@@ -143,8 +152,8 @@ public class FileManipulation {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
 					BikeArray.get(i).setAvailable(false);
 				}
-				String details = BikeArray.get(i).BiketoString();
-				WriteDetails(fileName, details);
+				String details = BikeArray.get(i).toFileString();
+				writeDetails(fileName, details);
 			} // end of Forloop
 		} else {
 			ArrayList<Bike> BikeArray = getBikeDatabase();
@@ -154,8 +163,8 @@ public class FileManipulation {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
 					BikeArray.get(i).setAvailable(false);
 				}
-				String details = BikeArray.get(i).BiketoString();
-				WriteDetails(fileName, details);
+				String details = BikeArray.get(i).toFileString();
+				writeDetails(fileName, details);
 			} // end of Forloop
 		}
 
@@ -202,7 +211,7 @@ public class FileManipulation {
 // + ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
 /**
  * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
- * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: 
- * Bike testBike = FileManipulation.getEbike("14;orange;child;55;true;7");
+ * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: Bike testBike
+ * = FileManipulation.getEbike("14;orange;child;55;true;7");
  * FileManipulation.updateAvailability(testBike);
  */

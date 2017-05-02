@@ -124,9 +124,8 @@ public class CustomerView {
 	}
 
 	// could go to a seperate bookingView class
-	// displays the bikes (only regular ones, not ebikes) and lets the user
-	// choose one by entering ID
-	public int browseBikes() {
+	// displays the bikes (only regular ones, not ebikes)
+	public void displayRegularBikes() {
 		System.out.println("Here is a list of our bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
@@ -134,22 +133,10 @@ public class CustomerView {
 			System.out.println(myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
 					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
 		}
-		System.out.println("\nPlease enter the ID of the bike you would like to book:");
-		Scanner input = new Scanner(System.in);
-		boolean correctInput = false;
-		int bookingChoice = 0;
-		while (!correctInput) {
-			bookingChoice = input.nextInt();
-			// if argument needs to be improved
-			if (bookingChoice != 0 && bookingChoice <= 88) {
-				correctInput = true;
-			}
-		}
-		return bookingChoice;
 	}
 
-	public int browseElectricBikes() {
-		System.out.println("Here is a list of our bikes.\n");
+	public void displayElectricBikes() {
+		System.out.println("Here is a list of our electric bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
 		System.out.println("-------------------------------------------------------------------------------------");
 		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
@@ -157,17 +144,11 @@ public class CustomerView {
 					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
 							+ " DKK\t\t" + myBike.isAvailable() + "\t\t" + myBike.getBatteryDuration() + " hours");
 		}
-		System.out.println("\nPlease enter the ID of the bike you would like to book:");
-		Scanner input = new Scanner(System.in);
-		boolean correctInput = false;
-		int bookingChoice = 0;
-		while (!correctInput) {
-			bookingChoice = input.nextInt();
-			// if argument needs to be improved
-			if (bookingChoice != 0 && bookingChoice <= 88) {
-				correctInput = true;
-			}
-		}
-		return bookingChoice;
 	}
+
+	public void displayNotAvailable() {
+		System.out.println("Sorry, the bike you have chosen is currently not available.");
+		System.out.println("Please come back another day or chose a different bike.\n");
+	}
+
 }

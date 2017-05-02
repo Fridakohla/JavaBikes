@@ -13,7 +13,7 @@ public class BookingDatabase {
 	public static void addBooking(Booking newBooking) {
 		bookingList.add(newBooking); //THIS LINE NOT REALLY NEEDED??
 		String details = newBooking.toString();
-		FileManipulation.WriteDetails("bookingDatabase.txt", details);
+		FileManipulation.writeDetails("bookingDatabase.txt", details);
 	}
 	
 	

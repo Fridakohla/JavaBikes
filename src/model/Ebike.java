@@ -23,9 +23,9 @@ public class Ebike extends Bike {
 	}
 
 	@Override
-	public String BiketoString() {
+	public String toFileString() {
 		// TODO Auto-generated method stub
-		return super.BiketoString()+";"+ getBatteryDuration();
+		return super.toFileString()+";"+ getBatteryDuration();
 	}
 	
 }

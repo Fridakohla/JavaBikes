@@ -135,6 +135,6 @@ public class Customer {
 	public void writetoFile() {
 		String details = lastName + "; " + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
 				+ email + ";";
-		FileManipulation.WriteDetails(FileManipulation.FILENAME_CUSTOMERDB, details);
+		FileManipulation.writeDetails(FileManipulation.FILENAME_CUSTOMERDB, details);
 	}
 }
