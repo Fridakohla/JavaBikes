@@ -17,12 +17,11 @@ public class Bike {
 
 	@Override
 	public String toString() {
-		return "a " + color + " " + type + "'s bike for " + price + " DKK";
+		return "the " + color + " " + type + "'s bike for " + price + " DKK";
 	}
-	
-	public String toFileString(){
-		return getId() + ";" + getColor() + ";" + getType() + ";" + getPrice() + ";" 
-	           + isAvailable();
+
+	public String toFileString() {
+		return getId() + ";" + getColor() + ";" + getType() + ";" + getPrice() + ";" + isAvailable();
 	}
 
 	public String getColor() {

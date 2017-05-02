@@ -15,7 +15,8 @@ import model.Ebike;
 public class FileManipulation {
 
 	public static String FILENAME_CUSTOMERDB = "customer.csv";
-	public static String FILENAME_BIKEDB = "bike.txt";
+	public static String FILENAME_BIKEDB = "bike.csv";
+	public static String FILENAME_EBIKEDB = "ebike.csv";
 
 	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
@@ -117,7 +118,7 @@ public class FileManipulation {
 
 	public static ArrayList<Ebike> getEbikeDatabase() { // Stores string
 		ArrayList<Ebike> arrayEBikes = new ArrayList<Ebike>();
-		Scanner input = readDetails("Ebike.txt");
+		Scanner input = readDetails(FILENAME_EBIKEDB);
 		while (input.hasNextLine()) {
 			String lineFromFile = input.nextLine();
 			Ebike bikeFromFile = getEbike(lineFromFile);
@@ -146,8 +147,7 @@ public class FileManipulation {
 		System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
-			fileName = "ebike.txt";
-			clearFileContent(fileName);
+			clearFileContent(FILENAME_EBIKEDB);
 			for (int i = 0; i < BikeArray.size(); i++) {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
 					BikeArray.get(i).setAvailable(false);
@@ -157,8 +157,7 @@ public class FileManipulation {
 			} // end of Forloop
 		} else {
 			ArrayList<Bike> BikeArray = getBikeDatabase();
-			fileName = "bike.txt";
-			clearFileContent(fileName);
+			clearFileContent(FILENAME_BIKEDB);
 			for (int i = 0; i < BikeArray.size(); i++) {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
 					BikeArray.get(i).setAvailable(false);

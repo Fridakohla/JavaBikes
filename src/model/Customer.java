@@ -30,8 +30,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "first name: " + firstName + " - last name:" + lastName + " - address: " + address + " - email: " + email
-				+ " - cpr: " + cpr;
+		return firstName + " " + lastName;
 	}
 
 	public String getFirstName() {

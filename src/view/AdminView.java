@@ -13,6 +13,7 @@ public class AdminView {
 	public static final int MENUCHOICE_REMOVEEBIKE = 2;
 	public static final int MENUCHOICE_ADDBIKE = 3;
 	public static final int MENUCHOICE_REMOVEBIKE = 4;
+	public static final int MENUCHOICE_MAINMENU = 5;
 
 	private String adminUsername = "admin";
 	private String adminPassword = "admin1";
@@ -56,7 +57,7 @@ public class AdminView {
 		System.out.println("|2| Remove ebike");
 		System.out.println("|3| Add regular bike");
 		System.out.println("|4| Remove regular bike");
-		System.out.println("|0| Quit program.\n");
+		System.out.println("|5| Go back to main menu.\n");
 		choice = input.nextInt();
 		return choice;
 	}
