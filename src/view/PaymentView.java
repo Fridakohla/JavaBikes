@@ -36,7 +36,7 @@ public class PaymentView {
 			} else {
 				System.out.println("\nYour payment was successful and your booking is confirmed!");
 				validation = true;
-				FileManipulation.updateAvailability(bikeChoise); //Updates Bike Database
+				FileManipulation.updateAvailability(bikeChoise, false); //Updates Bike Database
 				currentCustomer.setCreditCardNumber(cardNumber);
 				currentCustomer.setCreditCardCvc(cardCvc);
 				currentCustomer.setCreditCardExpiration(cardExpDate);

@@ -141,7 +141,7 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	public static void updateAvailability(Bike bikeObject) { // >>>confirm
+	public static void updateAvailability(Bike bikeObject, boolean available) { // >>>confirm
 																// booking
 		String fileName = null;
 		System.out.println(bikeObject.toString());
@@ -150,20 +150,20 @@ public class FileManipulation {
 			clearFileContent(FILENAME_EBIKEDB);
 			for (int i = 0; i < BikeArray.size(); i++) {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
-					BikeArray.get(i).setAvailable(false);
+					BikeArray.get(i).setAvailable(available);
 				}
 				String details = BikeArray.get(i).toFileString();
-				writeDetails(fileName, details);
+				writeDetails(FILENAME_EBIKEDB, details);
 			} // end of Forloop
 		} else {
 			ArrayList<Bike> BikeArray = getBikeDatabase();
 			clearFileContent(FILENAME_BIKEDB);
 			for (int i = 0; i < BikeArray.size(); i++) {
 				if (BikeArray.get(i).getId() == (bikeObject.getId())) {
-					BikeArray.get(i).setAvailable(false);
+					BikeArray.get(i).setAvailable(available);
 				}
 				String details = BikeArray.get(i).toFileString();
-				writeDetails(fileName, details);
+				writeDetails(FILENAME_BIKEDB, details);
 			} // end of Forloop
 		}
 
