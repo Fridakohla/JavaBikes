@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Bike;
+import model.Booking;
+import model.BookingDatabase;
 import model.Customer;
 import model.Ebike;
 
@@ -143,7 +145,6 @@ public class FileManipulation {
 
 	public static void updateAvailability(Bike bikeObject, boolean available) { // >>>confirm
 																// booking
-		String fileName = null;
 		System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
@@ -179,38 +180,49 @@ public class FileManipulation {
 			e.printStackTrace();
 		}
 	}
+	
+	public static Booking getBookingFromFile(String line) {
+		String[] values = line.split(";");
+		Booking BookingFromFile = new Booking(values[0], values[1], Integer.parseInt(values[2]),
+				values[3],values[4], Integer.parseInt(values[5]), Integer.parseInt(values[6]), values[7],
+				values[8]);
 
+		return BookingFromFile;
+	}
+
+	public static ArrayList<Booking> getBookingDatabase() {
+		ArrayList<Booking> bookingList = new ArrayList<Booking>();
+		Scanner input = readDetails("FILENAME_BOOKINGDB");
+		// checking each line
+		while (input.hasNextLine()) {
+			String lineFromFile = input.nextLine();
+			Booking bookingFromFile = getBookingFromFile(lineFromFile);
+			bookingList.add(bookingFromFile);
+		} 
+		return bookingList;
+	}
+	
+	public static void returnBike(String BookingId, String dateOfReturn) {
+		ArrayList<Booking> bookingList = getBookingDatabase();
+		clearFileContent("FILENAME_BOOKINGDB");
+		for (int i = 0; i < bookingList.size(); i++) {
+			if (bookingList.get(i).getBookingId().equals(BookingId)) {
+				bookingList.get(i).setReturnDate(dateOfReturn);
+			}
+			String details = bookingList.get(i).toString();
+			writeDetails("FILENAME_BOOKINGDB", details);
+		} // end of Forloop
+	}
 }
 
-// String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";"
-// + bikeFromFile.getType()
-// + ";" + bikeFromFile.getPrice() + ";" + "false";
-// System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray);
-// String details = BikeArray.get(i).getId() + ";" + BikeArray.get(i).getColor()
-// + ";" + BikeArray.get(i).getType()
-// + ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
+
+
 /**
  * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
- * //FileManipulation.replaceLine (getBike("2;yellow;women;50;true"));//<<<TEST
- */
-
-// Bike testBike = FileManipulation.getBike("2;yellow;women;50;true");
-// FileManipulation.updateAvailability(testBike);
-
-// System.out.println(i +"!true"+BikeArray.get(i).BiketoString());
-// end of Forloop
-// End of Method
-
-// String details = bikeFromFile.getId() + "; " + bikeFromFile.getColor() + ";"
-// + bikeFromFile.getType()
-// + ";" + bikeFromFile.getPrice() + ";" + "false";
-// System.out.println(" !" +bikeFromFile +"!!!!!" + BikeArray);
-// String details = BikeArray.get(i).getId() + ";" + BikeArray.get(i).getColor()
-// + ";" + BikeArray.get(i).getType()
-// + ";" + BikeArray.get(i).getPrice() + ";" + BikeArray.get(i).isAvailable();
-/**
- * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
- * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: Bike testBike
- * = FileManipulation.getEbike("14;orange;child;55;true;7");
+ * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: 
+ * Bike testBike= FileManipulation.getEbike("14;orange;child;55;true;7");
  * FileManipulation.updateAvailability(testBike);
+ * FileManipulation.returnBike("05040021", "2017/05/05");
+Bike testBike= FileManipulation.getEbike("14;orange;child;55;true;7");
+FileManipulation.updateAvailability(testBike, true);
  */

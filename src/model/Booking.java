@@ -20,6 +20,19 @@ public class Booking {
 	public Booking() {
 
 	}
+	
+	public Booking(String bookingId, String CustomerUsername, int BikeId, String bikeColor, String bikeType,
+			int price, int bookedDays, String startTime, String returnDate){
+		this.startTime = startTime;
+		this.bookingId = bookingId;
+		this.returnDate = returnDate;
+		this.bookedDays = bookedDays;
+		this.BikeId = BikeId;
+		this.bikeColor = bikeColor;
+		this.CustomerUsername = CustomerUsername;
+		this.bikeType = bikeType;
+		this.price = price;
+	}
 
 	public void setBookingDetails(Bike ChosenBike, Customer currentCustomer, int bookedDays) {
 
@@ -124,15 +137,8 @@ public class Booking {
 	}
 
 	public void setReturnDate(String returnDate) {
-		
 		this.returnDate = returnDate;
 	}
-
-	/**public void setStartTime() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		this.startTime = dateFormat.format(date);
-	*/
 	
 	// get days instead
 	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
