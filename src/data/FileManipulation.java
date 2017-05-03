@@ -192,7 +192,7 @@ public class FileManipulation {
 
 	public static ArrayList<Booking> getBookingDatabase() {
 		ArrayList<Booking> bookingList = new ArrayList<Booking>();
-		Scanner input = readDetails("FILENAME_BOOKINGDB");
+		Scanner input = readDetails(BookingDatabase.FILENAME_BOOKINGDB);
 		// checking each line
 		while (input.hasNextLine()) {
 			String lineFromFile = input.nextLine();
@@ -204,13 +204,13 @@ public class FileManipulation {
 	
 	public static void returnBike(String BookingId, String dateOfReturn) {
 		ArrayList<Booking> bookingList = getBookingDatabase();
-		clearFileContent("FILENAME_BOOKINGDB");
+		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
 		for (int i = 0; i < bookingList.size(); i++) {
 			if (bookingList.get(i).getBookingId().equals(BookingId)) {
 				bookingList.get(i).setReturnDate(dateOfReturn);
 			}
 			String details = bookingList.get(i).toString();
-			writeDetails("FILENAME_BOOKINGDB", details);
+			writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
 		} // end of Forloop
 	}
 }
