@@ -10,6 +10,7 @@ public class Booking {
 	private long startTimeMs = System.currentTimeMillis(); // figure out start
 															// and end time
 	private String startTime, bookingId;
+	private String returnDate;
 	private long endTimeMs;
 	public int bookedDays;
 	private int BikeId;
@@ -31,6 +32,7 @@ public class Booking {
 		setBikeType(ChosenBike.getType());
 		setPrice(ChosenBike.getPrice());
 		setBookedDays(bookedDays);
+		setReturnDate(null);
 
 	}
 
@@ -116,7 +118,22 @@ public class Booking {
 		this.bookingId = startTime.substring(5, 7) + startTime.substring(8, 10) + startTime.substring(11, 13)
 				+ startTime.substring(14, 16);
 	}
+	
+	public String getReturnDate() {
+		return returnDate;
+	}
 
+	public void setReturnDate(String returnDate) {
+		
+		this.returnDate = returnDate;
+	}
+
+	/**public void setStartTime() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		this.startTime = dateFormat.format(date);
+	*/
+	
 	// get days instead
 	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
 		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
@@ -131,7 +148,8 @@ public class Booking {
 	@Override
 	public String toString() {
 		return getBookingId() + "; " + getCustomerUsername() + ";" + getBikeId() + ";" + getBikeColor() + ";"
-				+ getBikeType() + ";" + getPrice() + ";" + getBookedDays() + ";" + getStartTime();
+				+ getBikeType() + ";" + getPrice() + ";" + getBookedDays() + ";" + getStartTime() +
+				";" + getReturnDate();
 	}
 
 }
