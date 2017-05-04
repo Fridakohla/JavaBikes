@@ -7,11 +7,8 @@ import java.util.Date;
 public class Booking {
 	Bike bike;
 	Customer customer;
-	private long startTimeMs = System.currentTimeMillis(); // figure out start
-															// and end time
 	private String startTime, bookingId;
 	private String returnDate;
-	private long endTimeMs;
 	public int bookedDays;
 	private int price;
 
@@ -130,10 +127,3 @@ public class Booking {
 
 }
 
-/**
- * public Booking(String bookingId, String Username, String startTime, int
- * bookedDays, int bikeId, String bikeColor, String bikeType, int price) {
- * super(); this.startTime = startTime; this.bookedDays = bookedDays;
- * this.bookingId = bookingId; CustomerUsername = Username; BikeId = bikeId;
- * this.bikeColor = bikeColor; this.bikeType = bikeType; this.price = price; }
- */

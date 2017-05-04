@@ -130,7 +130,7 @@ public class FileManipulation {
 		return BikeFromFile;
 	}
 
-	public static ArrayList<Ebike> getEbikeDatabase() { // Stores string
+	public static ArrayList<Ebike> getEbikeDatabase() {  
 		ArrayList<Ebike> arrayEBikes = new ArrayList<Ebike>();
 		Scanner input = readDetails(FILENAME_EBIKEDB);
 		while (input.hasNextLine()) {
@@ -146,8 +146,8 @@ public class FileManipulation {
 			FileWriter fwriter = new FileWriter(file, true); // true adds new line, false does
 																// overwrite
 			PrintWriter output = new java.io.PrintWriter(fwriter);
-			// Write formatted output to the file
-			output.println(input); // output.write(input);
+			// Writes formatted output to the file
+			output.println(input);  
 			output.close();
 		} catch (IOException ex) {
 			// if the file is not accessible, print this message
