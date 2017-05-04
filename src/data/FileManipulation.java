@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Bike;
+import model.BikeDatabase;
 import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
+import model.CustomerDatabase;
 import model.Ebike;
 
 public class FileManipulation {
@@ -71,6 +73,19 @@ public class FileManipulation {
 		for (int i = 0; i < customerList.size(); i++) {
 			customerList.get(i).writetoFile();
 		}
+	}
+
+	// write customer database --> clearing before writing
+	public static void writeBookingList(ArrayList<Booking> bookingList) {
+		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
+		for (int i = 0; i < bookingList.size(); i++) {
+			writeBooking(bookingList.get(i));
+		}
+	}
+
+	public static void writeBooking(Booking b) {
+		String details = b.toString();
+		writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
 	}
 
 	// write customer database --> clearing before writing
@@ -190,11 +205,29 @@ public class FileManipulation {
 	}
 
 	public static Booking getBookingFromFile(String line) {
-		String[] values = line.split(";");
-		Booking BookingFromFile = new Booking(values[0], values[1], Integer.parseInt(values[2]), values[3], values[4],
-				Integer.parseInt(values[5]), Integer.parseInt(values[6]), values[7], values[8]);
+		// return getBookingId() + ";" + getCustomer().getUsername() + ";" +
+		// getBike().getId() + ";" + getPrice() + ";"
+		// + getBookedDays() + ";" + getStartTime() + ";" + getReturnDate();
 
-		return BookingFromFile;
+		String[] values = line.split(";");
+		Booking bookingFromFile = new Booking();
+		bookingFromFile.setBookingId(values[0]);
+		bookingFromFile.setPrice(Integer.parseInt(values[3]));
+		bookingFromFile.setBookedDays(Integer.parseInt(values[4]));
+		bookingFromFile.setReturnDate(values[5]);
+
+		// get bike object
+		Bike myBike = BikeDatabase.getBikeByID(Integer.parseInt(values[2]));
+		// if the bike is an ebike. Then look in the ebike list.
+		if (myBike == null) {
+			myBike = BikeDatabase.getEbikeByID(Integer.parseInt(values[2]));
+		}
+		bookingFromFile.setBike(myBike);
+		// get customer object
+		Customer c = CustomerDatabase.getCustomerByUsername(values[1]);
+		bookingFromFile.setCustomer(c);
+
+		return bookingFromFile;
 	}
 
 	public static ArrayList<Booking> getBookingDatabase() {

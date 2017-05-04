@@ -6,7 +6,7 @@ import data.FileManipulation;
 import view.CustomerView;
 
 public class CustomerDatabase {
-	private ArrayList<Customer> customerList = new ArrayList<Customer>();
+	private static ArrayList<Customer> customerList = new ArrayList<Customer>();
 	private static CustomerView myView = new CustomerView();
 	private static Customer myCustomer = new Customer();
 
@@ -22,7 +22,7 @@ public class CustomerDatabase {
 	}
 
 	// method extracts data from text file and stores in array list of objects
-	public ArrayList<Customer> getCustomerList() {
+	public static ArrayList<Customer> getCustomerList() {
 		customerList = FileManipulation.getCustomerDatabase();
 		return customerList;
 	}
@@ -39,6 +39,16 @@ public class CustomerDatabase {
 			// null for now to handle null exception error
 			if (c.getUsername() != null && c.getPassword() != null && c.getUsername().equals(username)
 					&& c.getPassword().equals(password)) {
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public static Customer getCustomerByUsername(String username) {
+		getCustomerList();
+		for (Customer c : customerList) {
+			if (c.getUsername().equals(username)) {
 				return c;
 			}
 		}

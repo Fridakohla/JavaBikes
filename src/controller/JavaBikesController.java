@@ -243,6 +243,7 @@ public class JavaBikesController {
 					System.out.println("Invalid input. Make sure to type a valid ID.\n");
 					return false;
 				} else if (bikeChoice.isAvailable() == false) {
+					JavaBikesController.bikeChoice = bikeChoice;
 					customerView.displayNotAvailable();
 					return false;
 				}

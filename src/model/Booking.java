@@ -13,40 +13,30 @@ public class Booking {
 	private String returnDate;
 	private long endTimeMs;
 	public int bookedDays;
-	private int BikeId;
-	private String bikeColor, CustomerUsername, bikeType;
 	private int price;
 
 	public Booking() {
 
 	}
-	
-	public Booking(String bookingId, String CustomerUsername, int BikeId, String bikeColor, String bikeType,
-			int price, int bookedDays, String startTime, String returnDate){
+
+	public Booking(String bookingId, int price, int bookedDays, String startTime, String returnDate, Bike bike,
+			Customer customer) {
 		this.startTime = startTime;
 		this.bookingId = bookingId;
 		this.returnDate = returnDate;
 		this.bookedDays = bookedDays;
-		this.BikeId = BikeId;
-		this.bikeColor = bikeColor;
-		this.CustomerUsername = CustomerUsername;
-		this.bikeType = bikeType;
 		this.price = price;
+		this.bike = bike;
+		this.customer = customer;
 	}
 
-	public void setBookingDetails(Bike ChosenBike, Customer currentCustomer, int bookedDays) {
-
+	public void setBookingDetails(Bike chosenBike, Customer currentCustomer, int bookedDays) {
 		setStartTime();
-		setBookingId();
+		calculateAndSetBookingId();
 		setCustomer(currentCustomer);
-		setCustomerUsername(currentCustomer.getUsername());
-		setBikeId(ChosenBike.getId());
-		setBikeColor(ChosenBike.getColor());
-		setBikeType(ChosenBike.getType());
-		setPrice(ChosenBike.getPrice());
+		setBike(chosenBike);
 		setBookedDays(bookedDays);
 		setReturnDate(null);
-
 	}
 
 	public Customer getCustomer() {
@@ -67,12 +57,8 @@ public class Booking {
 		this.startTime = dateFormat.format(date);
 	}
 
-	public String getCustomerUsername() {
-		return CustomerUsername;
-	}
-
-	public void setCustomerUsername(String customerUsername) {
-		CustomerUsername = customerUsername;
+	public int getTotalPrice() {
+		return getPrice() * this.getBookedDays();
 	}
 
 	public int getPrice() {
@@ -81,30 +67,6 @@ public class Booking {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public int getBikeId() {
-		return BikeId;
-	}
-
-	public void setBikeId(int bikeId) {
-		BikeId = bikeId;
-	}
-
-	public String getBikeColor() {
-		return bikeColor;
-	}
-
-	public void setBikeColor(String bikeColor) {
-		this.bikeColor = bikeColor;
-	}
-
-	public String getBikeType() {
-		return bikeType;
-	}
-
-	public void setBikeType(String bikeType) {
-		this.bikeType = bikeType;
 	}
 
 	public Bike getBike() {
@@ -127,11 +89,15 @@ public class Booking {
 		return bookingId;
 	}
 
-	public void setBookingId() {
+	public void setBookingId(String bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public void calculateAndSetBookingId() {
 		this.bookingId = startTime.substring(5, 7) + startTime.substring(8, 10) + startTime.substring(11, 13)
 				+ startTime.substring(14, 16);
 	}
-	
+
 	public String getReturnDate() {
 		return returnDate;
 	}
@@ -139,7 +105,7 @@ public class Booking {
 	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
-	
+
 	// get days instead
 	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
 		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
@@ -153,9 +119,8 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return getBookingId() + "; " + getCustomerUsername() + ";" + getBikeId() + ";" + getBikeColor() + ";"
-				+ getBikeType() + ";" + getPrice() + ";" + getBookedDays() + ";" + getStartTime() +
-				";" + getReturnDate();
+		return getBookingId() + ";" + getCustomer().getUsername() + ";" + getBike().getId() + ";" + getPrice() + ";"
+				+ getBookedDays() + ";" + getStartTime() + ";" + getReturnDate();
 	}
 
 }
