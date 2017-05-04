@@ -8,6 +8,7 @@ import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
+import model.Ebike;
 import view.AdminView;
 import view.CustomerView;
 import view.PaymentView;
@@ -167,9 +168,34 @@ public class JavaBikesController {
 			case AdminView.MENUCHOICE_REMOVEEBIKE:
 				adminDeleteElectricBike();
 				return true;
+			case AdminView.MENUCHOICE_ADDBIKE:
+				adminAddRegularBike();
+				return true;
+			case AdminView.MENUCHOICE_ADDEBIKE:
+				adminAddElectricBike();
+				return true;
+			default:
+				correctInput = false;
+				return false;
 			}
 		}
 		return false;
+	}
+
+	private void adminAddRegularBike() {
+		Bike addedBike = new Bike();
+		adminView.addRegularBike(addedBike);
+		bikeDb.addBike(addedBike);
+		System.out.println("You have added --> " + addedBike + " <-- to the database.");
+		CustomerView.displayRegularBikes();
+	}
+
+	private void adminAddElectricBike() {
+		Ebike addedEbike = new Ebike();
+		adminView.addRegularBike(addedEbike);
+		bikeDb.addBike(addedEbike);
+		System.out.println("You have added --> " + addedEbike + " <-- to the database.");
+		CustomerView.displayElectricBikes();
 	}
 
 	private void adminDeleteRegularBike() {
@@ -178,7 +204,7 @@ public class JavaBikesController {
 		if (deletedBike != null) {
 			bikeDb.removeRegularBike(deletedBike);
 			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			customerView.displayRegularBikes();
+			CustomerView.displayRegularBikes();
 		}
 
 	}
@@ -189,7 +215,7 @@ public class JavaBikesController {
 		if (deletedBike != null) {
 			bikeDb.removeElectricBike(deletedBike);
 			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			customerView.displayElectricBikes();
+			CustomerView.displayElectricBikes();
 		}
 
 	}
@@ -211,7 +237,7 @@ public class JavaBikesController {
 			switch (choice) {
 			case CustomerView.MENUCHOICE_BIKES:
 				correctInput = true;
-				customerView.displayRegularBikes();
+				CustomerView.displayRegularBikes();
 				System.out.println("\nPlease enter the ID of the bike you would like to book:");
 				int chosenBikeId = chooseBike();
 				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
@@ -225,9 +251,9 @@ public class JavaBikesController {
 				break;
 			case CustomerView.MENUCHOICE_EBIKES:
 				correctInput = true;
-				customerView.displayElectricBikes();
+				CustomerView.displayElectricBikes();
 				chosenBikeId = chooseBike();
-				bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
+				bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
 				if (bikeChoice == null) {
 					System.out.println("Invalid input. Make sure to type a valid ID.\n");
 					return false;

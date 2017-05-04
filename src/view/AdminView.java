@@ -8,9 +8,10 @@ import model.Bike;
 import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
+import model.Ebike;
 
 public class AdminView {
-	Scanner input = new Scanner(System.in);
+	static Scanner input = new Scanner(System.in);
 
 	public static final int MENUCHOICE_DELETECUSTOMER = 1;
 	public static final int MENUCHOICE_MANAGEBIKES = 2;
@@ -128,7 +129,7 @@ public class AdminView {
 			System.out.println("\nEnter the ID of the bike you would like to delete from the database.");
 			System.out.println("Type '0' to return.");
 			int chosenBikeId = JavaBikesController.chooseBike();
-			Bike bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
+			Bike bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
 			if (chosenBikeId == 0) {
 				correctInput = true;
 				return null;
@@ -141,6 +142,32 @@ public class AdminView {
 		}
 		return null;
 		// null goes back to main menu
+	}
+
+	public void addRegularBike(Bike addedBike) {
+		Scanner input = new Scanner(System.in);
+		JavaBikesController.bikeDb.generateNewBikeId(addedBike);
+		System.out.println("Enter the color of the bike: ");
+		String adminInput = input.nextLine();
+		addedBike.setColor(adminInput);
+		System.out.println("Enter bike type (man, woman or child): ");
+		adminInput = input.nextLine();
+		addedBike.setType(adminInput);
+		System.out.println("Enter the price of the bike: ");
+		int adminInputPrice = input.nextInt();
+		addedBike.setPrice(adminInputPrice);
+		System.out.println("Enter the availability: ");
+		boolean adminInputAvailability = input.nextBoolean();
+		addedBike.setAvailable(adminInputAvailability);
+	}
+
+	public void addEbike(Ebike addedEbike) {
+		// fill with general information
+		addRegularBike(addedEbike);
+		// fill with ebike specific information
+		System.out.println("Enter the battery duration of the ebike: ");
+		int adminInputBattery = input.nextInt();
+		addedEbike.setBatteryDuration(adminInputBattery);
 	}
 }
 

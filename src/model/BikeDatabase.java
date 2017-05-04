@@ -8,10 +8,23 @@ public class BikeDatabase {
 	private static ArrayList<Bike> bikeList = new ArrayList<Bike>();
 	private static ArrayList<Ebike> ebikeList = new ArrayList<Ebike>();
 
+	public BikeDatabase() {
+		getBikeList();
+		getEbikeList();
+	}
+
 	// needs to be written to file
 
+	// overloading: adds bike to array list "bike list"
 	public void addBike(Bike newBike) {
 		bikeList.add(newBike);
+		FileManipulation.writeRegularBikeList(bikeList);
+	}
+
+	// overloading: adds ebike to array list "ebike list"
+	public void addBike(Ebike newEbike) {
+		ebikeList.add(newEbike);
+		FileManipulation.writeElectricBikeList(ebikeList);
 	}
 
 	public ArrayList<Bike> getBikeList() {
@@ -23,7 +36,7 @@ public class BikeDatabase {
 		this.bikeList = bikeList;
 	}
 
-	public static ArrayList<Ebike> getEbikeList() {
+	public ArrayList<Ebike> getEbikeList() {
 		ebikeList = FileManipulation.getEbikeDatabase();
 		return ebikeList;
 	}
@@ -37,7 +50,7 @@ public class BikeDatabase {
 		return null;
 	}
 
-	public static Ebike getEbikeByID(int bookingChoice) {
+	public Ebike getEbikeByID(int bookingChoice) {
 		for (Ebike myBike : getEbikeList()) {
 			if (myBike.getId() == bookingChoice) {
 				return myBike;
@@ -54,5 +67,19 @@ public class BikeDatabase {
 	public void removeElectricBike(Bike bikeToDelete) {
 		ebikeList.remove(bikeToDelete);
 		FileManipulation.writeElectricBikeList(ebikeList);
+	}
+
+	public void generateNewBikeId(Bike addedBike) {
+		ArrayList<Bike> allBikes = new ArrayList<Bike>();
+		allBikes.addAll(bikeList);
+		allBikes.addAll(ebikeList);
+		int newBikeId = 0;
+		for (Bike b : allBikes) {
+			if (b.getId() >= newBikeId) {
+				newBikeId = b.getId();
+			}
+			newBikeId += 1;
+		}
+		addedBike.setId(newBikeId);
 	}
 }

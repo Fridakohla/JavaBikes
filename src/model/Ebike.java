@@ -3,6 +3,10 @@ package model;
 public class Ebike extends Bike {
 	private int batteryDuration;
 
+	public Ebike() {
+
+	}
+
 	public Ebike(int id, String color, String type, int price, boolean isAvailable, int batteryDuration) {
 		super(id, color, type, price, isAvailable);
 		this.batteryDuration = batteryDuration;
