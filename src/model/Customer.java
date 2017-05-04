@@ -132,7 +132,7 @@ public class Customer {
 	}
 
 	public void writetoFile() {
-		String details = lastName + "; " + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
+		String details = lastName + ";" + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
 				+ email + ";";
 		FileManipulation.writeDetails(FileManipulation.FILENAME_CUSTOMERDB, details);
 	}

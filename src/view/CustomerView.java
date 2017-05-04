@@ -130,8 +130,14 @@ public class CustomerView {
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
 		for (Bike myBike : JavaBikesController.bikeDb.getBikeList()) {
+			String availabilityString;
+			if (myBike.isAvailable() == false) {
+				availabilityString = "no";
+			} else {
+				availabilityString = "yes";
+			}
 			System.out.println(myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t"
-					+ myBike.getPrice() + " DKK\t\t" + myBike.isAvailable());
+					+ myBike.getPrice() + " DKK\t\t" + availabilityString);
 		}
 	}
 
@@ -140,9 +146,15 @@ public class CustomerView {
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
 		System.out.println("-----------------------------------------------------------------------------------------");
 		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
+			String availabilityString;
+			if (myBike.isAvailable() == false) {
+				availabilityString = "no";
+			} else {
+				availabilityString = "yes";
+			}
 			System.out.println(
 					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
-							+ " DKK\t\t" + myBike.isAvailable() + "\t\t" + myBike.getBatteryDuration() + " hours");
+							+ " DKK\t\t" + availabilityString + "\t\t" + myBike.getBatteryDuration() + " hours");
 		}
 	}
 

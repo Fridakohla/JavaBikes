@@ -31,12 +31,13 @@ public class Booking {
 	}
 
 	public void setBookingDetails(Bike chosenBike, Customer currentCustomer, int bookedDays) {
-		setStartTime();
+		calculateAndSetStartTime();
 		calculateAndSetBookingId();
 		setCustomer(currentCustomer);
 		setBike(chosenBike);
 		setBookedDays(bookedDays);
 		setReturnDate(null);
+		setPrice(chosenBike.getPrice());
 	}
 
 	public Customer getCustomer() {
@@ -51,8 +52,12 @@ public class Booking {
 		return startTime;
 	}
 
-	public void setStartTime() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public void calculateAndSetStartTime() {
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY HH:mm");
 		Date date = new Date();
 		this.startTime = dateFormat.format(date);
 	}
@@ -94,7 +99,7 @@ public class Booking {
 	}
 
 	public void calculateAndSetBookingId() {
-		this.bookingId = startTime.substring(5, 7) + startTime.substring(8, 10) + startTime.substring(11, 13)
+		this.bookingId = startTime.substring(4, 5) + startTime.substring(0, 2) + startTime.substring(11, 13)
 				+ startTime.substring(14, 16);
 	}
 

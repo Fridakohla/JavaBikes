@@ -6,6 +6,7 @@ import controller.JavaBikesController;
 import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
+import model.Booking;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
@@ -78,6 +79,7 @@ public class AdminView {
 	}
 
 	public Customer selectCustomerFromList(CustomerDatabase customerDb) {
+		Scanner input = new Scanner(System.in);
 		displayCustomerList();
 		boolean correctInput = false;
 		while (!correctInput) {
@@ -85,17 +87,15 @@ public class AdminView {
 					"\nPlease enter the user name of the customer you would like to delete from the database.");
 			System.out.println("Type 'back' to return.");
 			String deletedCustomer = input.nextLine();
-			for (Customer c : customerDb.getCustomerList()) {
-				if (c.getUsername().equals(deletedCustomer)) {
-					correctInput = true;
-					return c;
-				} else if (deletedCustomer.equals("back")) {
-					correctInput = true;
-					return null;
-					// go back to main menu
-				}
+			if (deletedCustomer.equals("back")) {
+				return null;
 			}
-			System.out.println("\nInvalid input.");
+			Customer customerToDelete = CustomerDatabase.getCustomerByUsername(deletedCustomer);
+			if (customerToDelete == null) {
+				System.out.println("\nInvalid input.");
+			} else {
+				return customerToDelete;
+			}
 		}
 		return null;
 	}
@@ -168,6 +168,31 @@ public class AdminView {
 		System.out.println("Enter the battery duration of the ebike: ");
 		int adminInputBattery = input.nextInt();
 		addedEbike.setBatteryDuration(adminInputBattery);
+	}
+
+	public void displayBookingList() {
+		System.out.println("\nHere is an overview of all bookings.\n");
+		System.out.println("Booking ID \tUsername \tPrice \t\tBooked Days \tStart Time \t\tReturned?");
+		System.out.println(
+				"-------------------------------------------------------------------------------------------------");
+		for (Booking myBooking : FileManipulation.getBookingDatabase()) {
+			String returnedString;
+			if (myBooking.getReturnDate() == null) {
+				returnedString = "no";
+			} else {
+				returnedString = "yes";
+			}
+			try {
+				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getCustomer().getUsername() + "\t\t"
+						+ myBooking.getPrice() + "\t\t" + myBooking.getBookedDays() + "\t\t" + myBooking.getStartTime()
+						+ "\t" + returnedString);
+			} catch (Exception e) {
+				// if there is an exception then either the bike or the customer
+				// does not exist anymore
+
+			}
+
+		}
 	}
 }
 

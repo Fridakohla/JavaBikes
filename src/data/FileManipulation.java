@@ -205,16 +205,19 @@ public class FileManipulation {
 	}
 
 	public static Booking getBookingFromFile(String line) {
-		// return getBookingId() + ";" + getCustomer().getUsername() + ";" +
-		// getBike().getId() + ";" + getPrice() + ";"
-		// + getBookedDays() + ";" + getStartTime() + ";" + getReturnDate();
-
 		String[] values = line.split(";");
 		Booking bookingFromFile = new Booking();
 		bookingFromFile.setBookingId(values[0]);
 		bookingFromFile.setPrice(Integer.parseInt(values[3]));
 		bookingFromFile.setBookedDays(Integer.parseInt(values[4]));
-		bookingFromFile.setReturnDate(values[5]);
+		bookingFromFile.setStartTime(values[5]);
+		// get null instead "null" from file to have one way of expressing not
+		// returned
+		if (values[6].equals("null")) {
+			bookingFromFile.setReturnDate(null);
+		} else {
+			bookingFromFile.setReturnDate(values[6]);
+		}
 
 		// get bike object
 		Bike myBike = BikeDatabase.getBikeByID(Integer.parseInt(values[2]));
@@ -254,13 +257,3 @@ public class FileManipulation {
 		} // end of Forloop
 	}
 }
-
-/**
- * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
- * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: Bike testBike=
- * FileManipulation.getEbike("14;orange;child;55;true;7");
- * FileManipulation.updateAvailability(testBike);
- * FileManipulation.returnBike("05040021", "2017/05/05"); Bike testBike=
- * FileManipulation.getEbike("14;orange;child;55;true;7");
- * FileManipulation.updateAvailability(testBike, true);
- */

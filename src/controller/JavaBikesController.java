@@ -75,6 +75,7 @@ public class JavaBikesController {
 				break;
 			case WelcomeView.MENUCHOICE_ADMIN:
 				runAdmin();
+				browsingBikes = false;
 				break;
 			default:
 				correctInput = false;
@@ -106,7 +107,7 @@ public class JavaBikesController {
 					case CustomerView.MENUCHOICE_BROWSE:
 						break;
 					case CustomerView.MENUCHOICE_EXIT:
-						System.out.println("You have exited the program.");
+						System.out.println("You have exited the program!!");
 						continueBooking = false;
 						browsingBikes = false;
 						break;
@@ -115,6 +116,8 @@ public class JavaBikesController {
 						System.out.println("Invalid input. Please type a valid option.");
 					}
 				}
+			} else {
+				browsingBikes = false;
 			}
 		}
 	}
@@ -137,8 +140,7 @@ public class JavaBikesController {
 					break;
 				// add and remove -- bikes or ebikes
 				case AdminView.MENUCHOICE_VIEWBOOKINGS:
-
-					System.out.println("Viewing bookings.");
+					adminView.displayBookingList();
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
 					System.out.println("You have exited the program.");
