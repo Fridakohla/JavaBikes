@@ -47,7 +47,7 @@ public class AdminView {
 		int choice;
 		System.out.println("\nChoose one of the following options.");
 		System.out.println("|1| View customer list and delete customer.");
-		System.out.println("|2| Manage bikes.");
+		System.out.println("|2| View bike list and manage bikes.");
 		System.out.println("|3| View bookings.");
 		System.out.println("|0| Quit program.\n");
 		choice = input.nextInt();
@@ -156,7 +156,7 @@ public class AdminView {
 		System.out.println("Enter the price of the bike: ");
 		int adminInputPrice = input.nextInt();
 		addedBike.setPrice(adminInputPrice);
-		System.out.println("Enter the availability: ");
+		System.out.println("Enter the availability (true or false): ");
 		boolean adminInputAvailability = input.nextBoolean();
 		addedBike.setAvailable(adminInputAvailability);
 	}

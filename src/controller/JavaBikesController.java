@@ -18,36 +18,31 @@ public class JavaBikesController {
 	Scanner input = new Scanner(System.in);
 	// create objects of CustomerDatabase and BikeDatabase
 	public static CustomerDatabase customerDb;
-	Customer currentCustomer;
 	public static BikeDatabase bikeDb;
+	public static Bike bikeChoice;
+	public static Booking currentBooking = new Booking();
+	Customer currentCustomer;
 	CustomerView customerView = new CustomerView();
 	WelcomeView welcome = new WelcomeView(); // creates new object of
 												// WelcomeView
 	PaymentView cardView = new PaymentView();
 	AdminView adminView = new AdminView();
 
-	public static Bike bikeChoice;
-	public static Booking currentBooking = new Booking();
-
 	/** Constructor (moved in front for better structure view) */
 	public JavaBikesController() {
 		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
-
 	}
 
 	public static void main(String[] args) {
 		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
-
 	} // End of main
 
 	/*
 	 * say what the method does
-	 * 
-	 * @param
 	 */
 	private void runProgram() {
 		boolean continueBooking = true;
@@ -142,6 +137,7 @@ public class JavaBikesController {
 					break;
 				// add and remove -- bikes or ebikes
 				case AdminView.MENUCHOICE_VIEWBOOKINGS:
+
 					System.out.println("Viewing bookings.");
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
@@ -158,6 +154,8 @@ public class JavaBikesController {
 
 	private boolean manageBikes() {
 		boolean correctInput = false;
+		CustomerView.displayRegularBikes();
+		CustomerView.displayElectricBikes();
 		while (!correctInput) {
 			correctInput = true;
 			int choice = adminView.manageBikesMenu();

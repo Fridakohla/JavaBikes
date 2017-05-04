@@ -126,7 +126,7 @@ public class CustomerView {
 	// could go to a seperate bookingView class
 	// displays the bikes (only regular ones, not ebikes)
 	public static void displayRegularBikes() {
-		System.out.println("Here is a list of our bikes.\n");
+		System.out.println("\nHere is a list of our regular bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
 		for (Bike myBike : JavaBikesController.bikeDb.getBikeList()) {
@@ -136,9 +136,9 @@ public class CustomerView {
 	}
 
 	public static void displayElectricBikes() {
-		System.out.println("Here is a list of our electric bikes.\n");
+		System.out.println("\nHere is a list of our electric bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
-		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------------");
 		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
 			System.out.println(
 					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
