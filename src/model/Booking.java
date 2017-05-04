@@ -7,27 +7,13 @@ import java.util.Date;
 public class Booking {
 	Bike bike;
 	Customer customer;
-	private long startTimeMs = System.currentTimeMillis(); // figure out start
-															// and end time
 	private String startTime, bookingId;
 	private String returnDate;
-	private long endTimeMs;
 	public int bookedDays;
 	private int price;
 
 	public Booking() {
 
-	}
-
-	public Booking(String bookingId, int price, int bookedDays, String startTime, String returnDate, Bike bike,
-			Customer customer) {
-		this.startTime = startTime;
-		this.bookingId = bookingId;
-		this.returnDate = returnDate;
-		this.bookedDays = bookedDays;
-		this.price = price;
-		this.bike = bike;
-		this.customer = customer;
 	}
 
 	public void setBookingDetails(Bike chosenBike, Customer currentCustomer, int bookedDays) {
@@ -111,12 +97,6 @@ public class Booking {
 		this.returnDate = returnDate;
 	}
 
-	// get days instead
-	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
-		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
-		return timeInMinutes;
-	}
-
 	public double calculatePrice(int timeInMinutes, double pricePerMinute) {
 		double priceOfBooking = pricePerMinute * timeInMinutes;
 		return priceOfBooking;
@@ -129,11 +109,3 @@ public class Booking {
 	}
 
 }
-
-/**
- * public Booking(String bookingId, String Username, String startTime, int
- * bookedDays, int bikeId, String bikeColor, String bikeType, int price) {
- * super(); this.startTime = startTime; this.bookedDays = bookedDays;
- * this.bookingId = bookingId; CustomerUsername = Username; BikeId = bikeId;
- * this.bikeColor = bikeColor; this.bikeType = bikeType; this.price = price; }
- */

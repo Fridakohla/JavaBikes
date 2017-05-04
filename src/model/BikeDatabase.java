@@ -13,8 +13,6 @@ public class BikeDatabase {
 		getEbikeList();
 	}
 
-	// needs to be written to file
-
 	// overloading: adds bike to array list "bike list"
 	public void addBike(Bike newBike) {
 		bikeList.add(newBike);
@@ -50,6 +48,10 @@ public class BikeDatabase {
 		return null;
 	}
 
+	/*
+	 * Returns the next available ID. Therefor goes through bikeList and
+	 * ebikeList to find the highest existing ID and increases by 1.
+	 */
 	public static Ebike getEbikeByID(int bookingChoice) {
 		for (Ebike myBike : getEbikeList()) {
 			if (myBike.getId() == bookingChoice) {
