@@ -16,7 +16,7 @@ public class PaymentView {
 		Scanner input = new Scanner(System.in);
 		boolean validation = false;
 		while (!validation) {
-			// add validation of correct format
+			// add validation of correct format >>> HAPPENS IN CARDNUMBER CHECK
 			System.out.print("Enter your credit card number: ");
 			String cardNumber = input.nextLine();
 
@@ -45,6 +45,7 @@ public class PaymentView {
 		}
 	} //End of Method
 
+	//Luhn's algorithm check
 	private Boolean checkCardNumber(String cardNumber) {
 		String number = new StringBuilder(cardNumber).reverse().toString();
 		int sum = 0;
@@ -61,19 +62,29 @@ public class PaymentView {
 				sum = sum + d1 + d2;
 			}
 		}
-		if (sum % 10 == 0 && checkMasterVisa(cardNumber))
+		if (sum % 10 == 0 && checkMasterVisa(cardNumber)) 
 			validNumber = true;
 		return validNumber;
 	}
 
+	//Expiration date check
 	private boolean checkCardExp(String cardExpiration) {
 		DateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
 		Date date = new Date();
 		String CurrentDate = dateFormat.format(date);
-//need to finish code
-		return true;
+		int CurrentMonth = Integer.parseInt(CurrentDate.substring(0, 2));
+		int CurrentYear = Integer.parseInt(CurrentDate.substring(3, 7));
+		int month = Integer.parseInt(cardExpiration.substring(0, 2));
+		int year = Integer.parseInt(cardExpiration.substring(3, 7));
+
+		if ((year == CurrentYear && month<= CurrentMonth) || year < CurrentYear) {
+			System.out.println("\t this credit card is expired.");
+			return false;}
+		else
+			return true;
 	}
 
+	//checks is the card has a right format (Visa or MasterCard)
 	private boolean checkMasterVisa(String cardNumber) {
 		boolean MasterVisa = false;
 		if (cardNumber.startsWith("4") 
@@ -86,6 +97,7 @@ public class PaymentView {
 		return MasterVisa;
 	}
 
+	//CVC code check
 	private boolean checkCvc(String CardCvc) {
 		boolean cvcCorrect = false;
 		if (CardCvc.matches("\\d{3}")) {

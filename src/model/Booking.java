@@ -7,11 +7,8 @@ import java.util.Date;
 public class Booking {
 	Bike bike;
 	Customer customer;
-	private long startTimeMs = System.currentTimeMillis(); // figure out start
-															// and end time
 	private String startTime, bookingId;
 	private String returnDate;
-	private long endTimeMs;
 	public int bookedDays;
 	private int price;
 
@@ -93,7 +90,7 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 
-	public void calculateAndSetBookingId() {
+	public void calculateAndSetBookingId() {  
 		this.bookingId = startTime.substring(5, 7) + startTime.substring(8, 10) + startTime.substring(11, 13)
 				+ startTime.substring(14, 16);
 	}
@@ -125,10 +122,3 @@ public class Booking {
 
 }
 
-/**
- * public Booking(String bookingId, String Username, String startTime, int
- * bookedDays, int bikeId, String bikeColor, String bikeType, int price) {
- * super(); this.startTime = startTime; this.bookedDays = bookedDays;
- * this.bookingId = bookingId; CustomerUsername = Username; BikeId = bikeId;
- * this.bikeColor = bikeColor; this.bikeType = bikeType; this.price = price; }
- */
