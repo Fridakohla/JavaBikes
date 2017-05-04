@@ -61,9 +61,7 @@ public class FileManipulation {
 			String lineFromFile = input.nextLine();
 			Customer customerFromFile = getCustomer(lineFromFile);
 			customerList.add(customerFromFile);
-
-		} // then added to a ArrayList
-
+		} 
 		return customerList;
 	}
 
@@ -75,7 +73,7 @@ public class FileManipulation {
 		}
 	}
 
-	// write customer database --> clearing before writing
+	// write booking database --> clearing before writing
 	public static void writeBookingList(ArrayList<Booking> bookingList) {
 		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
 		for (int i = 0; i < bookingList.size(); i++) {
@@ -88,7 +86,7 @@ public class FileManipulation {
 		writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
 	}
 
-	// write customer database --> clearing before writing
+	//  
 	public static void writeRegularBikeList(ArrayList<Bike> bikeList) {
 		clearFileContent(FILENAME_BIKEDB);
 		for (int i = 0; i < bikeList.size(); i++) {
@@ -109,20 +107,11 @@ public class FileManipulation {
 		String[] values = line.split(";");
 		Bike BikeFromFile = new Bike(Integer.parseInt(values[0]), values[1], values[2], Integer.parseInt(values[3]),
 				Boolean.parseBoolean(values[4]));
-
-		/**
-		 * alternative line by line assignment Bike BikeFromFile = new Bike();
-		 * BikeFromFile.setId(Integer.parseInt(values[0]));
-		 * BikeFromFile.setColor(values[1]); BikeFromFile.setType(values[2]);
-		 * BikeFromFile.setPrice(Integer.parseInt(values[3]));
-		 * BikeFromFile.setAvailable(Boolean.parseBoolean(values[4]));
-		 */
-
 		return BikeFromFile;
 
 	}
 
-	public static ArrayList<Bike> getBikeDatabase() { // Stores string
+	public static ArrayList<Bike> getBikeDatabase() { 
 		ArrayList<Bike> arrayBikes = new ArrayList<Bike>();
 		Scanner input = readDetails(FILENAME_BIKEDB);
 		while (input.hasNextLine()) {
@@ -154,7 +143,7 @@ public class FileManipulation {
 
 	public static void writeDetails(String file, String input) {
 		try {
-			FileWriter fwriter = new FileWriter(file, true); // false does
+			FileWriter fwriter = new FileWriter(file, true); // true adds new line, false does
 																// overwrite
 			PrintWriter output = new java.io.PrintWriter(fwriter);
 			// Write formatted output to the file
@@ -166,8 +155,9 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	public static void updateAvailability(Bike bikeObject, boolean available) { // >>>confirm
-		// booking
+	
+	//method to update availability of bikes in Database (true for available, false for taken)
+	public static void updateAvailability(Bike bikeObject, boolean available) { 
 		System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
@@ -178,7 +168,7 @@ public class FileManipulation {
 				}
 				String details = BikeArray.get(i).toFileString();
 				writeDetails(FILENAME_EBIKEDB, details);
-			} // end of Forloop
+			} // end of For loop
 		} else {
 			ArrayList<Bike> BikeArray = getBikeDatabase();
 			clearFileContent(FILENAME_BIKEDB);
@@ -188,13 +178,13 @@ public class FileManipulation {
 				}
 				String details = BikeArray.get(i).toFileString();
 				writeDetails(FILENAME_BIKEDB, details);
-			} // end of Forloop
+			} // end of For loop
 		}
-
 	} // End of Method
 
-	public static void clearFileContent(String fileName) { // clears all content
-															// from file
+	//Clears all content from file
+	public static void clearFileContent(String fileName) { 
+															
 		try {
 			PrintWriter pw = new PrintWriter(fileName);
 			pw.close();
@@ -210,14 +200,7 @@ public class FileManipulation {
 		bookingFromFile.setBookingId(values[0]);
 		bookingFromFile.setPrice(Integer.parseInt(values[3]));
 		bookingFromFile.setBookedDays(Integer.parseInt(values[4]));
-		bookingFromFile.setStartTime(values[5]);
-		// get null instead "null" from file to have one way of expressing not
-		// returned
-		if (values[6].equals("null")) {
-			bookingFromFile.setReturnDate(null);
-		} else {
-			bookingFromFile.setReturnDate(values[6]);
-		}
+		bookingFromFile.setReturnDate(values[5]);
 
 		// get bike object
 		Bike myBike = BikeDatabase.getBikeByID(Integer.parseInt(values[2]));
@@ -245,6 +228,7 @@ public class FileManipulation {
 		return bookingList;
 	}
 
+	//method to set a return date and send a bike back to database
 	public static void returnBike(String BookingId, String dateOfReturn) {
 		ArrayList<Booking> bookingList = getBookingDatabase();
 		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
@@ -257,3 +241,5 @@ public class FileManipulation {
 		} // end of Forloop
 	}
 }
+
+
