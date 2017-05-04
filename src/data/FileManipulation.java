@@ -74,11 +74,19 @@ public class FileManipulation {
 	}
 
 	// write customer database --> clearing before writing
-	public static void writeBikeList(ArrayList<Bike> bikeList) {
+	public static void writeRegularBikeList(ArrayList<Bike> bikeList) {
 		clearFileContent(FILENAME_BIKEDB);
 		for (int i = 0; i < bikeList.size(); i++) {
 			String bikeLine = bikeList.get(i).toFileString();
 			writeDetails(FILENAME_BIKEDB, bikeLine);
+		}
+	}
+
+	public static void writeElectricBikeList(ArrayList<Ebike> ebikeList) {
+		clearFileContent(FILENAME_EBIKEDB);
+		for (int i = 0; i < ebikeList.size(); i++) {
+			String bikeLine = ebikeList.get(i).toFileString();
+			writeDetails(FILENAME_EBIKEDB, bikeLine);
 		}
 	}
 
@@ -144,7 +152,7 @@ public class FileManipulation {
 	}// End of Method WriteDetails
 
 	public static void updateAvailability(Bike bikeObject, boolean available) { // >>>confirm
-																// booking
+		// booking
 		System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
@@ -180,12 +188,11 @@ public class FileManipulation {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Booking getBookingFromFile(String line) {
 		String[] values = line.split(";");
-		Booking BookingFromFile = new Booking(values[0], values[1], Integer.parseInt(values[2]),
-				values[3],values[4], Integer.parseInt(values[5]), Integer.parseInt(values[6]), values[7],
-				values[8]);
+		Booking BookingFromFile = new Booking(values[0], values[1], Integer.parseInt(values[2]), values[3], values[4],
+				Integer.parseInt(values[5]), Integer.parseInt(values[6]), values[7], values[8]);
 
 		return BookingFromFile;
 	}
@@ -198,10 +205,10 @@ public class FileManipulation {
 			String lineFromFile = input.nextLine();
 			Booking bookingFromFile = getBookingFromFile(lineFromFile);
 			bookingList.add(bookingFromFile);
-		} 
+		}
 		return bookingList;
 	}
-	
+
 	public static void returnBike(String BookingId, String dateOfReturn) {
 		ArrayList<Booking> bookingList = getBookingDatabase();
 		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
@@ -215,14 +222,12 @@ public class FileManipulation {
 	}
 }
 
-
-
 /**
  * HOW TO CALL THE METHOD //String Line = "2;yellow;women;50;true";//<<<TEST
- * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: 
- * Bike testBike= FileManipulation.getEbike("14;orange;child;55;true;7");
+ * //FileManipulation.replaceLine (Line);//<<<TEST to call eBike: Bike testBike=
+ * FileManipulation.getEbike("14;orange;child;55;true;7");
  * FileManipulation.updateAvailability(testBike);
- * FileManipulation.returnBike("05040021", "2017/05/05");
-Bike testBike= FileManipulation.getEbike("14;orange;child;55;true;7");
-FileManipulation.updateAvailability(testBike, true);
+ * FileManipulation.returnBike("05040021", "2017/05/05"); Bike testBike=
+ * FileManipulation.getEbike("14;orange;child;55;true;7");
+ * FileManipulation.updateAvailability(testBike, true);
  */

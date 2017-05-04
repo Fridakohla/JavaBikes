@@ -46,8 +46,13 @@ public class BikeDatabase {
 		return null;
 	}
 
-	public void removeBike(Bike bikeToDelete) {
+	public void removeRegularBike(Bike bikeToDelete) {
 		bikeList.remove(bikeToDelete);
-		FileManipulation.writeBikeList(bikeList);
+		FileManipulation.writeRegularBikeList(bikeList);
+	}
+
+	public void removeElectricBike(Bike bikeToDelete) {
+		ebikeList.remove(bikeToDelete);
+		FileManipulation.writeElectricBikeList(ebikeList);
 	}
 }

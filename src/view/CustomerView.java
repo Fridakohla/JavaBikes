@@ -125,7 +125,7 @@ public class CustomerView {
 
 	// could go to a seperate bookingView class
 	// displays the bikes (only regular ones, not ebikes)
-	public void displayRegularBikes() {
+	public static void displayRegularBikes() {
 		System.out.println("Here is a list of our bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
@@ -135,7 +135,7 @@ public class CustomerView {
 		}
 	}
 
-	public void displayElectricBikes() {
+	public static void displayElectricBikes() {
 		System.out.println("Here is a list of our electric bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
 		System.out.println("-------------------------------------------------------------------------------------");

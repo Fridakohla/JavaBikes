@@ -2,10 +2,16 @@ package view;
 
 import java.util.Scanner;
 
+import controller.JavaBikesController;
 import data.FileManipulation;
+import model.Bike;
+import model.BikeDatabase;
 import model.Customer;
+import model.CustomerDatabase;
 
 public class AdminView {
+	Scanner input = new Scanner(System.in);
+
 	public static final int MENUCHOICE_DELETECUSTOMER = 1;
 	public static final int MENUCHOICE_MANAGEBIKES = 2;
 	public static final int MENUCHOICE_VIEWBOOKINGS = 3;
@@ -20,7 +26,6 @@ public class AdminView {
 
 	public boolean adminLogin() {
 		for (int countTries = 1; countTries < 4; countTries++) {
-			Scanner input = new Scanner(System.in);
 			System.out.print("Enter the username: ");
 			String adminUsernameInput = input.nextLine();
 			System.out.print("Enter the password: ");
@@ -39,7 +44,6 @@ public class AdminView {
 
 	public int adminMainMenu() {
 		int choice;
-		Scanner input = new Scanner(System.in);
 		System.out.println("\nChoose one of the following options.");
 		System.out.println("|1| View customer list and delete customer.");
 		System.out.println("|2| Manage bikes.");
@@ -51,7 +55,6 @@ public class AdminView {
 
 	public int manageBikesMenu() {
 		int choice;
-		Scanner input = new Scanner(System.in);
 		System.out.println("\nWhat would you like to do?");
 		System.out.println("|1| Add ebike");
 		System.out.println("|2| Remove ebike");
@@ -71,6 +74,73 @@ public class AdminView {
 			System.out.println(myCustomer.getUsername() + "\t\t" + myCustomer.getFirstName() + "\t\t"
 					+ myCustomer.getLastName() + "\t\t" + myCustomer.getCpr() + "\t\t" + myCustomer.getEmail());
 		}
+	}
+
+	public Customer selectCustomerFromList(CustomerDatabase customerDb) {
+		displayCustomerList();
+		boolean correctInput = false;
+		while (!correctInput) {
+			System.out.println(
+					"\nPlease enter the user name of the customer you would like to delete from the database.");
+			System.out.println("Type 'back' to return.");
+			String deletedCustomer = input.nextLine();
+			for (Customer c : customerDb.getCustomerList()) {
+				if (c.getUsername().equals(deletedCustomer)) {
+					correctInput = true;
+					return c;
+				} else if (deletedCustomer.equals("back")) {
+					correctInput = true;
+					return null;
+					// go back to main menu
+				}
+			}
+			System.out.println("\nInvalid input.");
+		}
+		return null;
+	}
+
+	public Bike selectRegularBikeFromList(BikeDatabase bikeDb) {
+		CustomerView.displayRegularBikes();
+		boolean correctInput = false;
+		while (!correctInput) {
+			System.out.println("\nEnter the ID of the bike you would like to delete from the database.");
+			System.out.println("Type '0' to return.");
+			int chosenBikeId = JavaBikesController.chooseBike();
+			Bike bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
+			if (chosenBikeId == 0) {
+				correctInput = true;
+				return null;
+			} else if (bikeChoice == null) {
+				System.out.println("Invalid input. Make sure to type a valid ID.\n");
+			} else {
+				correctInput = true;
+				return bikeChoice;
+			}
+		}
+		return null;
+		// null goes back to main menu
+	}
+
+	public Bike selectElectricBikeFromList(BikeDatabase bikeDb) {
+		CustomerView.displayElectricBikes();
+		boolean correctInput = false;
+		while (!correctInput) {
+			System.out.println("\nEnter the ID of the bike you would like to delete from the database.");
+			System.out.println("Type '0' to return.");
+			int chosenBikeId = JavaBikesController.chooseBike();
+			Bike bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
+			if (chosenBikeId == 0) {
+				correctInput = true;
+				return null;
+			} else if (bikeChoice == null) {
+				System.out.println("Invalid input. Make sure to type a valid ID.\n");
+			} else {
+				correctInput = true;
+				return bikeChoice;
+			}
+		}
+		return null;
+		// null goes back to main menu
 	}
 }
 
