@@ -30,10 +30,6 @@ public class BikeDatabase {
 		return bikeList;
 	}
 
-	public void setBikeList(ArrayList<Bike> bikeList) {
-		this.bikeList = bikeList;
-	}
-
 	public static ArrayList<Ebike> getEbikeList() {
 		ebikeList = FileManipulation.getEbikeDatabase();
 		return ebikeList;
@@ -48,10 +44,6 @@ public class BikeDatabase {
 		return null;
 	}
 
-	/*
-	 * Returns the next available ID. Therefor goes through bikeList and
-	 * ebikeList to find the highest existing ID and increases by 1.
-	 */
 	public static Ebike getEbikeByID(int bookingChoice) {
 		for (Ebike myBike : getEbikeList()) {
 			if (myBike.getId() == bookingChoice) {
@@ -71,6 +63,10 @@ public class BikeDatabase {
 		FileManipulation.writeElectricBikeList(ebikeList);
 	}
 
+	/*
+	 * Returns the next available ID. Therefor goes through bikeList and
+	 * ebikeList to find the highest existing ID and increases by 1.
+	 */
 	public void generateNewBikeId(Bike addedBike) {
 		ArrayList<Bike> allBikes = new ArrayList<Bike>();
 		allBikes.addAll(bikeList);

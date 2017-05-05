@@ -191,12 +191,10 @@ public class FileManipulation {
 
 	// Clears all content from file
 	public static void clearFileContent(String fileName) {
-
 		try {
 			PrintWriter pw = new PrintWriter(fileName);
 			pw.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

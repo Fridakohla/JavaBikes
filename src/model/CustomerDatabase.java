@@ -22,10 +22,6 @@ public class CustomerDatabase {
 		return customerList;
 	}
 
-	public void setCustomerList(ArrayList<Customer> customerList) {
-		this.customerList = customerList;
-	}
-
 	// method to check if login is correct
 	public Customer checkLogin(String username, String password) {
 		for (Customer c : customerList) {
@@ -50,7 +46,6 @@ public class CustomerDatabase {
 		return null;
 	}
 
-	// maybe better to go on username level instead of whole object
 	public void removeCustomer(Customer customerToDelete) {
 		customerList.remove(customerToDelete);
 		FileManipulation.writeCustomerList(customerList);
