@@ -24,4 +24,19 @@ public class BookingDatabase {
 	public void setBookingList(ArrayList<Booking> bookingList) {
 		this.bookingList = bookingList;
 	}
+
+	// search booking database for bookings of customer and puts them to an
+	// array list
+	public ArrayList<Booking> getBookingsByCustomer(Customer currentCustomer) {
+		ArrayList<Booking> customerBookings = new ArrayList<Booking>();
+		for (Booking myBooking : bookingList) {
+			String usernameFromBooking = myBooking.getCustomer().getUsername();
+			String usernameCurrentCustomer = currentCustomer.getUsername();
+			if (usernameFromBooking.equals(usernameCurrentCustomer)) {
+				customerBookings.add(myBooking);
+			}
+		}
+		return customerBookings;
+	}
+
 }

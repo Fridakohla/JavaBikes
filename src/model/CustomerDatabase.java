@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import data.FileManipulation;
 
 public class CustomerDatabase {
-	private static ArrayList<Customer> customerList = new ArrayList<Customer>();
+	static ArrayList<Customer> customerList = new ArrayList<Customer>();
 
 	public CustomerDatabase() {
 		getCustomerList();

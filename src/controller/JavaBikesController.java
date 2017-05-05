@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Bike;
@@ -75,6 +76,7 @@ public class JavaBikesController {
 				}
 				break;
 			case WelcomeView.MENUCHOICE_ADMIN:
+				// go to AdminController
 				adminController.runAdmin();
 				break;
 			default:
@@ -89,25 +91,44 @@ public class JavaBikesController {
 		while (browsingBikes) {
 			boolean correctInput = false;
 			while (!correctInput) {
+				correctInput = true;
 				int choice = customerView.browseBikesMenu();
 				switch (choice) {
 				case CustomerView.MENUCHOICE_BIKES:
-					correctInput = true;
 					customerChoseRegularBike();
 					break;
 				case CustomerView.MENUCHOICE_EBIKES:
-					correctInput = true;
 					customerChoseEbike();
+					break;
+				case CustomerView.MENUCHOICE_RETURNBIKE:
+					customerReturnBike();
+					break;
+				case CustomerView.MENUCHOICE_BOOKINGHISTORY:
+					customerViewBookingHistory();
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
 					System.out.println("You have exited the program.");
-					correctInput = true;
 					browsingBikes = false;
 					break;
 				default:
+					correctInput = false;
 					System.out.println("Invalid input. Please type a valid option.");
 				}
 			}
+		}
+	}
+
+	private void customerReturnBike() {
+		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
+		if (currentCustomerBookings.size() > 0) {
+			customerView.displayOpenCustomerBookings(currentCustomerBookings);
+		}
+	}
+
+	private void customerViewBookingHistory() {
+		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
+		if (currentCustomerBookings.size() > 0) {
+			customerView.displayCustomerBookingHistory(currentCustomerBookings);
 		}
 	}
 

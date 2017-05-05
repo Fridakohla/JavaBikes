@@ -1,10 +1,12 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import controller.JavaBikesController;
 import model.Bike;
 import model.BikeDatabase;
+import model.Booking;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
@@ -12,6 +14,8 @@ import model.Ebike;
 public class CustomerView {
 	public static final int MENUCHOICE_BIKES = 1;
 	public static final int MENUCHOICE_EBIKES = 2;
+	public static final int MENUCHOICE_RETURNBIKE = 3;
+	public static final int MENUCHOICE_BOOKINGHISTORY = 4;
 	public static final int MENUCHOICE_CONFIRM = 1;
 	public static final int MENUCHOICE_BROWSE = 2;
 	public static final int MENUCHOICE_EXIT = 0;
@@ -22,9 +26,11 @@ public class CustomerView {
 	public int browseBikesMenu() {
 		int choice;
 		Scanner input = new Scanner(System.in);
-		System.out.println("You are now browsing the bike catalog. Choose one of the following options.");
+		System.out.println("\nWhat would you like to do now?");
 		System.out.println("|1| Browse regular bikes.");
 		System.out.println("|2| Browse electric bikes.");
+		System.out.println("|3| Return bike.");
+		System.out.println("|4| View booking history.");
 		System.out.println("|0| Quit program.\n");
 		choice = input.nextInt();
 		return choice;
@@ -155,6 +161,39 @@ public class CustomerView {
 					myBike.getId() + "\t" + myBike.getColor() + "\t\t" + myBike.getType() + "\t\t" + myBike.getPrice()
 							+ " DKK\t\t" + availabilityString + "\t\t" + myBike.getBatteryDuration() + " hours");
 		}
+	}
+
+	public static void displayOpenCustomerBookings(ArrayList<Booking> customerBookings) {
+		System.out.println("\nHere is an overview of your open bookings.\n");
+		System.out.println("Booking ID \tColor \t\tType \t\tAmount Paid \tDays Booked \tDate Rented");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------");
+		for (Booking myBooking : customerBookings) {
+			if (myBooking.getReturnDate() == null) {
+				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getBike().getColor() + "\t\t"
+						+ myBooking.getBike().getType() + "\t\t" + myBooking.getTotalPrice() + " DKK\t\t"
+						+ myBooking.getBookedDays() + "\t\t" + myBooking.getStartTime());
+			}
+		}
+
+	}
+
+	public static void displayCustomerBookingHistory(ArrayList<Booking> customerBookings) {
+		System.out.println("\nHere is an overview of your past bookings.\n");
+		System.out
+				.println("Booking ID \tColor \t\tType \t\tAmount Paid \t\tDays Booked \tStart Time \t\tDate Returned");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------------------");
+		for (Booking myBooking : customerBookings) {
+			if (myBooking.getReturnDate() != null) {
+				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getBike().getColor() + "\t\t"
+						+ myBooking.getBike().getType() + "\t\t" + myBooking.getTotalPrice() + " DKK\t\t"
+						+ myBooking.getBookedDays() + "\t\t" + myBooking.getStartTime() + "\t"
+						+ myBooking.getReturnDate());
+
+			}
+		}
+
 	}
 
 	public void displayNotAvailable() {
