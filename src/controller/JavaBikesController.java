@@ -23,11 +23,10 @@ public class JavaBikesController {
 	public static Booking currentBooking = new Booking();
 	Customer currentCustomer;
 	CustomerView customerView = new CustomerView();
-	WelcomeView welcome = new WelcomeView(); 
+	WelcomeView welcome = new WelcomeView();
 	PaymentView cardView = new PaymentView();
 	AdminView adminView = new AdminView();
 
-	
 	public JavaBikesController() {
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
@@ -54,7 +53,8 @@ public class JavaBikesController {
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_REGISTER:
 				// adds newly registered customer
-				customerDb.addNewCustomer();
+				Customer myCustomer = customerView.getCustomerDetails();
+				customerDb.addCustomer(myCustomer);
 				break;
 			case WelcomeView.MENUCHOICE_LOGIN:
 				currentCustomer = customerView.login(customerDb);
