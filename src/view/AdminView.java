@@ -172,9 +172,9 @@ public class AdminView {
 
 	public void displayBookingList(BookingDatabase bookingDb) {
 		System.out.println("\nHere is an overview of all bookings.\n");
-		System.out.println("Booking ID \tUsername \tPrice \t\tBooked Days \tStart Time \t\tReturned?");
+		System.out.println("Booking ID \tUsername \tPrice \t\tDays Booked \tStart Time \t\tReturned?");
 		System.out.println(
-				"-------------------------------------------------------------------------------------------------");
+				"----------------------------------------------------------------------------------------------------");
 		for (Booking myBooking : bookingDb.getBookingList()) {
 			String returnedString;
 			if (myBooking.getReturnDate() == null) {
@@ -184,13 +184,12 @@ public class AdminView {
 			}
 			try {
 				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getCustomer().getUsername() + "\t\t"
-						+ myBooking.getPrice() + "\t\t" + myBooking.getBookedDays() + "\t\t" + myBooking.getStartTime()
-						+ "\t" + returnedString);
+						+ myBooking.getPrice() + " DKK\t\t" + myBooking.getBookedDays() + "\t\t"
+						+ myBooking.getStartTime() + "\t" + returnedString);
 			} catch (Exception e) {
 				// if there is an exception then either the bike or the customer
 				// does not exist anymore. In this case don't show the booking.
 			}
-
 		}
 	}
 }

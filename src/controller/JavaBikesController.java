@@ -8,8 +8,6 @@ import model.Booking;
 import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
-import model.Ebike;
-import view.AdminView;
 import view.CustomerView;
 import view.PaymentView;
 import view.WelcomeView;
@@ -20,9 +18,9 @@ public class JavaBikesController {
 	public static CustomerDatabase customerDb;
 	public static BikeDatabase bikeDb;
 	public static BookingDatabase bookingDb;
-
 	public static Bike bikeChoice;
 	public static Booking currentBooking = new Booking();
+	private AdminController adminController;
 
 	private Customer currentCustomer;
 
@@ -30,7 +28,6 @@ public class JavaBikesController {
 	public CustomerView customerView;
 	public WelcomeView welcome;
 	public PaymentView cardView;
-	public AdminView adminView;
 
 	public JavaBikesController() {
 		customerDb = new CustomerDatabase();
@@ -40,7 +37,7 @@ public class JavaBikesController {
 		customerView = new CustomerView();
 		welcome = new WelcomeView();
 		cardView = new PaymentView();
-		adminView = new AdminView();
+		adminController = new AdminController();
 	}
 
 	public static void main(String[] args) {
@@ -78,117 +75,12 @@ public class JavaBikesController {
 				}
 				break;
 			case WelcomeView.MENUCHOICE_ADMIN:
-				runAdmin();
+				adminController.runAdmin();
 				break;
 			default:
 				correctInput = false;
 				System.out.println("Invalid input. Please type a valid option.");
 			}
-		}
-	}
-
-	private void runAdmin() {
-		// admin login check -- if false, program ends
-		boolean adminContinue = adminView.adminLogin();
-		while (adminContinue) {
-			boolean correctInput = false;
-			while (!correctInput) {
-				int choice = adminView.adminMainMenu();
-				correctInput = true;
-				switch (choice) {
-				case AdminView.MENUCHOICE_DELETECUSTOMER:
-					adminDeleteCustomer();
-					break;
-				case AdminView.MENUCHOICE_MANAGEBIKES:
-					// add and remove -- bikes or ebikes
-					adminManageBikes();
-					break;
-				case AdminView.MENUCHOICE_VIEWBOOKINGS:
-					adminView.displayBookingList(bookingDb);
-					break;
-				case CustomerView.MENUCHOICE_EXIT:
-					System.out.println("You have exited the program.");
-					adminContinue = false;
-					break;
-				default:
-					correctInput = false;
-					System.out.println("Invalid input. Please type a valid option.");
-				}
-			}
-		}
-	}
-
-	private void adminManageBikes() {
-		boolean correctInput = false;
-		CustomerView.displayRegularBikes(bikeDb);
-		CustomerView.displayElectricBikes(bikeDb);
-		while (!correctInput) {
-			correctInput = true;
-			int choice = adminView.manageBikesMenu();
-			switch (choice) {
-			case AdminView.MENUCHOICE_REMOVEBIKE:
-				adminDeleteRegularBike();
-				break;
-			case AdminView.MENUCHOICE_REMOVEEBIKE:
-				adminDeleteElectricBike();
-				break;
-			case AdminView.MENUCHOICE_ADDBIKE:
-				adminAddRegularBike();
-				break;
-			case AdminView.MENUCHOICE_ADDEBIKE:
-				adminAddElectricBike();
-				break;
-			default:
-				correctInput = false;
-			}
-		}
-	}
-
-	private void adminAddRegularBike() {
-		Bike addedBike = new Bike();
-		adminView.addRegularBike(addedBike);
-		bikeDb.addBike(addedBike);
-		System.out.println("You have added --> " + addedBike + " <-- to the database.");
-		CustomerView.displayRegularBikes(bikeDb);
-	}
-
-	private void adminAddElectricBike() {
-		Ebike addedEbike = new Ebike();
-		adminView.addRegularBike(addedEbike);
-		bikeDb.addBike(addedEbike);
-		System.out.println("You have added --> " + addedEbike + " <-- to the database.");
-		CustomerView.displayElectricBikes(bikeDb);
-	}
-
-	private void adminDeleteRegularBike() {
-		Bike deletedBike;
-		deletedBike = adminView.selectRegularBikeFromList(bikeDb);
-		if (deletedBike != null) {
-			bikeDb.removeRegularBike(deletedBike);
-			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			CustomerView.displayRegularBikes(bikeDb);
-		}
-
-	}
-
-	private void adminDeleteElectricBike() {
-		Bike deletedBike;
-		deletedBike = adminView.selectElectricBikeFromList(bikeDb);
-		if (deletedBike != null) {
-			bikeDb.removeElectricBike(deletedBike);
-			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			CustomerView.displayElectricBikes(bikeDb);
-		}
-
-	}
-
-	private void adminDeleteCustomer() {
-		Customer deletedCustomer;
-		deletedCustomer = adminView.selectCustomerFromList(customerDb);
-		if (deletedCustomer != null) {
-			customerDb.removeCustomer(deletedCustomer);
-			System.out.println("You have deleted --> " + deletedCustomer + " <-- from the customer database.\n");
-			adminView.displayCustomerList(customerDb);
 		}
 	}
 
@@ -217,7 +109,6 @@ public class JavaBikesController {
 				}
 			}
 		}
-
 	}
 
 	private void customerContinueBooking() {
@@ -279,7 +170,6 @@ public class JavaBikesController {
 			System.out.println("Invalid input. Make sure to type a valid ID.\n");
 			return false;
 		} else if (bikeChoice.isAvailable() == false) {
-			JavaBikesController.bikeChoice = bikeChoice;
 			customerView.displayNotAvailable();
 			return false;
 		} else {
