@@ -188,8 +188,7 @@ public class AdminView {
 						+ "\t" + returnedString);
 			} catch (Exception e) {
 				// if there is an exception then either the bike or the customer
-				// does not exist anymore
-
+				// does not exist anymore. In this case don't show the booking.
 			}
 
 		}

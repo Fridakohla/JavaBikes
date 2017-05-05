@@ -52,77 +52,37 @@ public class JavaBikesController {
 	 * say what the method does
 	 */
 	private void runProgram() {
-		boolean continueBooking = true;
-		boolean correctInput = false;
-		boolean browsingBikes = true;
 
 		// show login menu and let user choose to register or login
-		int choice = welcome.loginMenu();
-
+		boolean correctInput = false;
 		while (!correctInput) {
+			int choice = welcome.loginMenu();
 			correctInput = true;
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_REGISTER:
 				// adds newly registered customer
-				Customer myCustomer = customerView.getCustomerDetails();
-				customerDb.addCustomer(myCustomer);
+				currentCustomer = customerView.getCustomerDetails();
+				customerDb.addCustomer(currentCustomer);
+				customerMainMenu();
 				break;
 			case WelcomeView.MENUCHOICE_LOGIN:
 				currentCustomer = customerView.login(customerDb);
-				if (currentCustomer != null) { // returns null when wrong
-												// username
-												// and/or
-												// pw for too many times
+				// returns null when wrong username and/or pw for too many times
+				if (currentCustomer != null) {
 					System.out.println("\nHello, " + currentCustomer.getFirstName() + "! Your login was successful.\n");
-					// needs to fill in: return booked bike or continue to book
-					// bike
 					// continue with browse bikes
+					customerMainMenu();
 				} else {
-					browsingBikes = false;
+					// Too many failed login tries. Program ends.
+					System.out.println("You exited the program.");
 				}
 				break;
 			case WelcomeView.MENUCHOICE_ADMIN:
 				runAdmin();
-				browsingBikes = false;
 				break;
 			default:
 				correctInput = false;
 				System.out.println("Invalid input. Please type a valid option.");
-			}
-		}
-
-		while (browsingBikes) {
-			continueBooking = getBrowseBikesMenu();
-			if (continueBooking) {
-				int daysBooked = customerView.chooseDays();
-				// It stores all Booking info which will be recorded to file in
-				// next step if confirmed.
-				currentBooking.setBookingDetails(bikeChoice, currentCustomer, daysBooked);
-				correctInput = false;
-				while (!correctInput) {
-					correctInput = true;
-					choice = customerView.confirmBookingMenu();
-					switch (choice) {
-					case CustomerView.MENUCHOICE_CONFIRM:
-						// Booking confirmed and recorder to file
-						BookingDatabase.addBooking(currentBooking);
-						cardView.validateCreditCardDetails(currentCustomer, bikeChoice);
-						browsingBikes = false;
-						break;
-					case CustomerView.MENUCHOICE_BROWSE:
-						break;
-					case CustomerView.MENUCHOICE_EXIT:
-						System.out.println("You have exited the program!!");
-						continueBooking = false;
-						browsingBikes = false;
-						break;
-					default:
-						correctInput = false;
-						System.out.println("Invalid input. Please type a valid option.");
-					}
-				}
-			} else {
-				browsingBikes = false;
 			}
 		}
 	}
@@ -232,46 +192,97 @@ public class JavaBikesController {
 		}
 	}
 
-	public boolean getBrowseBikesMenu() {
+	private void customerMainMenu() {
+		boolean browsingBikes = true;
+		while (browsingBikes) {
+			boolean continueBooking = customerGetBrowseBikesMenu();
+			if (continueBooking) {
+				int daysBooked = customerView.chooseDays();
+				// It stores all Booking info which will be recorded to file in
+				// next step if confirmed.
+				currentBooking.setBookingDetails(bikeChoice, currentCustomer, daysBooked);
+				boolean correctInput = false;
+				while (!correctInput) {
+					correctInput = true;
+					int choice = customerView.confirmBookingMenu();
+					switch (choice) {
+					case CustomerView.MENUCHOICE_CONFIRM:
+						// Booking confirmed and recorder to file
+						BookingDatabase.addBooking(currentBooking);
+						cardView.validateCreditCardDetails(currentCustomer, bikeChoice);
+						break;
+					case CustomerView.MENUCHOICE_BROWSE:
+						// do nothing, just go back to the other menu
+						break;
+					case CustomerView.MENUCHOICE_EXIT:
+						System.out.println("You have exited the program!!");
+						browsingBikes = false;
+						break;
+					default:
+						correctInput = false;
+						System.out.println("Invalid input. Please type a valid option.");
+					}
+				}
+			}
+		}
+
+	}
+
+	private boolean customerGetBrowseBikesMenu() {
 		boolean correctInput = false;
 		while (!correctInput) {
 			int choice = customerView.browseBikesMenu();
 			switch (choice) {
 			case CustomerView.MENUCHOICE_BIKES:
 				correctInput = true;
-				CustomerView.displayRegularBikes(bikeDb);
-				System.out.println("\nPlease enter the ID of the bike you would like to book:");
-				int chosenBikeId = chooseBike();
-				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
-				if (bikeChoice == null) {
-					System.out.println("Invalid input. Make sure to type a valid ID.\n");
-					return false;
-				} else if (bikeChoice.isAvailable() == false) {
-					JavaBikesController.bikeChoice = bikeChoice;
-					customerView.displayNotAvailable();
-					return false;
-				}
-				break;
+				boolean continueBooking = customerChoseRegularBike();
+				return continueBooking;
 			case CustomerView.MENUCHOICE_EBIKES:
 				correctInput = true;
-				CustomerView.displayElectricBikes(bikeDb);
-				chosenBikeId = chooseBike();
-				bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
-				if (bikeChoice == null) {
-					System.out.println("Invalid input. Make sure to type a valid ID.\n");
-					return false;
-				} else if (bikeChoice.isAvailable() == false) {
-					customerView.displayNotAvailable();
-					return false;
-				}
-				break;
+				continueBooking = customerChoseEbike();
+				return continueBooking;
 			case CustomerView.MENUCHOICE_EXIT:
 				System.out.println("You have exited the program.");
-				correctInput = true;
-				return false;
+				System.exit(0);
 			default:
 				System.out.println("Invalid input. Please type a valid option.");
 			}
+		}
+		return true;
+	}
+
+	/**
+	 * @return
+	 */
+	private boolean customerChoseEbike() {
+		CustomerView.displayElectricBikes(bikeDb);
+		int chosenBikeId = chooseBike();
+		bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
+		if (bikeChoice == null) {
+			System.out.println("Invalid input. Make sure to type a valid ID.\n");
+			return false;
+		} else if (bikeChoice.isAvailable() == false) {
+			customerView.displayNotAvailable();
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @return
+	 */
+	private boolean customerChoseRegularBike() {
+		CustomerView.displayRegularBikes(bikeDb);
+		System.out.println("\nPlease enter the ID of the bike you would like to book:");
+		int chosenBikeId = chooseBike();
+		bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
+		if (bikeChoice == null) {
+			System.out.println("Invalid input. Make sure to type a valid ID.\n");
+			return false;
+		} else if (bikeChoice.isAvailable() == false) {
+			JavaBikesController.bikeChoice = bikeChoice;
+			customerView.displayNotAvailable();
+			return false;
 		}
 		return true;
 	}

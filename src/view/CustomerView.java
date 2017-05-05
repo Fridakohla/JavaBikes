@@ -123,7 +123,6 @@ public class CustomerView {
 		System.out.println(C.toString());
 	}
 
-	// could go to a seperate bookingView class
 	// displays the bikes (only regular ones, not ebikes)
 	public static void displayRegularBikes(BikeDatabase bikeDb) {
 		System.out.println("\nHere is a list of our regular bikes.\n");
