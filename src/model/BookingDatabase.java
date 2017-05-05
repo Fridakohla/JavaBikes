@@ -7,7 +7,6 @@ import data.FileManipulation;
 public class BookingDatabase {
 
 	private static ArrayList<Booking> bookingList = new ArrayList<Booking>();
-	public static String FILENAME_BOOKINGDB = "bookingDatabase.csv";
 
 	public static void addBooking(Booking newBooking) {
 		bookingList.add(newBooking); // THIS LINE NOT REALLY NEEDED??

@@ -13,7 +13,7 @@ public class CustomerDatabase {
 
 	// method for adding customer in customer lists (DIRECTLY TO TEXT LIST)
 	public void addCustomer(Customer newCustomer) {
-		newCustomer.writetoFile();
+		FileManipulation.writeCustomer(newCustomer);
 	}
 
 	// method extracts data from text file and stores in array list of objects

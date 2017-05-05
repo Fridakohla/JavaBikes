@@ -119,11 +119,9 @@ public class Booking {
 		return priceOfBooking;
 	}
 
-	@Override
-	public String toString() {
+	public String toFileString() {
 		return getBookingId() + ";" + getCustomer().getUsername() + ";" + getBike().getId() + ";" + getPrice() + ";"
 				+ getBookedDays() + ";" + getStartTime() + ";" + getReturnDate();
 	}
 
 }
-

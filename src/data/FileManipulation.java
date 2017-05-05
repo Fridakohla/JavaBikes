@@ -11,7 +11,6 @@ import java.util.Scanner;
 import model.Bike;
 import model.BikeDatabase;
 import model.Booking;
-import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
@@ -21,6 +20,7 @@ public class FileManipulation {
 	public static String FILENAME_CUSTOMERDB = "customer.csv";
 	public static String FILENAME_BIKEDB = "bike.csv";
 	public static String FILENAME_EBIKEDB = "ebike.csv";
+	public static String FILENAME_BOOKINGDB = "bookingDatabase.csv";
 
 	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
@@ -65,25 +65,30 @@ public class FileManipulation {
 		return customerList;
 	}
 
-	// write customer database --> clearing before writing
+	// write customer a single customer to the database file (adding)
 	public static void writeCustomerList(ArrayList<Customer> customerList) {
 		clearFileContent(FILENAME_CUSTOMERDB);
 		for (int i = 0; i < customerList.size(); i++) {
-			customerList.get(i).writetoFile();
+			writeCustomer(customerList.get(i));
 		}
+	}
+
+	public static void writeCustomer(Customer c) {
+		String details = c.toFileString();
+		writeDetails(FILENAME_CUSTOMERDB, details);
 	}
 
 	// write booking database --> clearing before writing
 	public static void writeBookingList(ArrayList<Booking> bookingList) {
-		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
+		clearFileContent(FILENAME_BOOKINGDB);
 		for (int i = 0; i < bookingList.size(); i++) {
 			writeBooking(bookingList.get(i));
 		}
 	}
 
 	public static void writeBooking(Booking b) {
-		String details = b.toString();
-		writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
+		String details = b.toFileString();
+		writeDetails(FILENAME_BOOKINGDB, details);
 	}
 
 	//
@@ -228,7 +233,7 @@ public class FileManipulation {
 
 	public static ArrayList<Booking> getBookingDatabase() {
 		ArrayList<Booking> bookingList = new ArrayList<Booking>();
-		Scanner input = readDetails(BookingDatabase.FILENAME_BOOKINGDB);
+		Scanner input = readDetails(FILENAME_BOOKINGDB);
 		// checking each line
 		while (input.hasNextLine()) {
 			String lineFromFile = input.nextLine();
@@ -241,13 +246,13 @@ public class FileManipulation {
 	// method to set a return date and send a bike back to database
 	public static void returnBike(String BookingId, String dateOfReturn) {
 		ArrayList<Booking> bookingList = getBookingDatabase();
-		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
+		clearFileContent(FILENAME_BOOKINGDB);
 		for (int i = 0; i < bookingList.size(); i++) {
 			if (bookingList.get(i).getBookingId().equals(BookingId)) {
 				bookingList.get(i).setReturnDate(dateOfReturn);
 			}
 			String details = bookingList.get(i).toString();
-			writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
+			writeDetails(FILENAME_BOOKINGDB, details);
 		} // end of Forloop
 	}
 }

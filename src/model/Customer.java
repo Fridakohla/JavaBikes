@@ -1,7 +1,5 @@
 package model;
 
-import data.FileManipulation;
-
 public class Customer {
 	private String firstName;
 	private String lastName;
@@ -131,9 +129,9 @@ public class Customer {
 		this.password = lastName.substring(0, 3) + cpr.substring(7, 11);
 	}
 
-	public void writetoFile() {
+	public String toFileString() {
 		String details = lastName + ";" + firstName + ";" + username + ";" + password + ";" + address + ";" + cpr + ";"
 				+ email + ";";
-		FileManipulation.writeDetails(FileManipulation.FILENAME_CUSTOMERDB, details);
+		return details;
 	}
 }
