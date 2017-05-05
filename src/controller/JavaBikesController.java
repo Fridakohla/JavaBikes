@@ -23,20 +23,17 @@ public class JavaBikesController {
 	public static Booking currentBooking = new Booking();
 	Customer currentCustomer;
 	CustomerView customerView = new CustomerView();
-	WelcomeView welcome = new WelcomeView(); // creates new object of
-												// WelcomeView
+	WelcomeView welcome = new WelcomeView(); 
 	PaymentView cardView = new PaymentView();
 	AdminView adminView = new AdminView();
 
-	/** Constructor (moved in front for better structure view) */
+	
 	public JavaBikesController() {
-		// initializes db objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
 	}
 
 	public static void main(String[] args) {
-		// construct new controller object
 		JavaBikesController controller = new JavaBikesController();
 		controller.runProgram();
 	} // End of main

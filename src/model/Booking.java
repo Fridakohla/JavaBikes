@@ -16,6 +16,17 @@ public class Booking {
 
 	}
 
+	public Booking(String bookingId, int price, int bookedDays, String startTime, String returnDate, Bike bike,
+			Customer customer) {
+		this.startTime = startTime;
+		this.bookingId = bookingId;
+		this.returnDate = returnDate;
+		this.bookedDays = bookedDays;
+		this.price = price;
+		this.bike = bike;
+		this.customer = customer;
+	}
+
 	public void setBookingDetails(Bike chosenBike, Customer currentCustomer, int bookedDays) {
 		calculateAndSetStartTime();
 		calculateAndSetBookingId();
@@ -97,6 +108,12 @@ public class Booking {
 		this.returnDate = returnDate;
 	}
 
+	// get days instead
+	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
+		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
+		return timeInMinutes;
+	}
+
 	public double calculatePrice(int timeInMinutes, double pricePerMinute) {
 		double priceOfBooking = pricePerMinute * timeInMinutes;
 		return priceOfBooking;
@@ -109,3 +126,4 @@ public class Booking {
 	}
 
 }
+
