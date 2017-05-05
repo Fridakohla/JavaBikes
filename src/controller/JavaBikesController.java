@@ -140,10 +140,10 @@ public class JavaBikesController {
 					adminDeleteCustomer();
 					break;
 				case AdminView.MENUCHOICE_MANAGEBIKES:
+					// add and remove -- bikes or ebikes
 					adminManageBikes();
 					break;
 				case AdminView.MENUCHOICE_VIEWBOOKINGS:
-					// add and remove -- bikes or ebikes
 					adminView.displayBookingList(bookingDb);
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
@@ -168,22 +168,20 @@ public class JavaBikesController {
 			switch (choice) {
 			case AdminView.MENUCHOICE_REMOVEBIKE:
 				adminDeleteRegularBike();
-				return true;
+				break;
 			case AdminView.MENUCHOICE_REMOVEEBIKE:
 				adminDeleteElectricBike();
-				return true;
+				break;
 			case AdminView.MENUCHOICE_ADDBIKE:
 				adminAddRegularBike();
-				return true;
+				break;
 			case AdminView.MENUCHOICE_ADDEBIKE:
 				adminAddElectricBike();
-				return true;
+				break;
 			default:
 				correctInput = false;
-				return false;
 			}
 		}
-		return false;
 	}
 
 	private void adminAddRegularBike() {
