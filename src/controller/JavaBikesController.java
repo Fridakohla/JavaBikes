@@ -131,20 +131,19 @@ public class JavaBikesController {
 		// admin login check -- if false, program ends
 		boolean adminContinue = adminView.adminLogin();
 		while (adminContinue) {
-			int choice = adminView.adminMainMenu();
 			boolean correctInput = false;
 			while (!correctInput) {
+				int choice = adminView.adminMainMenu();
 				correctInput = true;
 				switch (choice) {
 				case AdminView.MENUCHOICE_DELETECUSTOMER:
 					adminDeleteCustomer();
 					break;
 				case AdminView.MENUCHOICE_MANAGEBIKES:
-					if (manageBikes()) {
-					}
+					adminManageBikes();
 					break;
-				// add and remove -- bikes or ebikes
 				case AdminView.MENUCHOICE_VIEWBOOKINGS:
+					// add and remove -- bikes or ebikes
 					adminView.displayBookingList(bookingDb);
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
@@ -159,7 +158,7 @@ public class JavaBikesController {
 		}
 	}
 
-	private boolean manageBikes() {
+	private void adminManageBikes() {
 		boolean correctInput = false;
 		CustomerView.displayRegularBikes(bikeDb);
 		CustomerView.displayElectricBikes(bikeDb);
