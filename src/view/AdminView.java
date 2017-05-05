@@ -180,7 +180,7 @@ public class AdminView {
 			if (myBooking.getReturnDate() == null) {
 				returnedString = "no";
 			} else {
-				returnedString = "yes";
+				returnedString = myBooking.getReturnDate();
 			}
 			try {
 				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getCustomer().getUsername() + "\t\t"

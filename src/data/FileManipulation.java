@@ -61,7 +61,7 @@ public class FileManipulation {
 			String lineFromFile = input.nextLine();
 			Customer customerFromFile = getCustomer(lineFromFile);
 			customerList.add(customerFromFile);
-		} 
+		}
 		return customerList;
 	}
 
@@ -86,7 +86,7 @@ public class FileManipulation {
 		writeDetails(BookingDatabase.FILENAME_BOOKINGDB, details);
 	}
 
-	//  
+	//
 	public static void writeRegularBikeList(ArrayList<Bike> bikeList) {
 		clearFileContent(FILENAME_BIKEDB);
 		for (int i = 0; i < bikeList.size(); i++) {
@@ -111,7 +111,7 @@ public class FileManipulation {
 
 	}
 
-	public static ArrayList<Bike> getBikeDatabase() { 
+	public static ArrayList<Bike> getBikeDatabase() {
 		ArrayList<Bike> arrayBikes = new ArrayList<Bike>();
 		Scanner input = readDetails(FILENAME_BIKEDB);
 		while (input.hasNextLine()) {
@@ -130,7 +130,7 @@ public class FileManipulation {
 		return BikeFromFile;
 	}
 
-	public static ArrayList<Ebike> getEbikeDatabase() {  
+	public static ArrayList<Ebike> getEbikeDatabase() {
 		ArrayList<Ebike> arrayEBikes = new ArrayList<Ebike>();
 		Scanner input = readDetails(FILENAME_EBIKEDB);
 		while (input.hasNextLine()) {
@@ -143,11 +143,13 @@ public class FileManipulation {
 
 	public static void writeDetails(String file, String input) {
 		try {
-			FileWriter fwriter = new FileWriter(file, true); // true adds new line, false does
+			FileWriter fwriter = new FileWriter(file, true); // true adds new
+																// line, false
+																// does
 																// overwrite
 			PrintWriter output = new java.io.PrintWriter(fwriter);
 			// Writes formatted output to the file
-			output.println(input);  
+			output.println(input);
 			output.close();
 		} catch (IOException ex) {
 			// if the file is not accessible, print this message
@@ -155,9 +157,9 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	
-	//method to update availability of bikes in Database (true for available, false for taken)
-	public static void updateAvailability(Bike bikeObject, boolean available) { 
+	// method to update availability of bikes in Database (true for available,
+	// false for taken)
+	public static void updateAvailability(Bike bikeObject, boolean available) {
 		System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
@@ -182,9 +184,9 @@ public class FileManipulation {
 		}
 	} // End of Method
 
-	//Clears all content from file
-	public static void clearFileContent(String fileName) { 
-															
+	// Clears all content from file
+	public static void clearFileContent(String fileName) {
+
 		try {
 			PrintWriter pw = new PrintWriter(fileName);
 			pw.close();
@@ -200,11 +202,19 @@ public class FileManipulation {
 		bookingFromFile.setBookingId(values[0]);
 		bookingFromFile.setPrice(Integer.parseInt(values[3]));
 		bookingFromFile.setBookedDays(Integer.parseInt(values[4]));
-		bookingFromFile.setReturnDate(values[5]);
+		bookingFromFile.setStartTime(values[5]);
+		// get null instead "null" from file to have one way of expressing not
+		// returned
+		if (values[6].equals("null")) {
+			bookingFromFile.setReturnDate(null);
+		} else {
+			bookingFromFile.setReturnDate(values[6]);
+		}
 
 		// get bike object
 		Bike myBike = BikeDatabase.getBikeByID(Integer.parseInt(values[2]));
-		// if the bike is an ebike. Then look in the ebike list.
+		// if the bike is an ebike then he could not find it in the bike list.
+		// Then look in the ebike list.
 		if (myBike == null) {
 			myBike = BikeDatabase.getEbikeByID(Integer.parseInt(values[2]));
 		}
@@ -228,7 +238,7 @@ public class FileManipulation {
 		return bookingList;
 	}
 
-	//method to set a return date and send a bike back to database
+	// method to set a return date and send a bike back to database
 	public static void returnBike(String BookingId, String dateOfReturn) {
 		ArrayList<Booking> bookingList = getBookingDatabase();
 		clearFileContent(BookingDatabase.FILENAME_BOOKINGDB);
@@ -241,5 +251,3 @@ public class FileManipulation {
 		} // end of Forloop
 	}
 }
-
-
