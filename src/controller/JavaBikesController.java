@@ -19,17 +19,28 @@ public class JavaBikesController {
 	// create objects of CustomerDatabase and BikeDatabase
 	public static CustomerDatabase customerDb;
 	public static BikeDatabase bikeDb;
+	public static BookingDatabase bookingDb;
+
 	public static Bike bikeChoice;
 	public static Booking currentBooking = new Booking();
-	Customer currentCustomer;
-	CustomerView customerView = new CustomerView();
-	WelcomeView welcome = new WelcomeView();
-	PaymentView cardView = new PaymentView();
-	AdminView adminView = new AdminView();
+
+	private Customer currentCustomer;
+
+	// View objects
+	public CustomerView customerView;
+	public WelcomeView welcome;
+	public PaymentView cardView;
+	public AdminView adminView;
 
 	public JavaBikesController() {
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
+		bookingDb = new BookingDatabase();
+
+		customerView = new CustomerView();
+		welcome = new WelcomeView();
+		cardView = new PaymentView();
+		adminView = new AdminView();
 	}
 
 	public static void main(String[] args) {
@@ -137,7 +148,7 @@ public class JavaBikesController {
 					break;
 				// add and remove -- bikes or ebikes
 				case AdminView.MENUCHOICE_VIEWBOOKINGS:
-					adminView.displayBookingList();
+					adminView.displayBookingList(bookingDb);
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
 					System.out.println("You have exited the program.");

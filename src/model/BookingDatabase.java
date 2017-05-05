@@ -8,6 +8,10 @@ public class BookingDatabase {
 
 	private static ArrayList<Booking> bookingList = new ArrayList<Booking>();
 
+	public BookingDatabase() {
+		bookingList = FileManipulation.getBookingDatabase();
+	}
+
 	public static void addBooking(Booking newBooking) {
 		bookingList.add(newBooking); // THIS LINE NOT REALLY NEEDED??
 		FileManipulation.writeBooking(newBooking);
