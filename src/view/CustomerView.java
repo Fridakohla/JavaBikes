@@ -3,8 +3,8 @@ package view;
 import java.util.Scanner;
 
 import controller.JavaBikesController;
-import data.FileManipulation;
 import model.Bike;
+import model.BikeDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
@@ -125,11 +125,11 @@ public class CustomerView {
 
 	// could go to a seperate bookingView class
 	// displays the bikes (only regular ones, not ebikes)
-	public static void displayRegularBikes() {
+	public static void displayRegularBikes(BikeDatabase bikeDb) {
 		System.out.println("\nHere is a list of our regular bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable?");
 		System.out.println("--------------------------------------------------------------------");
-		for (Bike myBike : JavaBikesController.bikeDb.getBikeList()) {
+		for (Bike myBike : bikeDb.getBikeList()) {
 			String availabilityString;
 			if (myBike.isAvailable() == false) {
 				availabilityString = "no";
@@ -141,11 +141,11 @@ public class CustomerView {
 		}
 	}
 
-	public static void displayElectricBikes() {
+	public static void displayElectricBikes(BikeDatabase bikeDb) {
 		System.out.println("\nHere is a list of our electric bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
 		System.out.println("-----------------------------------------------------------------------------------------");
-		for (Ebike myBike : FileManipulation.getEbikeDatabase()) {
+		for (Ebike myBike : bikeDb.getEbikeList()) {
 			String availabilityString;
 			if (myBike.isAvailable() == false) {
 				availabilityString = "no";

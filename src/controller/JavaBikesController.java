@@ -104,11 +104,8 @@ public class JavaBikesController {
 					choice = customerView.confirmBookingMenu();
 					switch (choice) {
 					case CustomerView.MENUCHOICE_CONFIRM:
-						BookingDatabase.addBooking(currentBooking); // Booking
-																	// confirmed
-																	// and
-																	// recorder
-																	// to file
+						// Booking confirmed and recorder to file
+						BookingDatabase.addBooking(currentBooking);
 						cardView.validateCreditCardDetails(currentCustomer, bikeChoice);
 						browsingBikes = false;
 						break;
@@ -164,8 +161,8 @@ public class JavaBikesController {
 
 	private boolean manageBikes() {
 		boolean correctInput = false;
-		CustomerView.displayRegularBikes();
-		CustomerView.displayElectricBikes();
+		CustomerView.displayRegularBikes(bikeDb);
+		CustomerView.displayElectricBikes(bikeDb);
 		while (!correctInput) {
 			correctInput = true;
 			int choice = adminView.manageBikesMenu();
@@ -195,7 +192,7 @@ public class JavaBikesController {
 		adminView.addRegularBike(addedBike);
 		bikeDb.addBike(addedBike);
 		System.out.println("You have added --> " + addedBike + " <-- to the database.");
-		CustomerView.displayRegularBikes();
+		CustomerView.displayRegularBikes(bikeDb);
 	}
 
 	private void adminAddElectricBike() {
@@ -203,7 +200,7 @@ public class JavaBikesController {
 		adminView.addRegularBike(addedEbike);
 		bikeDb.addBike(addedEbike);
 		System.out.println("You have added --> " + addedEbike + " <-- to the database.");
-		CustomerView.displayElectricBikes();
+		CustomerView.displayElectricBikes(bikeDb);
 	}
 
 	private void adminDeleteRegularBike() {
@@ -212,7 +209,7 @@ public class JavaBikesController {
 		if (deletedBike != null) {
 			bikeDb.removeRegularBike(deletedBike);
 			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			CustomerView.displayRegularBikes();
+			CustomerView.displayRegularBikes(bikeDb);
 		}
 
 	}
@@ -223,7 +220,7 @@ public class JavaBikesController {
 		if (deletedBike != null) {
 			bikeDb.removeElectricBike(deletedBike);
 			System.out.println("You have deleted --> " + deletedBike + " <-- from the database.");
-			CustomerView.displayElectricBikes();
+			CustomerView.displayElectricBikes(bikeDb);
 		}
 
 	}
@@ -234,7 +231,7 @@ public class JavaBikesController {
 		if (deletedCustomer != null) {
 			customerDb.removeCustomer(deletedCustomer);
 			System.out.println("You have deleted --> " + deletedCustomer + " <-- from the customer database.\n");
-			adminView.displayCustomerList();
+			adminView.displayCustomerList(customerDb);
 		}
 	}
 
@@ -245,7 +242,7 @@ public class JavaBikesController {
 			switch (choice) {
 			case CustomerView.MENUCHOICE_BIKES:
 				correctInput = true;
-				CustomerView.displayRegularBikes();
+				CustomerView.displayRegularBikes(bikeDb);
 				System.out.println("\nPlease enter the ID of the bike you would like to book:");
 				int chosenBikeId = chooseBike();
 				bikeChoice = BikeDatabase.getBikeByID(chosenBikeId);
@@ -260,7 +257,7 @@ public class JavaBikesController {
 				break;
 			case CustomerView.MENUCHOICE_EBIKES:
 				correctInput = true;
-				CustomerView.displayElectricBikes();
+				CustomerView.displayElectricBikes(bikeDb);
 				chosenBikeId = chooseBike();
 				bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
 				if (bikeChoice == null) {

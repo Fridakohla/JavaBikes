@@ -3,10 +3,10 @@ package view;
 import java.util.Scanner;
 
 import controller.JavaBikesController;
-import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
 import model.Booking;
+import model.BookingDatabase;
 import model.Customer;
 import model.CustomerDatabase;
 import model.Ebike;
@@ -67,12 +67,12 @@ public class AdminView {
 		return choice;
 	}
 
-	public void displayCustomerList() {
+	public void displayCustomerList(CustomerDatabase customerDb) {
 		System.out.println("Here is a list of all customers.\n");
 		System.out.println("Username \tFirst Name \tLast Name \tCPR \t\t\tEmail");
 		System.out.println(
 				"----------------------------------------------------------------------------------------------");
-		for (Customer myCustomer : FileManipulation.getCustomerDatabase()) {
+		for (Customer myCustomer : customerDb.getCustomerList()) {
 			System.out.println(myCustomer.getUsername() + "\t\t" + myCustomer.getFirstName() + "\t\t"
 					+ myCustomer.getLastName() + "\t\t" + myCustomer.getCpr() + "\t\t" + myCustomer.getEmail());
 		}
@@ -80,7 +80,7 @@ public class AdminView {
 
 	public Customer selectCustomerFromList(CustomerDatabase customerDb) {
 		Scanner input = new Scanner(System.in);
-		displayCustomerList();
+		displayCustomerList(customerDb);
 		boolean correctInput = false;
 		while (!correctInput) {
 			System.out.println(
@@ -101,7 +101,7 @@ public class AdminView {
 	}
 
 	public Bike selectRegularBikeFromList(BikeDatabase bikeDb) {
-		CustomerView.displayRegularBikes();
+		CustomerView.displayRegularBikes(bikeDb);
 		boolean correctInput = false;
 		while (!correctInput) {
 			System.out.println("\nEnter the ID of the bike you would like to delete from the database.");
@@ -123,7 +123,7 @@ public class AdminView {
 	}
 
 	public Bike selectElectricBikeFromList(BikeDatabase bikeDb) {
-		CustomerView.displayElectricBikes();
+		CustomerView.displayElectricBikes(bikeDb);
 		boolean correctInput = false;
 		while (!correctInput) {
 			System.out.println("\nEnter the ID of the bike you would like to delete from the database.");
@@ -170,12 +170,12 @@ public class AdminView {
 		addedEbike.setBatteryDuration(adminInputBattery);
 	}
 
-	public void displayBookingList() {
+	public void displayBookingList(BookingDatabase bookingDb) {
 		System.out.println("\nHere is an overview of all bookings.\n");
 		System.out.println("Booking ID \tUsername \tPrice \t\tBooked Days \tStart Time \t\tReturned?");
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------");
-		for (Booking myBooking : FileManipulation.getBookingDatabase()) {
+		for (Booking myBooking : bookingDb.getBookingList()) {
 			String returnedString;
 			if (myBooking.getReturnDate() == null) {
 				returnedString = "no";
