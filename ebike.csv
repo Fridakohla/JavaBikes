@@ -1,8 +1,8 @@
-10;black;man;75;TRUE;10
-11;red;woman;75;TRUE;10
-12;green;man;60;TRUE;8
-13;black;woman;60;TRUE;8
-14;orange;child;55;TRUE;7
-15;pink;child;50;TRUE;5
-16;yellow;child;50;TRUE;5
-17;grey;man;50;TRUE;5
+10;black;man;75;false;10
+11;red;woman;75;true;10
+12;green;man;60;true;8
+13;black;woman;60;true;8
+14;orange;child;55;true;7
+15;pink;child;50;true;5
+16;yellow;child;50;true;5
+17;grey;man;50;true;5

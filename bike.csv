@@ -1,8 +1,8 @@
-1;blue;man;50;true
+1;blue;man;50;false
 2;yellow;woman;50;false
 3;green;woman;50;false
-4;green;woman;50;true
-5;purple;child;25;true
+4;green;woman;50;false
+5;purple;child;25;false
 6;navy;child;25;true
 7;orange;woman;50;true
 8;black;men;50;false
