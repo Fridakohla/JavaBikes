@@ -11,8 +11,8 @@ public class WelcomeView {
 		int choice = 0;
 		while (choice != 1 && choice != 2 && choice != 3) {
 			Scanner input = new Scanner(System.in);
-			System.out.println("WELCOME TO JAVA BIKES!\n");
-			System.out.println("-----------------------\n");
+			System.out.println("\n                       WELCOME TO JAVA BIKES!\n");
+			System.out.println("___________________________________________________________________\n");
 			System.out.println("Choose your option. 1 is login, 2 is register.");
 			System.out.println("|1| Login as an existing customer.");
 			System.out.println("|2| Register as a new customer.");

@@ -39,4 +39,12 @@ public class BookingDatabase {
 		return customerBookings;
 	}
 
+	public Booking getBookingByBookingId(String bookingChoice) {
+		for (Booking myBooking : getBookingList()) {
+			if (myBooking.getBookingId().equals(bookingChoice)) {
+				return myBooking;
+			}
+		}
+		return null;
+	}
 }

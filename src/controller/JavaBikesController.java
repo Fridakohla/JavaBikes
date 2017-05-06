@@ -1,8 +1,12 @@
 package controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
+import data.FileManipulation;
 import model.Bike;
 import model.BikeDatabase;
 import model.Booking;
@@ -108,6 +112,7 @@ public class JavaBikesController {
 					break;
 				case CustomerView.MENUCHOICE_EXIT:
 					System.out.println("You have exited the program.");
+					System.out.println("We hope to see you again soon!");
 					browsingBikes = false;
 					break;
 				default:
@@ -121,7 +126,25 @@ public class JavaBikesController {
 	private void customerReturnBike() {
 		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
 		if (currentCustomerBookings.size() > 0) {
-			customerView.displayOpenCustomerBookings(currentCustomerBookings);
+			CustomerView.displayOpenCustomerBookings(currentCustomerBookings);
+			System.out.println("\nPlease enter the Booking ID of the bike you would like to return:");
+			String chosenBookingId = input.nextLine();
+			Booking bookingChoice = bookingDb.getBookingByBookingId(chosenBookingId);
+			if (bookingChoice == null) {
+				System.out.println("Invalid input. Make sure to type a valid ID.\n");
+			} else {
+				// set availability in booking database to true, set return date
+				FileManipulation.updateAvailability(bookingChoice.getBike(), true);
+				DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY");
+				Date date = new Date();
+				String returnDate = dateFormat.format(date);
+				bookingChoice.setReturnDate(returnDate);
+				// update all bookings in database
+				FileManipulation.writeBookingList(bookingDb.getBookingList());
+				System.out.println("You have returned --> " + bookingChoice.getBike() + " <-- now.\n");
+				System.out.println("We hope you enjoyed your ride!\n");
+				CustomerView.displayOpenCustomerBookings(currentCustomerBookings);
+			}
 		}
 	}
 
@@ -165,6 +188,7 @@ public class JavaBikesController {
 	 */
 	private boolean customerChoseEbike() {
 		CustomerView.displayElectricBikes(bikeDb);
+		System.out.println("\nPlease enter the ID of the bike you would like to book:");
 		int chosenBikeId = chooseBike();
 		bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
 		if (bikeChoice == null) {

@@ -167,7 +167,7 @@ public class CustomerView {
 		System.out.println("\nHere is an overview of your open bookings.\n");
 		System.out.println("Booking ID \tColor \t\tType \t\tAmount Paid \tDays Booked \tDate Rented");
 		System.out.println(
-				"--------------------------------------------------------------------------------------------------");
+				"-------------------------------------------------------------------------------------------------------");
 		for (Booking myBooking : customerBookings) {
 			if (myBooking.getReturnDate() == null) {
 				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getBike().getColor() + "\t\t"
@@ -175,13 +175,11 @@ public class CustomerView {
 						+ myBooking.getBookedDays() + "\t\t" + myBooking.getStartTime());
 			}
 		}
-
 	}
 
 	public static void displayCustomerBookingHistory(ArrayList<Booking> customerBookings) {
 		System.out.println("\nHere is an overview of your past bookings.\n");
-		System.out
-				.println("Booking ID \tColor \t\tType \t\tAmount Paid \t\tDays Booked \tStart Time \t\tDate Returned");
+		System.out.println("Booking ID \tColor \t\tType \t\tAmount Paid \tDays Booked \tDate Rented \t\tDate Returned");
 		System.out.println(
 				"--------------------------------------------------------------------------------------------------------------------");
 		for (Booking myBooking : customerBookings) {

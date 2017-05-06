@@ -165,7 +165,7 @@ public class FileManipulation {
 	// method to update availability of bikes in Database (true for available,
 	// false for taken)
 	public static void updateAvailability(Bike bikeObject, boolean available) {
-		System.out.println(bikeObject.toString());
+		// System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
 			clearFileContent(FILENAME_EBIKEDB);
@@ -241,16 +241,16 @@ public class FileManipulation {
 		return bookingList;
 	}
 
-	// method to set a return date and send a bike back to database
-	public static void returnBike(String BookingId, String dateOfReturn) {
-		ArrayList<Booking> bookingList = getBookingDatabase();
-		clearFileContent(FILENAME_BOOKINGDB);
-		for (int i = 0; i < bookingList.size(); i++) {
-			if (bookingList.get(i).getBookingId().equals(BookingId)) {
-				bookingList.get(i).setReturnDate(dateOfReturn);
-			}
-			String details = bookingList.get(i).toString();
-			writeDetails(FILENAME_BOOKINGDB, details);
-		} // end of Forloop
-	}
+	// // method to set a return date and send a bike back to database
+	// public static void returnBike(String BookingId, String dateOfReturn) {
+	// ArrayList<Booking> bookingList = getBookingDatabase();
+	// clearFileContent(FILENAME_BOOKINGDB);
+	// for (int i = 0; i < bookingList.size(); i++) {
+	// if (bookingList.get(i).getBookingId().equals(BookingId)) {
+	// bookingList.get(i).setReturnDate(dateOfReturn);
+	// }
+	// String details = bookingList.get(i).toString();
+	// writeDetails(FILENAME_BOOKINGDB, details);
+	// } // end of Forloop
+	// }
 }
