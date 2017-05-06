@@ -108,17 +108,6 @@ public class Booking {
 		this.returnDate = returnDate;
 	}
 
-	// get days instead
-	public int getTimeUsedMinutes(long startTimeMs, long endTimeMs) {
-		int timeInMinutes = (int) (startTimeMs - endTimeMs) / 1000 / 60;
-		return timeInMinutes;
-	}
-
-	public double calculatePrice(int timeInMinutes, double pricePerMinute) {
-		double priceOfBooking = pricePerMinute * timeInMinutes;
-		return priceOfBooking;
-	}
-
 	public String toFileString() {
 		return getBookingId() + ";" + getCustomer().getUsername() + ";" + getBike().getId() + ";" + getPrice() + ";"
 				+ getBookedDays() + ";" + getStartTime() + ";" + getReturnDate();

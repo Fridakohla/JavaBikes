@@ -20,7 +20,7 @@ public class Ebike extends Bike {
 		this.batteryDuration = batteryDuration;
 	}
 
-	// method from super class taken and batteryLevel added
+	/* method from super class taken and batteryLevel added */
 	@Override
 	public String toString() {
 		return super.toString() + " with " + batteryDuration + " hours of duration";

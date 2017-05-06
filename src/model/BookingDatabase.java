@@ -13,7 +13,7 @@ public class BookingDatabase {
 	}
 
 	public static void addBooking(Booking newBooking) {
-		bookingList.add(newBooking); // THIS LINE NOT REALLY NEEDED??
+		bookingList.add(newBooking); 
 		FileManipulation.writeBooking(newBooking);
 	}
 
@@ -25,8 +25,8 @@ public class BookingDatabase {
 		this.bookingList = bookingList;
 	}
 
-	// search booking database for bookings of customer and puts them to an
-	// array list
+	/* searches booking database for bookings of specific customer 
+	   and puts them to an array list */
 	public ArrayList<Booking> getBookingsByCustomer(Customer currentCustomer) {
 		ArrayList<Booking> customerBookings = new ArrayList<Booking>();
 		for (Booking myBooking : bookingList) {

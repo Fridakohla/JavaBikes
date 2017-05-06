@@ -11,23 +11,22 @@ public class CustomerDatabase {
 		getCustomerList();
 	}
 
-	// method for adding customer in customer lists (DIRECTLY TO TEXT LIST)
+	/* method for adding customer in customer lists  */
 	public void addCustomer(Customer newCustomer) {
 		FileManipulation.writeCustomer(newCustomer);
 	}
 
-	// method extracts data from text file and stores in array list of objects
+	/* method extracts data from text file and stores in array list of objects */
 	public static ArrayList<Customer> getCustomerList() {
 		customerList = FileManipulation.getCustomerDatabase();
 		return customerList;
 	}
 
-	// method to check if login is correct
+	/* method to check if login is correct */
 	public Customer checkLogin(String username, String password) {
 		for (Customer c : customerList) {
 			// username and password for one customer object must be identical
-			// to return true
-			// null for now to handle null exception error
+			// to return true null for now to handle null exception error
 			if (c.getUsername() != null && c.getPassword() != null && c.getUsername().equals(username)
 					&& c.getPassword().equals(password)) {
 				return c;

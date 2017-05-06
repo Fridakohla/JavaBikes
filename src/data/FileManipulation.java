@@ -22,24 +22,23 @@ public class FileManipulation {
 	public static String FILENAME_EBIKEDB = "ebike.csv";
 	public static String FILENAME_BOOKINGDB = "bookingDatabase.csv";
 
+	/* creates a Scanner object to read data from the specified file.*/
 	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
 		try {
 			File readFile = new File(filename);
-			input = new Scanner(readFile); // creates a Scanner object to read
-											// data from the specified file.
+			input = new Scanner(readFile);  
 		} catch (FileNotFoundException ex) {
 			System.out.println("Error reading the file'" + filename + "'");
 		}
 		return input;
-	}// readDetails
+	}
 
 	public static Customer getCustomer(String line) {
 		Customer customerFromFile = new Customer();
-		// Look for every ";" and turns the values into strings
+		// Looks for every ";" and turns the values into strings
 		String[] values = line.split(";");
-
-		// Change the String type into the correct format
+		// Changes the String type into the correct format
 		customerFromFile.setFirstName(values[1]);
 		customerFromFile.setLastName(values[0]);
 		customerFromFile.setUsername(values[2]);
@@ -49,10 +48,9 @@ public class FileManipulation {
 		customerFromFile.setEmail(values[6]);
 
 		return customerFromFile;
-
 	}
 
-	// Stores string customer objects in array list
+	/* Stores string customer objects in array list */
 	public static ArrayList<Customer> getCustomerDatabase() {
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		Scanner input = readDetails(FILENAME_CUSTOMERDB);
@@ -65,7 +63,7 @@ public class FileManipulation {
 		return customerList;
 	}
 
-	// write customer a single customer to the database file (adding)
+	/* writes customer a single customer to the database file (adding) */
 	public static void writeCustomerList(ArrayList<Customer> customerList) {
 		clearFileContent(FILENAME_CUSTOMERDB);
 		for (int i = 0; i < customerList.size(); i++) {
@@ -78,7 +76,7 @@ public class FileManipulation {
 		writeDetails(FILENAME_CUSTOMERDB, details);
 	}
 
-	// write booking database --> clearing before writing
+	/* write booking database to file */
 	public static void writeBookingList(ArrayList<Booking> bookingList) {
 		clearFileContent(FILENAME_BOOKINGDB);
 		for (int i = 0; i < bookingList.size(); i++) {
@@ -146,14 +144,12 @@ public class FileManipulation {
 		return arrayEBikes;
 	}
 
+	/* Writes formatted output to the file */
 	public static void writeDetails(String file, String input) {
 		try {
-			FileWriter fwriter = new FileWriter(file, true); // true adds new
-																// line, false
-																// does
-																// overwrite
+			FileWriter fwriter = new FileWriter(file, true); 
 			PrintWriter output = new java.io.PrintWriter(fwriter);
-			// Writes formatted output to the file
+			
 			output.println(input);
 			output.close();
 		} catch (IOException ex) {
@@ -162,10 +158,9 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	// method to update availability of bikes in Database (true for available,
-	// false for taken)
+	/* method to update availability of bikes in Database (true for available,
+	   false for taken) */
 	public static void updateAvailability(Bike bikeObject, boolean available) {
-		// System.out.println(bikeObject.toString());
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
 			clearFileContent(FILENAME_EBIKEDB);
@@ -189,7 +184,7 @@ public class FileManipulation {
 		}
 	} // End of Method
 
-	// Clears all content from file
+	/* Clears all content from file */
 	public static void clearFileContent(String fileName) {
 		try {
 			PrintWriter pw = new PrintWriter(fileName);
@@ -199,6 +194,7 @@ public class FileManipulation {
 		}
 	}
 
+	/* Reads booking from file and creates a booking object */
 	public static Booking getBookingFromFile(String line) {
 		String[] values = line.split(";");
 		Booking bookingFromFile = new Booking();
@@ -214,21 +210,21 @@ public class FileManipulation {
 			bookingFromFile.setReturnDate(values[6]);
 		}
 
-		// get bike object
+		// gets bike object
 		Bike myBike = BikeDatabase.getBikeByID(Integer.parseInt(values[2]));
-		// if the bike is an ebike then he could not find it in the bike list.
-		// Then look in the ebike list.
+		// if the bike is an ebike then look in the ebike list.
 		if (myBike == null) {
 			myBike = BikeDatabase.getEbikeByID(Integer.parseInt(values[2]));
 		}
 		bookingFromFile.setBike(myBike);
-		// get customer object
+		// gets customer object
 		Customer c = CustomerDatabase.getCustomerByUsername(values[1]);
 		bookingFromFile.setCustomer(c);
 
 		return bookingFromFile;
 	}
 
+	/*Extracts booking database into Array List */
 	public static ArrayList<Booking> getBookingDatabase() {
 		ArrayList<Booking> bookingList = new ArrayList<Booking>();
 		Scanner input = readDetails(FILENAME_BOOKINGDB);

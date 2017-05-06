@@ -13,13 +13,13 @@ public class BikeDatabase {
 		getEbikeList();
 	}
 
-	// overloading: adds bike to array list "bike list"
+	/* overloading: adds bike to array list "bike list" */
 	public void addBike(Bike newBike) {
 		bikeList.add(newBike);
 		FileManipulation.writeRegularBikeList(bikeList);
 	}
 
-	// overloading: adds ebike to array list "ebike list"
+	/* overloading: adds ebike to array list "ebike list" */
 	public void addBike(Ebike newEbike) {
 		ebikeList.add(newEbike);
 		FileManipulation.writeElectricBikeList(ebikeList);
@@ -64,7 +64,7 @@ public class BikeDatabase {
 	}
 
 	/*
-	 * Returns the next available ID. Therefor goes through bikeList and
+	 * Returns the next available ID. Therefore goes through bikeList and
 	 * ebikeList to find the highest existing ID and increases by 1.
 	 */
 	public void generateNewBikeId(Bike addedBike) {

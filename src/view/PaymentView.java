@@ -17,9 +17,13 @@ public class PaymentView {
 		Scanner input = new Scanner(System.in);
 		boolean validation = false;
 		while (!validation) {
-			// add validation of correct format >>> HAPPENS IN CARDNUMBER CHECK
+			String cardNumber;
+			do { //Checks format of credit card number
 			System.out.print("Enter your credit card number: ");
-			String cardNumber = input.nextLine();
+			cardNumber = input.nextLine();
+			if (!cardNumber.matches("\\d+"))
+				System.out.println("Only numbers allowed. Please try again:");
+			} while (!cardNumber.matches("\\d+"));
 
 			String cardExpDate;
 			do { // Checks format of the Expiration Date
@@ -41,12 +45,12 @@ public class PaymentView {
 				currentCustomer.setCreditCardNumber(cardNumber);
 				currentCustomer.setCreditCardCvc(cardCvc);
 				currentCustomer.setCreditCardExpiration(cardExpDate);
-				// get a receipt for customer
+				
 			}
 		}
 	} //End of Method
 
-	//Luhn's algorithm check
+	/* Luhn's algorithm check */
 	private Boolean checkCardNumber(String cardNumber) {
 		String number = new StringBuilder(cardNumber).reverse().toString();
 		int sum = 0;
@@ -68,7 +72,7 @@ public class PaymentView {
 		return validNumber;
 	}
 
-	//Expiration date check
+	/* Expiration date check */
 	private boolean checkCardExp(String cardExpiration) {
 		DateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
 		Date date = new Date();
@@ -85,7 +89,7 @@ public class PaymentView {
 			return true;
 	}
 
-	//checks is the card has a right format (Visa or MasterCard)
+	/* checks is the card has a right format (Visa or MasterCard) */
 	private boolean checkMasterVisa(String cardNumber) {
 		boolean MasterVisa = false;
 		if (cardNumber.startsWith("4") 
@@ -98,7 +102,7 @@ public class PaymentView {
 		return MasterVisa;
 	}
 
-	//CVC code check
+	/* CVC code check */
 	private boolean checkCvc(String CardCvc) {
 		boolean cvcCorrect = false;
 		if (CardCvc.matches("\\d{3}")) {
@@ -109,6 +113,7 @@ public class PaymentView {
 		return cvcCorrect;
 	}
 
+	/* method to print customer's invoice */
 	public void getInvoice(Customer currentCustomer, Bike bikeChoice, Booking currentBooking) {
 		DateFormat dateformat  = new SimpleDateFormat ("dd-MM-yyyy hh:mm");
 		Date date = new Date();
@@ -124,22 +129,20 @@ public class PaymentView {
 		if (bikeChoice instanceof Ebike) {
 			invoice += String.format("                Electric:            %12s\n\n", ((Ebike) bikeChoice).getBatteryDuration() +"h duration");
 		} else {
-			invoice += String.format("                Electric:                     %3s\n\n", "no");
+			invoice += String.format("                Electric:                     %3s\n", "no");
 		}
-		invoice += String.format("                Booking ID:                     %6s\n\n", currentBooking.getBookingId());
+		invoice += String.format("                Booking ID:               %7s\n\n", currentBooking.getBookingId());
 		invoice += "                        ~~ YOUR INFO ~~\n";
 		invoice += String.format("                Name:        %20s\n", currentCustomer.getFirstName());
 		invoice += String.format("                Surname:     %20s\n", currentCustomer.getLastName());
-		invoice += String.format("                e-mail:%26s\n", currentCustomer.getEmail());
-		//invoice += String.format("          Document:              %20s\n\n", currentCustomer.getDocument());
+		invoice += String.format("                e-mail:%26s\n\n", currentCustomer.getEmail());
 		invoice += "                        ~ PAYMENT INFO ~\n";
 		invoice += String.format("                %10s                \n", Date);
 		invoice += String.format("                Credit Card:  **** **** **** %4s\n", currentCustomer.getCreditCardNumber().substring(12));
 		invoice += String.format("                Total:                 %.2f DKK\n", ((double)currentBooking.getPrice() * currentBooking.getBookedDays() ));		
-		invoice += String.format("                Incl.VAT - 25%%:         %.2f DKK\n\n", (currentBooking.getPrice() * currentBooking.getBookedDays() * 0.25));		
-	//	invoice += String.format("                Total:                   %.2f DKK\n\n", ((double)currentBike.getPrice()));		
+		invoice += String.format("                Incl.VAT - 25%%:         %.2f DKK\n\n", (currentBooking.getPrice() * currentBooking.getBookedDays() * 0.25));			//	invoice += String.format("                Total:                   %.2f DKK\n\n", ((double)currentBike.getPrice()));		
 		invoice += "                          THANK YOU!\n\n";
-		invoice += "                         ~~~~~~~~~~~~~\n\n";
+		invoice += "                         ~~~~~~~~~~~~~\n";
 		invoice += "                         \n";
 		invoice += "         ---------------------------------------------\n";
 		invoice += "                         ENJOY YOUR RIDE!\n";
