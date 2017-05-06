@@ -176,6 +176,7 @@ public class JavaBikesController {
 				// Booking confirmed and recorder to file
 				BookingDatabase.addBooking(currentBooking);
 				cardView.validateCreditCardDetails(currentCustomer, bikeChoice);
+				cardView.getInvoice(currentCustomer, bikeChoice, currentBooking);
 				break;
 			case CustomerView.MENUCHOICE_BROWSE:
 				// do nothing, just go back to the other menu
