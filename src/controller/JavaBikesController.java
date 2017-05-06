@@ -65,6 +65,8 @@ public class JavaBikesController {
 				// adds newly registered customer
 				currentCustomer = customerView.getCustomerDetails();
 				customerDb.addCustomer(currentCustomer);
+				System.out
+						.println("\nHello, " + currentCustomer.getFirstName() + "! Let's get this journey started!\n");
 				customerMainMenu();
 				break;
 			case WelcomeView.MENUCHOICE_LOGIN:
@@ -145,6 +147,9 @@ public class JavaBikesController {
 				System.out.println("We hope you enjoyed your ride!\n");
 				CustomerView.displayOpenCustomerBookings(currentCustomerBookings);
 			}
+		} else {
+			System.out.println("\nYou don't have any open bookings.");
+
 		}
 	}
 
@@ -152,6 +157,8 @@ public class JavaBikesController {
 		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
 		if (currentCustomerBookings.size() > 0) {
 			customerView.displayCustomerBookingHistory(currentCustomerBookings);
+		} else {
+			System.out.println("\nYou haven't had any bookings yet.");
 		}
 	}
 

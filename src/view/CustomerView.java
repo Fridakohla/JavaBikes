@@ -86,16 +86,16 @@ public class CustomerView {
 		String userInput;
 		Customer C = new Customer();
 
-		System.out.print("Enter your first name: ");
+		System.out.println("Enter your first name: ");
 		userInput = input.nextLine();
 		C.setFirstName(userInput);
-		System.out.print("Enter your last name: ");
+		System.out.println("Enter your last name: ");
 		userInput = input.nextLine();
 		C.setLastName(userInput);
 		// Enter and validation of CPR
 		boolean cprCorrect = false;
 		while (!cprCorrect) {
-			System.out.println(" Please enter the CPR xxxxxx-xxxx :");
+			System.out.println("Please enter the CPR xxxxxx-xxxx :");
 			userInput = input.nextLine();
 			if (userInput.matches("^(\\d{6}-?\\d{4})$")) {
 				C.setCpr(userInput);
@@ -103,7 +103,7 @@ public class CustomerView {
 			} else
 				System.out.println("format of the CPR is wrong");
 		}
-		System.out.print("Enter your address: ");
+		System.out.println("Enter your address: ");
 		userInput = input.nextLine();
 		C.setAddress(userInput);
 		// Email validation
@@ -120,7 +120,8 @@ public class CustomerView {
 
 		C.setUsername();
 		C.setPassword();
-		System.out.println("Your username is " + C.getUsername() + " and your password is " + C.getPassword());
+		System.out.println("\nYour username is --> " + C.getUsername() + " <--- and your password is --> "
+				+ C.getPassword() + " <---");
 
 		return C;
 	}
