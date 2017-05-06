@@ -9,6 +9,7 @@ import data.FileManipulation;
 import model.Bike;
 import model.Booking;
 import model.Customer;
+import model.Ebike;
 
 public class PaymentView {
 
@@ -108,7 +109,7 @@ public class PaymentView {
 		return cvcCorrect;
 	}
 
-	public void getInvoice(Customer currentCustomer, Bike bikeChoise, Booking currentBooking) {
+	public void getInvoice(Customer currentCustomer, Bike bikeChoice, Booking currentBooking) {
 		DateFormat dateformat  = new SimpleDateFormat ("dd-MM-yyyy hh:mm");
 		Date date = new Date();
 		String Date = dateformat.format(date);
@@ -118,9 +119,14 @@ public class PaymentView {
 		invoice += "                      >  JAVABIKES SHOP <  \n";
 		invoice += "         ---------------------------------------------\n\n";
 		invoice += "                        ~~ BIKE INFO ~~\n";
-		invoice += String.format("                Bike Type:              %9s\n", bikeChoise.getType());
-		invoice += String.format("                Color:                     %6s\n", bikeChoise.getColor());
-		//invoice += String.format("                Electric:                     %3s\n\n", electricText);
+		invoice += String.format("                Bike Type:              %9s\n", bikeChoice.getType());
+		invoice += String.format("                Color:                     %6s\n", bikeChoice.getColor());
+		if (bikeChoice instanceof Ebike) {
+			invoice += String.format("                Electric:            %12s\n\n", ((Ebike) bikeChoice).getBatteryDuration() +"h duration");
+		} else {
+			invoice += String.format("                Electric:                     %3s\n\n", "no");
+		}
+		invoice += String.format("                Booking ID:                     %6s\n\n", currentBooking.getBookingId());
 		invoice += "                        ~~ YOUR INFO ~~\n";
 		invoice += String.format("                Name:        %20s\n", currentCustomer.getFirstName());
 		invoice += String.format("                Surname:     %20s\n", currentCustomer.getLastName());
