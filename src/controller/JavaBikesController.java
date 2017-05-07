@@ -168,7 +168,7 @@ public class JavaBikesController {
 	private void customerViewBookingHistory() {
 		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
 		if (currentCustomerBookings.size() > 0) {
-			customerView.displayCustomerBookingHistory(currentCustomerBookings);
+			CustomerView.displayCustomerBookingHistory(currentCustomerBookings);
 		} else {
 			System.out.println("\nYou haven't had any bookings yet.");
 		}
@@ -213,7 +213,7 @@ public class JavaBikesController {
 		CustomerView.displayElectricBikes(bikeDb);
 		System.out.println("\nPlease enter the ID of the bike you would like to book:");
 		int chosenBikeId = chooseBike();
-		bikeChoice = bikeDb.getEbikeByID(chosenBikeId);
+		bikeChoice = BikeDatabase.getEbikeByID(chosenBikeId);
 		if (bikeChoice == null) {
 			System.out.println("Invalid input. Make sure to type a valid ID.\n");
 			return false;
