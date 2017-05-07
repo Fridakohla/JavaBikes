@@ -11,12 +11,14 @@ public class CustomerDatabase {
 		getCustomerList();
 	}
 
-	/* method for adding customer in customer lists  */
+	/* method for adding customer in customer lists */
 	public void addCustomer(Customer newCustomer) {
 		FileManipulation.writeCustomer(newCustomer);
 	}
 
-	/* method extracts data from text file and stores in array list of objects */
+	/*
+	 * method extracts data from text file and stores in array list of objects
+	 */
 	public static ArrayList<Customer> getCustomerList() {
 		customerList = FileManipulation.getCustomerDatabase();
 		return customerList;
@@ -35,6 +37,7 @@ public class CustomerDatabase {
 		return null;
 	}
 
+	// search for customer in customer list (by username)
 	public static Customer getCustomerByUsername(String username) {
 		getCustomerList();
 		for (Customer c : customerList) {
@@ -45,6 +48,8 @@ public class CustomerDatabase {
 		return null;
 	}
 
+	// method to remove customer; removes from array list and rewrites external
+	// file customer database
 	public void removeCustomer(Customer customerToDelete) {
 		customerList.remove(customerToDelete);
 		FileManipulation.writeCustomerList(customerList);

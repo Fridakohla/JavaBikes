@@ -52,12 +52,13 @@ public class CustomerView {
 		Scanner input = new Scanner(System.in);
 		System.out.println("\nChoose one of the following options:");
 		System.out.println("|1| Confirm and proceed to payment.");
-		System.out.println("|2| Discard booking and browse again.");
+		System.out.println("|2| Discard booking and go back to main menu.");
 		System.out.println("|0| Quit program.\n");
 		choice = input.nextInt();
 		return choice;
 	}
 
+	// login method, after three wrong inputs program will be exited
 	public Customer login(CustomerDatabase customerDb) {
 		String usernameInput = "";
 		String passwordInput = "";
@@ -81,7 +82,8 @@ public class CustomerView {
 		return null;
 	}
 
-	public Customer getCustomerDetails() { // Creates a new customer
+	// creates a new customer
+	public Customer getCustomerDetails() {
 		Scanner input = new Scanner(System.in);
 		String userInput;
 		Customer C = new Customer();
@@ -120,12 +122,14 @@ public class CustomerView {
 
 		C.setUsername();
 		C.setPassword();
+		// displays username and password for customer for future logins
 		System.out.println("\nYour username is --> " + C.getUsername() + " <--- and your password is --> "
 				+ C.getPassword() + " <---");
 
 		return C;
 	}
 
+	// overrides toString method, prints first and last name
 	public void printCustomerDetails(Customer C) {
 		System.out.println(C.toString());
 	}
@@ -147,12 +151,15 @@ public class CustomerView {
 		}
 	}
 
+	// displays list of electric bikes
 	public static void displayElectricBikes(BikeDatabase bikeDb) {
 		System.out.println("\nHere is a list of our electric bikes.\n");
 		System.out.println("ID \tColor \t\tType \t\tPrice \t\tAvailable? \tBattery Duration ");
 		System.out.println("-----------------------------------------------------------------------------------------");
 		for (Ebike myBike : bikeDb.getEbikeList()) {
 			String availabilityString;
+			// instead of "true" and "false" for availability, print "yes" and
+			// "no"
 			if (myBike.isAvailable() == false) {
 				availabilityString = "no";
 			} else {
@@ -164,12 +171,14 @@ public class CustomerView {
 		}
 	}
 
+	// display open customer bookings
 	public static void displayOpenCustomerBookings(ArrayList<Booking> customerBookings) {
 		System.out.println("\nHere is an overview of your open bookings.\n");
 		System.out.println("Booking ID \tColor \t\tType \t\tAmount Paid \tDays Booked \tDate Rented");
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------");
 		for (Booking myBooking : customerBookings) {
+			// search database for not returned bikes
 			if (myBooking.getReturnDate() == null) {
 				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getBike().getColor() + "\t\t"
 						+ myBooking.getBike().getType() + "\t\t" + myBooking.getTotalPrice() + " DKK\t\t"
@@ -178,12 +187,14 @@ public class CustomerView {
 		}
 	}
 
+	// display past customer bookings
 	public static void displayCustomerBookingHistory(ArrayList<Booking> customerBookings) {
 		System.out.println("\nHere is an overview of your past bookings.\n");
 		System.out.println("Booking ID \tColor \t\tType \t\tAmount Paid \tDays Booked \tDate Rented \t\tDate Returned");
 		System.out.println(
 				"--------------------------------------------------------------------------------------------------------------------");
 		for (Booking myBooking : customerBookings) {
+			// search database for already returned bikes
 			if (myBooking.getReturnDate() != null) {
 				System.out.println(myBooking.getBookingId() + "\t\t" + myBooking.getBike().getColor() + "\t\t"
 						+ myBooking.getBike().getType() + "\t\t" + myBooking.getTotalPrice() + " DKK\t\t"

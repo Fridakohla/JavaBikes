@@ -13,16 +13,18 @@ import model.Ebike;
 
 public class PaymentView {
 
+	// lets user input credit card details, checks for validity of credit card
+	// number
 	public void validateCreditCardDetails(Customer currentCustomer, Bike bikeChoise) {
 		Scanner input = new Scanner(System.in);
 		boolean validation = false;
 		while (!validation) {
 			String cardNumber;
-			do { //Checks format of credit card number
-			System.out.print("Enter your credit card number: ");
-			cardNumber = input.nextLine();
-			if (!cardNumber.matches("\\d+"))
-				System.out.println("Only numbers allowed. Please try again:");
+			do { // Checks format of credit card number
+				System.out.print("Enter your credit card number: ");
+				cardNumber = input.nextLine();
+				if (!cardNumber.matches("\\d+"))
+					System.out.println("Only numbers allowed. Please try again:");
 			} while (!cardNumber.matches("\\d+"));
 
 			String cardExpDate;
@@ -36,19 +38,21 @@ public class PaymentView {
 			System.out.println("\nEnter the CVC number :");
 			String cardCvc = input.nextLine();
 
-			if (!checkCardNumber(cardNumber) || !checkCvc(cardCvc) || !checkCardExp(cardExpDate) ) {
-				System.out.println("\nYour Credit Card was rejected. Please try again.");
+			if (!checkCardNumber(cardNumber) || !checkCvc(cardCvc) || !checkCardExp(cardExpDate)) {
+				System.out.println("\nYour Credit Card was rejected. Please try again.\n");
 			} else {
 				System.out.println("\nYour payment was successful and your booking is confirmed!");
 				validation = true;
-				FileManipulation.updateAvailability(bikeChoise, false); //Updates Bike Database
+				FileManipulation.updateAvailability(bikeChoise, false); // Updates
+																		// Bike
+																		// Database
 				currentCustomer.setCreditCardNumber(cardNumber);
 				currentCustomer.setCreditCardCvc(cardCvc);
 				currentCustomer.setCreditCardExpiration(cardExpDate);
-				
+
 			}
 		}
-	} //End of Method
+	}
 
 	/* Luhn's algorithm check */
 	private Boolean checkCardNumber(String cardNumber) {
@@ -57,7 +61,7 @@ public class PaymentView {
 		Boolean validNumber = false;
 
 		for (int i = 0; i < number.length(); i++) {
-			int currentDigit = Integer.parseInt(number.substring(i,i+1));
+			int currentDigit = Integer.parseInt(number.substring(i, i + 1));
 			if (i % 2 == 0) {
 				sum += currentDigit;
 			} else {
@@ -67,7 +71,7 @@ public class PaymentView {
 				sum = sum + d1 + d2;
 			}
 		}
-		if (sum % 10 == 0 && checkMasterVisa(cardNumber)) 
+		if (sum % 10 == 0 && checkMasterVisa(cardNumber))
 			validNumber = true;
 		return validNumber;
 	}
@@ -82,17 +86,17 @@ public class PaymentView {
 		int month = Integer.parseInt(cardExpiration.substring(0, 2));
 		int year = Integer.parseInt(cardExpiration.substring(3, 7));
 
-		if ((year == CurrentYear && month<= CurrentMonth) || year < CurrentYear) {
+		if ((year == CurrentYear && month <= CurrentMonth) || year < CurrentYear) {
 			System.out.println("\t this credit card is expired.");
-			return false;}
-		else
+			return false;
+		} else
 			return true;
 	}
 
 	/* checks is the card has a right format (Visa or MasterCard) */
 	private boolean checkMasterVisa(String cardNumber) {
 		boolean MasterVisa = false;
-		if (cardNumber.startsWith("4") 
+		if (cardNumber.startsWith("4")
 				&& (cardNumber.length() == 13 || cardNumber.length() == 16 || cardNumber.length() == 19)) {
 			MasterVisa = true;
 		} else if (Integer.parseInt(cardNumber.substring(0, 2)) >= 51
@@ -115,11 +119,11 @@ public class PaymentView {
 
 	/* method to print customer's invoice */
 	public void printInvoice(Customer currentCustomer, Bike bikeChoice, Booking currentBooking) {
-		DateFormat dateformat  = new SimpleDateFormat ("dd-MM-yyyy hh:mm");
+		DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 		Date date = new Date();
 		String Date = dateformat.format(date);
 		String invoice = "";
-		
+
 		invoice += "         ---------------------------------------------\n";
 		invoice += "                      >  JAVABIKES SHOP <  \n";
 		invoice += "         ---------------------------------------------\n\n";
@@ -127,7 +131,8 @@ public class PaymentView {
 		invoice += String.format("                Bike Type:              %9s\n", bikeChoice.getType());
 		invoice += String.format("                Color:                     %6s\n", bikeChoice.getColor());
 		if (bikeChoice instanceof Ebike) {
-			invoice += String.format("                Electric:            %12s\n\n", ((Ebike) bikeChoice).getBatteryDuration() +"h duration");
+			invoice += String.format("                Electric:            %12s\n\n",
+					((Ebike) bikeChoice).getBatteryDuration() + "h duration");
 		} else {
 			invoice += String.format("                Electric:                     %3s\n", "no");
 		}
@@ -138,9 +143,18 @@ public class PaymentView {
 		invoice += String.format("                e-mail:%26s\n\n", currentCustomer.getEmail());
 		invoice += "                        ~ PAYMENT INFO ~\n";
 		invoice += String.format("                %10s                \n", Date);
-		invoice += String.format("                Credit Card:  **** **** **** %4s\n", currentCustomer.getCreditCardNumber().substring(12));
-		invoice += String.format("                Total:                 %.2f DKK\n", ((double)currentBooking.getPrice() * currentBooking.getBookedDays() ));		
-		invoice += String.format("                Incl.VAT - 25%%:         %.2f DKK\n\n", (currentBooking.getPrice() * currentBooking.getBookedDays() * 0.25));			//	invoice += String.format("                Total:                   %.2f DKK\n\n", ((double)currentBike.getPrice()));		
+		invoice += String.format("                Credit Card:  **** **** **** %4s\n",
+				currentCustomer.getCreditCardNumber().substring(12));
+		invoice += String.format("                Total:                 %.2f DKK\n",
+				((double) currentBooking.getPrice() * currentBooking.getBookedDays()));
+		invoice += String.format("                Incl.VAT - 25%%:         %.2f DKK\n\n",
+				(currentBooking.getPrice() * currentBooking.getBookedDays() * 0.25)); // invoice
+																						// +=
+																						// String.format("
+																						// Total:
+																						// %.2f
+																						// DKK\n\n",
+																						// ((double)currentBike.getPrice()));
 		invoice += "                          THANK YOU!\n\n";
 		invoice += "                         ~~~~~~~~~~~~~\n";
 		invoice += "                         \n";

@@ -53,6 +53,7 @@ public class BikeDatabase {
 		return null;
 	}
 
+	// removes bike from array list and rewrites external bike list
 	public void removeRegularBike(Bike bikeToDelete) {
 		bikeList.remove(bikeToDelete);
 		FileManipulation.writeRegularBikeList(bikeList);

@@ -12,8 +12,10 @@ public class BookingDatabase {
 		bookingList = FileManipulation.getBookingDatabase();
 	}
 
+	// add a booking to booking list (array list) and update external file
+	// booking database
 	public static void addBooking(Booking newBooking) {
-		bookingList.add(newBooking); 
+		bookingList.add(newBooking);
 		FileManipulation.writeBooking(newBooking);
 	}
 
@@ -25,8 +27,10 @@ public class BookingDatabase {
 		this.bookingList = bookingList;
 	}
 
-	/* searches booking database for bookings of specific customer 
-	   and puts them to an array list */
+	/*
+	 * searches booking database for bookings of specific customer and puts them
+	 * to an array list
+	 */
 	public ArrayList<Booking> getBookingsByCustomer(Customer currentCustomer) {
 		ArrayList<Booking> customerBookings = new ArrayList<Booking>();
 		for (Booking myBooking : bookingList) {

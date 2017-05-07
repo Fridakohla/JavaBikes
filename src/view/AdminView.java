@@ -26,6 +26,7 @@ public class AdminView {
 	private String adminUsername = "admin";
 	private String adminPassword = "admin1";
 
+	// login with admin credentials, if 3 tries exceeded, program quits
 	public boolean adminLogin() {
 		for (int countTries = 1; countTries < 4; countTries++) {
 			System.out.print("Enter the username: ");
@@ -67,6 +68,7 @@ public class AdminView {
 		return choice;
 	}
 
+	// displays customer list
 	public void displayCustomerList(CustomerDatabase customerDb) {
 		System.out.println("Here is a list of all customers.\n");
 		System.out.println("Username \tFirst Name \tLast Name \tCPR \t\t\tEmail");
@@ -78,6 +80,8 @@ public class AdminView {
 		}
 	}
 
+	// selects customer to delete from list by checking username with admin
+	// input
 	public Customer selectCustomerFromList(CustomerDatabase customerDb) {
 		Scanner input = new Scanner(System.in);
 		displayCustomerList(customerDb);
@@ -100,6 +104,8 @@ public class AdminView {
 		return null;
 	}
 
+	// selects regular bike to remove from bike list by checking admin input
+	// with bike database ID
 	public Bike selectRegularBikeFromList(BikeDatabase bikeDb) {
 		CustomerView.displayRegularBikes(bikeDb);
 		boolean correctInput = false;
@@ -144,6 +150,8 @@ public class AdminView {
 		// null goes back to main menu
 	}
 
+	// admin inputs information needed for new bike
+	// new bike added to bike array list
 	public void addRegularBike(Bike addedBike) {
 		Scanner input = new Scanner(System.in);
 		JavaBikesController.bikeDb.generateNewBikeId(addedBike);
@@ -170,6 +178,7 @@ public class AdminView {
 		addedEbike.setBatteryDuration(adminInputBattery);
 	}
 
+	// displays all bookings of all customers
 	public void displayBookingList(BookingDatabase bookingDb) {
 		System.out.println("\nHere is an overview of all bookings.\n");
 		System.out.println("Booking ID \tUsername \tPrice \t\tDays Booked \tStart Time \t\tReturned?");
@@ -180,6 +189,8 @@ public class AdminView {
 			if (myBooking.getReturnDate() == null) {
 				returnedString = "no";
 			} else {
+				// if already returned, get the return date instead of boolean
+				// value
 				returnedString = myBooking.getReturnDate();
 			}
 			try {
@@ -193,5 +204,3 @@ public class AdminView {
 		}
 	}
 }
-
- 

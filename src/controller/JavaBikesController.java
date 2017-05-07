@@ -35,10 +35,10 @@ public class JavaBikesController {
 	public PaymentView cardView;
 
 	public JavaBikesController() {
+		// initialize objects
 		customerDb = new CustomerDatabase();
 		bikeDb = new BikeDatabase();
 		bookingDb = new BookingDatabase();
-
 		customerView = new CustomerView();
 		welcome = new WelcomeView();
 		cardView = new PaymentView();
@@ -50,16 +50,16 @@ public class JavaBikesController {
 		controller.runProgram();
 	} // End of main
 
-	
 	private void runProgram() {
-
-		// shows login menu and lets user choice to register or login
+		// shows login menu and lets customer chose to register or login or lets
+		// the admin login
 		boolean correctInput = false;
 		while (!correctInput) {
 			int choice = welcome.loginMenu();
 			correctInput = true;
 			switch (choice) {
 			case WelcomeView.MENUCHOICE_REGISTER:
+				// calls getCustomerDetails method to register a customer
 				// adds newly registered customer
 				currentCustomer = customerView.getCustomerDetails();
 				customerDb.addCustomer(currentCustomer);
@@ -69,13 +69,14 @@ public class JavaBikesController {
 				break;
 			case WelcomeView.MENUCHOICE_LOGIN:
 				currentCustomer = customerView.login(customerDb);
-				// returns null when wrong username and/or pw for too many times
+				// returns null when wrong username and/or password for too many
+				// times
 				if (currentCustomer != null) {
 					System.out.println("\nHello, " + currentCustomer.getFirstName() + "! Your login was successful.\n");
-					// continue with browse bikes
+					// after successful login, go to main menu
 					customerMainMenu();
 				} else {
-					// Too many failed login tries. Program ends.
+					// too many failed login tries --> Program ends.
 					System.out.println("You exited the program.");
 				}
 				break;
@@ -90,6 +91,11 @@ public class JavaBikesController {
 		}
 	}
 
+	// lets the customer chose between browsing regular bikes, electric bikes,
+	// returning bikes, viewing booking history, and exiting the program
+	// loops in case of invalid input
+	// main menu for customer where you always return in case of invalid input
+	// or after customer action (e.g. booking, returning)
 	private void customerMainMenu() {
 		boolean browsingBikes = true;
 		while (browsingBikes) {
@@ -123,6 +129,10 @@ public class JavaBikesController {
 		}
 	}
 
+	// returning bike: check, if customer has open bookings (not yet returned)
+	// by going through
+	// booking database; if so, displays them and lets customer choose which one
+	// to return by booking ID
 	private void customerReturnBike() {
 		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
 		if (currentCustomerBookings.size() > 0) {
@@ -133,7 +143,8 @@ public class JavaBikesController {
 			if (bookingChoice == null) {
 				System.out.println("Invalid input. Make sure to type a valid ID.\n");
 			} else {
-				// sets availability in booking database to true, sets return date
+				// sets availability in booking database to true, sets return
+				// date
 				FileManipulation.updateAvailability(bookingChoice.getBike(), true);
 				DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY");
 				Date date = new Date();
@@ -146,11 +157,14 @@ public class JavaBikesController {
 				CustomerView.displayOpenCustomerBookings(currentCustomerBookings);
 			}
 		} else {
+			// will be displayed if there no open bookings can be found
 			System.out.println("\nYou don't have any open bookings.");
 
 		}
 	}
 
+	// if customer has past bookings (bookings that have been returned), this
+	// method will display booking history
 	private void customerViewBookingHistory() {
 		ArrayList<Booking> currentCustomerBookings = bookingDb.getBookingsByCustomer(currentCustomer);
 		if (currentCustomerBookings.size() > 0) {
@@ -160,10 +174,12 @@ public class JavaBikesController {
 		}
 	}
 
+	// when customer chose to book a bike; chooses amount of days and can
+	// confirm, browse again, or exit program
 	private void customerContinueBooking() {
 		int daysBooked = customerView.chooseDays();
-		//It stores all Booking info which will be recorded to file in
-	    // next step if confirmed.
+		// It stores all Booking info which will be recorded to file in
+		// next step if confirmed.
 		currentBooking.setBookingDetails(bikeChoice, currentCustomer, daysBooked);
 		boolean correctInput = false;
 		while (!correctInput) {
@@ -171,17 +187,19 @@ public class JavaBikesController {
 			int choice = customerView.confirmBookingMenu();
 			switch (choice) {
 			case CustomerView.MENUCHOICE_CONFIRM:
-				// Booking confirmed and recorder to file
-				BookingDatabase.addBooking(currentBooking);
+				// if credit card accepted, booking will be confirmed and added
+				// to booking database
 				cardView.validateCreditCardDetails(currentCustomer, bikeChoice);
 				cardView.printInvoice(currentCustomer, bikeChoice, currentBooking);
+				BookingDatabase.addBooking(currentBooking);
 				break;
 			case CustomerView.MENUCHOICE_BROWSE:
-				// does nothing, just goes back to the other menu
+				// discards current booking, goes back to main menu
 				break;
 			case CustomerView.MENUCHOICE_EXIT:
-				System.out.println("You have exited the program!!");
-				break;
+				System.out.println("You have exited the program.");
+				System.out.println("We hope to see you again soon!");
+				System.exit(CustomerView.MENUCHOICE_EXIT);
 			default:
 				correctInput = false;
 				System.out.println("Invalid input. Please type a valid option.");
@@ -189,7 +207,8 @@ public class JavaBikesController {
 		}
 	}
 
-	
+	// displays list of ebikes and lets customer chose one
+	// if not available or invalid input, goes back to main menu
 	private boolean customerChoseEbike() {
 		CustomerView.displayElectricBikes(bikeDb);
 		System.out.println("\nPlease enter the ID of the bike you would like to book:");
@@ -207,7 +226,6 @@ public class JavaBikesController {
 		return true;
 	}
 
-	
 	private boolean customerChoseRegularBike() {
 		CustomerView.displayRegularBikes(bikeDb);
 		System.out.println("\nPlease enter the ID of the bike you would like to book:");
@@ -225,6 +243,7 @@ public class JavaBikesController {
 		return true;
 	}
 
+	// input bike and validation
 	public static int chooseBike() {
 		Scanner input = new Scanner(System.in);
 		boolean correctInput = false;
