@@ -11,8 +11,8 @@ public class WelcomeView {
 		int choice = 0;
 		while (choice != 1 && choice != 2 && choice != 3) {
 			Scanner input = new Scanner(System.in);
-			System.out.println("\n                       WELCOME TO JAVA BIKES!\n");
-			System.out.println("___________________________________________________________________\n");
+			// System.out.println("\n WELCOME TO JAVA BIKES!\n");
+			printWelcomToJavaBikes();
 			System.out.println("Choose your option. 1 is login, 2 is register.");
 			System.out.println("|1| Login as an existing customer.");
 			System.out.println("|2| Register as a new customer.");
@@ -23,5 +23,24 @@ public class WelcomeView {
 			}
 		}
 		return choice;
+	}
+
+	private void printWelcomToJavaBikes() {
+		System.out.println(
+				" _       _         _                                       _              _____                       ___       _             ");
+		System.out.println(
+				"( )  _  ( )       (_ )                                    ( )_           (___  )                     (  _`\\  _ ( )           ");
+		System.out.println(
+				"| | ( ) | |   __   | |    ___    _     ___ ___     __     | ,_)   _          | |   _ _  _   _    _ _ | (_) )(_)| |/')    __    ___ ");
+		System.out.println(
+				"| | | | | | /'__`\\ | |  /'___) /'_`\\ /' _ ` _ `\\ /'__`\\   | |   /'_`\\     _  | | /'_` )( ) ( ) /'_` )|  _ <'| || , <   /'__`\\/',__)");
+		System.out.println(
+				"| (_/ \\_) |(  ___/ | | ( (___ ( (_) )| ( ) ( ) |(  ___/   | |_ ( (_) )   ( )_| |( (_| || \\_/ |( (_| || (_) )| || |\\`\\ (  ___/\\__, \\");
+		System.out.println(
+				"`\\___x___/'`\\____)(___)`\\____)`\\___/'(_) (_) (_)`\\____)   `\\__)`\\___/'   `\\___/'`\\__,_)`\\___/'`\\__,_)(____/'(_)(_) (_)`\\____)(____/");
+
+		System.out.println(
+				"_____________________________________________________________________________________________________________________________________\n");
+
 	}
 }

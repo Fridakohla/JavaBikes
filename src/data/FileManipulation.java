@@ -17,17 +17,17 @@ import model.Ebike;
 
 public class FileManipulation {
 
-	public static String FILENAME_CUSTOMERDB = "customer.csv";
-	public static String FILENAME_BIKEDB = "bike.csv";
-	public static String FILENAME_EBIKEDB = "ebike.csv";
+	public static String FILENAME_CUSTOMERDB = "customerDatabase.csv";
+	public static String FILENAME_BIKEDB = "regularBikeDatabase.csv";
+	public static String FILENAME_EBIKEDB = "electricBikeDatabase.csv";
 	public static String FILENAME_BOOKINGDB = "bookingDatabase.csv";
 
-	/* creates a Scanner object to read data from the specified file.*/
+	/* creates a Scanner object to read data from the specified file. */
 	public static Scanner readDetails(String filename) {
 		Scanner input = new Scanner(System.in);
 		try {
 			File readFile = new File(filename);
-			input = new Scanner(readFile);  
+			input = new Scanner(readFile);
 		} catch (FileNotFoundException ex) {
 			System.out.println("Error reading the file'" + filename + "'");
 		}
@@ -147,9 +147,9 @@ public class FileManipulation {
 	/* Writes formatted output to the file */
 	public static void writeDetails(String file, String input) {
 		try {
-			FileWriter fwriter = new FileWriter(file, true); 
+			FileWriter fwriter = new FileWriter(file, true);
 			PrintWriter output = new java.io.PrintWriter(fwriter);
-			
+
 			output.println(input);
 			output.close();
 		} catch (IOException ex) {
@@ -158,8 +158,10 @@ public class FileManipulation {
 		}
 	}// End of Method WriteDetails
 
-	/* method to update availability of bikes in Database (true for available,
-	   false for taken) */
+	/*
+	 * method to update availability of bikes in Database (true for available,
+	 * false for taken)
+	 */
 	public static void updateAvailability(Bike bikeObject, boolean available) {
 		if (bikeObject instanceof Ebike) {
 			ArrayList<Ebike> BikeArray = getEbikeDatabase();
@@ -224,7 +226,7 @@ public class FileManipulation {
 		return bookingFromFile;
 	}
 
-	/*Extracts booking database into Array List */
+	/* Extracts booking database into Array List */
 	public static ArrayList<Booking> getBookingDatabase() {
 		ArrayList<Booking> bookingList = new ArrayList<Booking>();
 		Scanner input = readDetails(FILENAME_BOOKINGDB);
