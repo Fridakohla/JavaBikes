@@ -114,7 +114,7 @@ public class PaymentView {
 	}
 
 	/* method to print customer's invoice */
-	public void getInvoice(Customer currentCustomer, Bike bikeChoice, Booking currentBooking) {
+	public void printInvoice(Customer currentCustomer, Bike bikeChoice, Booking currentBooking) {
 		DateFormat dateformat  = new SimpleDateFormat ("dd-MM-yyyy hh:mm");
 		Date date = new Date();
 		String Date = dateformat.format(date);
