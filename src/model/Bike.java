@@ -1,5 +1,4 @@
 package model;
-// TEST 
 
 public class Bike {
 	private String color, type;

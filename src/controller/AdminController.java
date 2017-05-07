@@ -79,7 +79,7 @@ public class AdminController {
 
 	private void adminAddElectricBike() {
 		Ebike addedEbike = new Ebike();
-		adminView.addRegularBike(addedEbike);
+		adminView.addEbike(addedEbike);
 		JavaBikesController.bikeDb.addBike(addedEbike);
 		System.out.println("You have added --> " + addedEbike + " <-- to the database.");
 		CustomerView.displayElectricBikes(JavaBikesController.bikeDb);
