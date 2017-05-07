@@ -118,142 +118,151 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="14">    
+  <class id="14" language="java" name="data.FileManipulation" project="JavaBikes" 
+    file="/JavaBikes/src/data/FileManipulation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="260" y="516"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="15">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="15" name="bikeList"/>      
-      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+      <attribute id="16" name="bikeList"/>      
+      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="17">    
+  <association id="18">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="18" name="currentBooking"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
+      <attribute id="19" name="currentBooking"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="20">    
+  <association id="21">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="21" name="cardView"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
+      <attribute id="22" name="cardView"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="23">    
+  <association id="24">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="24" name="bookingList"/>      
-      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
+      <attribute id="25" name="bookingList"/>      
+      <multiplicity id="26" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="26">    
+  <association id="27">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="27" name="customerDb"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
+      <attribute id="28" name="customerDb"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="29">    
+  <association id="30">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="30" name="ebikeList"/>      
-      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
+      <attribute id="31" name="ebikeList"/>      
+      <multiplicity id="32" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="32">    
+  <association id="33">    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="33" name="customerList"/>      
-      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
+      <attribute id="34" name="customerList"/>      
+      <multiplicity id="35" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="35">    
+  <generalization id="36">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <association id="36">    
+  <association id="37">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="37" name="adminController"/>      
-      <multiplicity id="38" minimum="0" maximum="1"/>    
+      <attribute id="38" name="adminController"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="39">    
+  <association id="40">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="40" name="customer"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
+      <attribute id="41" name="customer"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="42">    
+  <association id="43">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="43" name="adminView"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
+      <attribute id="44" name="adminView"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="45">    
+  <association id="46">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="46" name="bookingDb"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+      <attribute id="47" name="bookingDb"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
+  <association id="49">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="49" name="currentCustomer"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
+      <attribute id="50" name="currentCustomer"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="51">    
+  <association id="52">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="52" name="welcome"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
+      <attribute id="53" name="welcome"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="54">    
+  <association id="55">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="55" name="customerView"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
+      <attribute id="56" name="customerView"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="57">    
+  <association id="58">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="58" name="bike"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
+      <attribute id="59" name="bike"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="60">    
+  <association id="61">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="61" name="bikeChoice"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
+      <attribute id="62" name="bikeChoice"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="63">    
+  <association id="64">    
     <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="64" name="bikeDb"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
+      <attribute id="65" name="bikeDb"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
